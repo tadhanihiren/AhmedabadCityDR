@@ -1,0 +1,89 @@
+﻿
+
+@{
+    ViewData["Title"] = "Intercept_Work_Details";
+}
+
+<div class="card-body">
+    <div class="card-title">
+        <h5>ટ્રાફિક ઇન્‍ટરસેપ્‍ટર ની કામગીરી</h5>
+    </div>
+</div>
+
+
+<section class="section" style="font-weight:900">
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- Basic Modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal" style="margin-left:20px">
+                + ADD ટ્રાફિક ઇન્‍ટરસેપ્‍ટર ની કામગીરી
+            </button>
+            <div class="modal modal-lg" id="basicModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">ટ્રાફિક ઇન્‍ટરસેપ્‍ટર ની કામગીરી </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card">
+                                <div class="card-body" style="margin:20px">
+                                    <!-- Multi Columns Form -->
+                                    <form class="row g-4 center">
+                                        <div class="col-md-6">
+                                            <label for="inputState" class="form-label">ટ્રાફિક ઇન્‍ટરસેપ્‍ટર સબ કેટેગરી નામ</label>
+                                            <select id="inputState" class="form-select" >
+                                                <option selected>---Select Intercepter Sub-Category---</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress5" class="form-label">ટ્રાફિક ઇન્‍ટરસેપ્‍ટર ઑફિસર નામ</label>
+                                            <input type="text" class="form-control" id="inputAddres5s" placeholder="ટ્રાફિક ઇન્‍ટરસેપ્‍ટર ઑફિસર નામ" >
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">ટોટલ પ્લેસ કેસ</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="ટોટલ પ્લેસ કેસ">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress5" class="form-label">ટોટલ પ્લેસ દંડની રકમ</label>
+                                            <input type="text" class="form-control" id="inputAddres5s" placeholder="ટોટલ પ્લેસ દંડની રકમ">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">ઇ.પી.સી.ઓ 188 જી.પી 131</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="ઇ.પી.સી.ઓ 188 જી.પી 131">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">ઇ.પી.સી.ઓ ૨૭૯</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="ઇ.પી.સી.ઓ ૨૭૯">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">એમ.વી.એ.સી.ટી ૨૦૭</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="એમ.વી.એ.સી.ટી ૨૦૭">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">અન્યવર્કની માહિતી</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="અન્યવર્કની માહિતી">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="inputCity" class="form-label">તારીખ </label>
+                                            <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="..." >
+                                        </div>
+                                       
+                                    </form><!-- End Multi Columns Form -->
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">ADD ટ્રાફિક ઇન્‍ટરસેપ્‍ટર ની કામગીરી </button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Basic Modal-->
+
+        </div>
+    </div>
+
+</section>
+

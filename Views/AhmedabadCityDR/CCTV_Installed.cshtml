@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["Title"] = "CCTV_Installed";
+}
+<style>
+    table {
+        table-layout: fixed;
+        overflow-x: scroll;
+    }
+
+    td, th {
+        word-wrap: break-word;
+    }
+
+</style>
+<div class="card">
+    <div class="card-body">
+        <div class="row card-title">
+            <div class="col p-0 align-items-center" style="display: flex;align-items: center;">
+                <h5>CCTV_Installed</h5>
+            </div>
+            <div class="col p-0">
+                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                    + Add CCTV_Installed
+                </button>
+            </div>
+        </div>
+        <form class="row pb-4" method="post">
+            <div class="col-md-2 mb-1">
+                <input type="date" name="fromDate" id="fromDate" class="form-control date-today">
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="date" name="toDate" id="toDate" class="form-control date-today">
+            </div>
+            <div class="col-md-4 mb-1">
+                <select id="policeStationId" name="policeStationId" asp-items="ViewBag.PoliceStation" class="form-select" required>
+                    <option value="" selected disabled>--Select PoliceStation Name--</option>
+                </select>
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="submit" class="form-control btn btn-outline-secondary" value="Search" />
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-success" value="Report View" />
+            </div>
+        </form>
+        <table id="" class="display nowrap" style="width:100%;overflow-x: scroll;">
+        </table>
+    </div>
+</div>
+
+<div class="modal modal-lg" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> CCTV_Installed</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-0">
+                    <div class="card-body p-1 m-2" style="margin:20px">
+                        <!-- Multi Columns Form -->
+                        <form class="row g-4 ">
+
+                            <div class="col-md-6">
+                                <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
+                                <select id="inputState" class="form-select" >
+                                    <option selected>---Select PoliceStation---</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputAddress5" class="form-label">PTZ_installed</label>
+                                <input type="text" class="form-control" id="inputAddres5s" placeholder="PTZ_installed" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputAddress5" class="form-label">BLT_installed</label>
+                                <input type="text" class="form-control" id="inputAddres5s" placeholder="BLT_installed" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputAddress5" class="form-label">DM_installed</label>
+                                <input type="text" class="form-control" id="inputAddres5s" placeholder="DM_installed" />
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">+ ADD CCTV_Installed</button>
+                            </div>
+                        </form>
+
+                        <!-- End Multi Columns Form -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- End Basic Modal-->

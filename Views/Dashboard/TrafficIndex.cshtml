@@ -1,0 +1,521 @@
+﻿@model AhmedabadCityDR.Models.ViewModels.DashboardTrafficViewModel
+
+@{
+    ViewData["Title"] = "Ahmedabad Traffic";
+}
+
+<div class="pagetitle">
+    <h1>Traffic Dashboard</h1>
+</div>
+
+<section class="section dashboard">
+    <div class="row">
+        <div class="card-body">
+            <h3 class="card-title">Reports </h3>
+        </div>
+
+        <div class="card-body">
+            <h3 class="card-title">
+                <form class="row g-3" asp-action="TrafficIndex" asp-controller="Dashboard" method="post">
+                    <div class="col-md-4">
+                        <input type="date" name="fromDate" id="fromDate" class="form-control date-today" />
+                    </div>
+                    <div class="col-md-4">
+                        <input type="date" name="toDate" id="toDate" class="form-control date-today" />
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" class="form-control btn btn-outline-secondary" value="Search">
+                    </div>
+                </form>
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card-body">
+            <h3 class="card-title">Personnel Management:</h3>
+        </div>
+        <div class="col-lg-14">
+            <div class="row">
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">મંજુર મહેકમ</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary "></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Manjur_Mahekam</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">હાજર મહેકમ</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Hajar_Mahekam</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">રજા ઉપર</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-danger"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Raja_Upar</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">ચોખ્‍ખું / હાજર મહેકમ</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.ChoKhhu_Hajar_Mahekam</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card-body">
+            <h3 class="card-title">Crime Details:</h3>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">પાર્ટ-એ(ભાગ 1થી5)</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Part_1_5_Crime</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">અકસ્માતના ગુનાની વિગત</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Vahan_Akasmat</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">મો.વ્હી. એક્ટ-૨૦૭ હેઠળના કેસોનું પત્રક</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.MVACT_207</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">તમાકુના કેસો</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.TabakuCase</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">તમાકુના વસુલ કરેલ દંડ</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.TabakuDand</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card-body">
+            <h3 class="card-title"> Crane Work:</h3>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">કુલ ટોઇંગ કરેલ કેસોની સંખ્યા</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Total_Crane_Number</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">કુલ વસુલ કરેલ ટોઇંગ કેસોના દંડ</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Total_Crane_Amount</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">પ્રાઇવેટ ક્રેઇન: કુલ ટોઇંગ કરેલ કેસોની સંખ્યા</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Private_Crane_Number</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">પ્રાઇવેટ ક્રેઇન: કુલ વસુલ કરેલ ટોઇંગ કેસોના દંડ</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Private_Crane_Amount</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">સરકારી ક્રેઇન: કુલ ટોઇંગ કરેલ કેસોની સંખ્યા</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Sarkari_Crane_Number</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">સરકારી ક્રેઇન: કુલ વસુલ કરેલ ટોઇંગ કેસોના દંડ</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Sarkari_Crane_Amount</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card-body">
+            <h3 class="card-title">Drive Details:</h3>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">ડ્રાઈવ દરમ્યાન કરેલ કામગીરી</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.DriveCaseNumber</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">ડ્રાઈવ દરમ્યાન વસુલ કરેલ રકમ</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.DriveCaseAmount</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card-body">
+            <h3 class="card-title">Traffic Challan Report:</h3>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">સ્થળ ઉપર વસુલ કરેલ દંડ</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Challan</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">
+                                    સ્થળ કેસ
+                                </h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>
+                                        @Model.Totalplacefine
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">આજરોજ જનરેટ કરવામાં આવેલ કુલ ઇ-ચલણ</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.E_Challan</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">આજરોજ ઇસ્યુ કરવામાં આવેલ ઇ-ચલણ પૈકી રીકવર થયેલ દંડ (ઓન લાઇન+ઑફલાઇન)</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.E_Total</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card-body">
+                <h3 class="card-title">Bandobast Details:</h3>
+            </div>
+            <div class="col-lg-14">
+                <div class="row">
+                    <div class="col-xxl-4 col-md-3">
+                        <div class="card info-card sales-card">
+                            <div class="card-body">
+                                <a href="#">
+                                    <h5 class="card-title text-center text-secondary">VIP</h5>
+                                </a>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people-fill text-secondary"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>@Model.VIP</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-md-3">
+                        <div class="card info-card sales-card">
+                            <div class="card-body">
+                                <a href="#">
+                                    <h5 class="card-title text-center text-secondary">FESTIVAl</h5>
+                                </a>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people-fill text-secondary"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>@Model.Festival</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-md-3">
+                        <div class="card info-card sales-card">
+                            <div class="card-body">
+                                <a href="#">
+                                    <h5 class="card-title text-center text-secondary">SABHA</h5>
+                                </a>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people-fill text-secondary"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>@Model.Sabha</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-md-3">
+                        <div class="card info-card sales-card">
+                            <div class="card-body">
+                                <a href="#">
+                                    <h5 class="card-title text-center text-secondary">OTHER</h5>
+                                </a>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people-fill text-secondary"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>@Model.Others</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

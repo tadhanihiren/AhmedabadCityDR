@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Bandobast";
+}
+
+<div class="card-body">
+    <div class="card-title">
+        <h5>આજરોજ બંદોબસ્તની વિગત દર્શાવતું પત્રક</h5>
+    </div>
+</div>
+
+
+<section class="section" style="font-weight:900">
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- Basic Modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal" style="margin-left:20px">
+                + Add આજરોજ બંદોબસ્તની માહિતી
+            </button>
+            <div class="modal modal-lg" id="basicModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">આજરોજ બંદોબસ્તની માહિતી</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card">
+                                <div class="card-body" style="margin:20px">
+                                    <!-- Multi Columns Form -->
+                                    <form class="row g-4 ">
+                                        <div class="col-md-6">
+                                            <label for="inputState" class="form-label">ઝોનનું નામ</label>
+                                            <select id="inputState" class="form-select" >
+                                                <option selected>---Select Zone---</option>
+                                            </select>
+                                        </div><div class="col-md-6">
+                                            <label for="inputState" class="form-label">ડીવીજન નામ</label>
+                                            <select id="inputState" class="form-select" >
+                                                <option selected>---Select Division---</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
+                                            <select id="inputState" class="form-select" >
+                                                <option selected>---Select PoliceStation---</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputState" class="form-label">બંદોબસ્તનો પ્રકાર</label>
+                                            <select id="inputState" class="form-select" >
+                                                <option selected>---Select બંદોબસ્તનો પ્રકાર---</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress5" class="form-label">ટૂંક વિગત</label>
+                                            <input type="text" class="form-control" id="inputAddres5s" placeholder="ટૂંક વિગત" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress5" class="form-label">આપેલ બંદોબસ્તની વિગત /ફોર્સની સંખ્યા</label>
+                                            <input type="text" class="form-control" id="inputAddres5s" placeholder="આપેલ બંદોબસ્તની વિગત /ફોર્સની સંખ્યા" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputCity" class="form-label">તારીખ</label>
+                                            <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                                        </div>
+
+
+                                    </form>
+
+                                    <!-- End Multi Columns Form -->
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">+ ADD આજરોજ બંદોબસ્તની માહિતી</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Basic Modal-->
+
+        </div>
+    </div>
+
+</section>
+

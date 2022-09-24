@@ -1,0 +1,444 @@
+﻿@model AhmedabadCityDR.Models.ViewModels.DashboardCityViewModel
+
+@{
+    ViewData["Title"] = "Ahmedabad City";
+}
+
+<div class="pagetitle">
+    <h1>Dashboard</h1>
+</div>
+<section class="section dashboard">
+    <div class="row">
+        <div class="card-body">
+            <h3 class="card-title">Reports </h3>
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">
+                <form class="row g-3" asp-action="index" asp-controller="Dashboard" method="post">
+                    <div class="col-md-4">
+                        <input type="date" name="fromDate" id="fromDate" class="form-control date-today">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="date" name="toDate" id="toDate" class="form-control date-today">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" class="form-control btn btn-outline-secondary" value="Search" />
+                    </div>
+                </form>
+            </h3>
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">Personnel Management</h3>
+        </div>
+        <div class="col-lg-14">
+            <div class="row">
+
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">મંજુર મહેકમ</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary "></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Manjur_Mahekam</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">હાજર મહેકમ</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Hajar_Mahekam</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">રજા ઉપર</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-danger"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Raja_Upar</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">ચોખ્‍ખું / હાજર મહેકમ</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.ChoKhhu_Hajar_Mahekam</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card-body">
+            <h3 class="card-title"> Morning Report</h3>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">પાર્ટ-એ(ભાગ 1થી5)</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Part_1_To_5</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary"> પાર્ટ-બી (ભાગ 6)</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Part_6</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">પાર્ટ-સી (પ્રોહિબિશન)</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Prohibision</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">અકસ્‍માત મોત</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Akashmat_mot</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-xxl-4 col-md-3">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <a href="#">
+                            <h5 class="card-title text-center text-secondary">ગુમ થયેલ બાળકો, સ્ત્રી-પુરુષો</h5>
+                        </a>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people-fill text-secondary"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>@Model.Gum_thayel_balako_Stree_Purush</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-md-3">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <a href="#">
+                            <h5 class="card-title text-center text-secondary">અટકાયતી પગલાંની માહિતી</h5>
+                        </a>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people-fill text-secondary"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>@Model.Atkayati_paglani_mahiti</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-md-3">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <a href="#">
+                            <h5 class="card-title text-center text-secondary">અધિકારીશ્રીઓની નાઇટ રાઉન્‍ડ </h5>
+                        </a>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people-fill text-secondary"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>@Model.Adhikari_shri_ni_night_round_mahiti</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-md-3">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <a href="#">
+                            <h5 class="card-title text-center text-secondary">
+                                પ્રોહિબીશનના ગુનાઓની હકિકત દર્શાવતુ પત્રક
+                            </h5>
+                        </a>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people-fill text-secondary"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>@Model.ProhibitionQualityCase_Crime</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-xxl-4 col-md-3">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <a href="#">
+                            <h5 class="card-title text-center text-secondary">આજના ગુન્હા / ગઈકાલના ગુન્હા</h5>
+                        </a>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people-fill text-secondary"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>@Model.Today / @Model.Last</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-md-3">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <a href="#">
+                            <h5 class="card-title text-center text-secondary">
+                                ચાલુ વર્ષના ગુન્હા / ગસમાંતર વર્ષના ગુન્હા
+                            </h5>
+                        </a>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-people-fill text-secondary"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>@Model.Currentyear / @Model.Lastyear</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card-body">
+            <h3 class="card-title"> Crime Details</h3>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">સમન્સ/જામીન/બિન જામીન લાયક વોરંટ</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>
+                                        @Model.Samans_jamin_layak_warant / @Model.Jamin_layak_warant / @Model.Bin_jamin_layak_warant
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">
+                                    અન્ય નોટીસ/ફેમીલી કોર્ટથી મળતી નોટીસ
+                                </h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>
+                                        @Model.Anya_notice / @Model.Family_court_thi_malti_notice
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary "> ડી.સી.બી.પો.સ્ટે.ની કામગીરી</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.DCB_po_station_ni_mahiti</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">પેન્ડીંગ અરજીઓનુ પત્રક</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Pending_arajinu_patrak</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xxl-4 col-md-3">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title text-center text-secondary">પેન્ડીંગ જાણવા જોગનુ પત્રક</h5>
+                            </a>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-people-fill text-secondary"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>@Model.Pending_janva_jognu_patrak</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card-body">
+                <h3 class="card-title">Other Report</h3>
+            </div>
+            <div class="col-lg-14">
+                <div class="row">
+                    <div class="col-xxl-4 col-md-3">
+                        <div class="card info-card sales-card">
+                            <div class="card-body">
+                                <a href="#">
+                                    <h5 class="card-title text-center text-secondary">નાસતા-ફરતા આરોપીઓની માહીતી</h5>
+                                </a>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people-fill text-secondary"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>@Model.Nashata_farta_aropi_ni_mahiti</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-md-3">
+                        <div class="card info-card sales-card">
+                            <div class="card-body">
+                                <a href="#">
+                                    <h5 class="card-title text-center text-secondary"> બંદોબસ્તની વિગત પત્રક</h5>
+                                </a>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people-fill text-secondary"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>@Model.Bandobast_ni_vigat_patrak</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,118 @@
+﻿@{
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
+    ViewData["Title"] = "AtakayatiPaglaSummary";
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row card-title">
+            <div class="col p-0 align-items-center" style="display: flex;align-items: center;">
+                <h5> ગુન્હાની આંકડાકીય માહીતી</h5>
+            </div>
+            <div class="col p-0">
+                <button type="button" id="addData" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                    + ADD ગુન્હાની આંકડાકીય માહીતી
+                </button>
+            </div>
+        </div>
+        <div class="row pb-4">
+            <div class="col-md-2 mb-1">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
+            </div>
+            <div class="col-md-4 mb-1">
+                @if (policeStationId == 0)
+                {
+                    <select id="searchPoliceStationId" name="searchPoliceStationId" class="form-select" required>
+                        <option value="" selected>--Select PoliceStation Name--</option>
+                    </select>
+                }
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" value="Search" />
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-success" value="Report View" />
+            </div>
+        </div>
+        <table id="data_AtakayatiPagalaSummary" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
+        </table>
+    </div>
+</div>
+
+<div class="modal modal-xl" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ગુન્હાની આંકડાકીય માહીતી</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-0">
+                    <div class="card-body p-1 m-2" style="margin:20px">
+                        <form class="row g-4 center " id="form_AtakayatiPagalaSummary">
+                            <input type="hidden" id="atakayatiPagalaSummaryId" name="atakayatiPagalaSummaryId" value="0" />
+                            @if (policeStationId == 0)
+                            {
+                                <div class="col-md-4">
+                                    <label for="policeStationId" class="form-label">પોલીસ સ્ટેશન</label>
+                                    <select id="policeStationId" name="policeStationId" class="form-select" required>
+                                        <option selected disabled value="">--Select PoliceStation--</option>
+                                    </select>
+                                </div>
+                            }
+                            <div class="col-md-4">
+                                <label for="subCategoryId" class="form-label">હેડ</label>
+                                <select id="subCategoryId" name="subCategoryId" asp-value="" class="form-select" asp-items="ViewBag.SubCategory" required>
+                                    <option selected disabled value="">--Select SubCategory--</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-4">
+                                <label for="createdDate" class="form-label">તારીખ </label>
+                                <input type="date" name="createdDate" id="createdDate" class="form-control date-today" required>
+
+                            </div>
+                            <div class="col-md-4">
+                                <label for="todays" class="form-label">આજના ગુન્‍હા</label>
+                                <input type="text" class="form-control" id="todays" name="todays" required placeholder="આજના ગુન્‍હા" disabled="disabled">
+
+                            </div>
+                            <div class="col-md-4">
+                                <label for="last" class="form-label">ગઇકાલ ના ગુન્‍હા</label>
+                                <input type="text" class="form-control" id="last" name="last" required placeholder="ગઇકાલ ના ગુન્‍હા" disabled="disabled">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="currentMonth" class="form-label">ચાલુ માસના આજદીન સુધીના</label>
+                                <input type="text" class="form-control" id="currentMonth" name="currentMonth" required placeholder="ચાલુ માસના આજદીન સુધીના" disabled="disabled">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="lastMonth" class="form-label">ગયા માસના આજદીન સુધીના</label>
+                                <input type="text" class="form-control" id="lastMonth" name="lastMonth" required placeholder="ગયા માસના આજદીન સુધીના" disabled="disabled">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="currentYear" class="form-label">ચાલુ સાલના આજદીન સુધીના</label>
+                                <input type="text" class="form-control" id="currentYear" name="currentYear" required placeholder="ચાલુ માસના આજદીન સુધીના" disabled="disabled">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="lastYear" class="form-label">ગઇ સાલના આજદીન સુધીના</label>
+                                <input type="text" class="form-control" name="lastYear" id="lastYear" required placeholder="ગયા માસના આજદીન સુધીના">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="submitbtn" class="btn btn-primary">ADD ગુન્હાની આંકડાકીય માહીતી </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/AhmedabadCityDR_JS/AtakayatiPaglaSummary.js" type="text/javascript"></script>
+}

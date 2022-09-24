@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "Leave";
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row card-title">
+            <div class="col p-0 align-items-center" style="display: flex;align-items: center;">
+                <h5>અધિકારીઓ ની રજા</h5>
+            </div>
+            <div class="col p-0">
+                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                    + ADD અધિકારીઓ ની રજા
+                </button>
+            </div>
+        </div>
+        <div class="row pb-4">
+            <div class="col-md-4">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
+            </div>
+            <div class="col-md-4">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
+            </div>
+            <div class="col-md-2">
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" value="Search" />
+            </div>           
+        </div>
+        <table id="data_LeaveApplication" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
+        </table>
+    </div>
+</div>
+
+<div class="modal modal-xl" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">અધિકારીઓ ની રજા</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-0">
+                    <div class="card-body p-1 m-2">
+                        <!-- Multi Columns Form -->
+                        <form class="row g-4" id="form_LeaveApplication">
+                            <input type="hidden" id="leaveApplicationID" name="leaveApplicationID" value="0"/>
+                            <div class="col-md-6">
+                                <label for="designationId" class="form-label">Designation </label>
+                                <select id="designationId" name="designationId" class="form-select">
+                                    <option selected disabled>--Select Designation Name--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="tempSZDPId" class="form-label">Sector/Zone/Divison/PoliceStation </label>
+                                <select id="tempSZDPId" name="tempSZDPId" class="form-select">
+                                    <option selected disabled>--Select Sector/Zone/Division/Policestation Name--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="employeeId" class="form-label">Employee Name</label>
+                                <select id="employeeId" name="employeeId" class="form-select">
+                                    <option selected disabled> --Select Employee Name--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inchargeDesignationId" class="form-label">Incharge Designation </label>
+                                <select id="inchargeDesignationId" name="inchargeDesignationId" class="form-select">
+                                    <option selected disabled>--Select InchargeDesignation Name--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="tempInchargeSectorId" class="form-label">Incharge Sector/Zone/Divison/PoliceStation</label>
+                                <select id="tempInchargeSectorId" name="tempInchargeSectorId" class="form-select">
+                                    <option selected disabled> --Select Sector/Zone/Division/Policestation Name--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inchargeEmployeeId" class="form-label">Incharge Employee Name</label>
+                                <select id="inchargeEmployeeId" name="inchargeEmployeeId" class="form-select">
+                                    <option selected disabled>--Select Employee Name--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="leaveTypeId" class="form-label">Leave Type</label>
+                                <select id="leaveTypeId" name="leaveTypeId" class="form-select">
+                                    <option selected disabled>--Select Leave Type--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="fromDate" class="form-label">Form Date</label>
+                                <input type="date" name="fromDate" id="fromDate" class="form-control date-today" aria-label="...">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="toDate" class="form-label">To Date</label>
+                                <input type="date" name="toDate" id="toDate" class="form-control" aria-label="...">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="totalDays" class="form-label">Total Days</label>
+                                <input type="text" class="form-control" id="totalDays" name="totalDays" placeholder="Total Days" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="remarks" class="form-label">Remarks</label>
+                                <input type="text" class="form-control" id="remarks" name="remarks" placeholder="Remarks" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">+ ADD અધિકારીઓ ની રજા</button>
+                            </div>
+                        </form>
+                        <!-- End Multi Columns Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Basic Modal-->
+@section Scripts{
+    <script src="~/js/AhmedabadCityDR_JS/LeaveApplication.js" type="text/javascript"></script>
+}

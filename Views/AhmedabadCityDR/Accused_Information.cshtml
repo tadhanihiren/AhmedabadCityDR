@@ -1,0 +1,135 @@
+﻿@{
+    ViewData["Title"] = "Accused_Information";
+}
+<style>
+    table {
+        table-layout: fixed;
+        overflow-x: scroll;
+    }
+
+    td, th {
+        word-wrap: break-word;
+    }
+
+</style>
+<div class="card">
+    <div class="card-body">
+        <div class="row card-title">
+            <div class="col-md-8 p-0 align-items-center" style="display: flex;align-items: center;">
+                <h5>દરેક પો.સ્ટે.વાઇઝ નાસતા-ફરતા આરોપીઓની માહીતી દર્શાવતુ આંકડાકીય પત્રક</h5>
+            </div>
+            <div class="col-md-4 p-0">
+                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                    + Add નાસતા-ફરતા આરોપીઓની માહીતી
+                </button>
+            </div>
+        </div>
+        <form class="row pb-4" method="post">
+            <div class="col-md-2 mb-1">
+                <input type="date" name="fromDate" id="fromDate" class="form-control date-today">
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="date" name="toDate" id="toDate" class="form-control date-today">
+            </div>
+            <div class="col-md-4 mb-1">
+                <select id="policeStationId" name="policeStationId" asp-items="ViewBag.PoliceStation" class="form-select" required>
+                    <option value="" selected disabled>--Select PoliceStation Name--</option>
+                </select>
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="submit" class="form-control btn btn-outline-secondary" value="Search" />
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-success" value="Report View" />
+            </div>
+        </form>
+        <table id="" class="display nowrap" style="width:100%;overflow-x: scroll;">
+        </table>
+    </div>
+</div>
+
+<div class="modal modal-xl" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">નાસતા-ફરતા આરોપીઓની માહીતી </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-0">
+                    <div class="card-body p-1 m-2" style="margin:20px">
+                        <!-- Multi Columns Form -->
+                        <form class="row g-4 ">
+
+                            <div class="col-md-6">
+                                <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
+                                <select id="inputState" class="form-select" >
+                                    <option selected>---Select PoliceStation---</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputAddress5" class="form-label">ના.ફ.આરોપીઓ હોય તેવા કુલ કેશોની સંખ્યા</label>
+                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputAddress5" class="form-label">આવા કેટલા કેશોની કે.ડા. અને કાગળો ઉપલબ્ધ છે ?</label>
+                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputAddress5" class="form-label">કે.ડા./કેસો ઉપલબ્ધ ન હોય તો તેના કારણો</label>
+                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputAddress5" class="form-label">કુલ ના.ફ. આરોપીઓની સંખ્યા</label>
+                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="inputAddress5" class="form-label">આજરોજ ના.ફ.પકડાયેલ આરોપીઓની સંખ્યા</label>
+                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputAddress5" class="form-label">પકડવાના બાકી રહેલ ના.ફ. આરોપીઓની સંખ્યા</label>
+                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputAddress5" class="form-label">સી. આર. પી. સી. કલમ ૨૯૯ હેઠળ કરેલ કાર્યવાહી</label>
+                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputAddress5" class="form-label">સી. આર. પી. સી. કલમ ૭0 હેઠળ કરેલ કાર્યવાહી</label>
+                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputAddress5" class="form-label">સી. આર. પી. સી. કલમ ૮૨ હેઠળ કરેલ કાર્યવાહી</label>
+                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputAddress5" class="form-label">સી. આર. પી. સી. કલમ ૮3 હેઠળ કરેલ કાર્યવાહી</label>
+                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputAddress5" class="form-label">આઇ.પી.સી ૧૭૪ (ક) હેઠળ કરેલ કાર્યવાહી</label>
+                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="inputCity" class="form-label">તારીખ</label>
+                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">+ ADD નાસતા-ફરતા આરોપીઓની માહીતી</button>
+                            </div>
+                        </form>
+
+                        <!-- End Multi Columns Form -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- End Basic Modal-->

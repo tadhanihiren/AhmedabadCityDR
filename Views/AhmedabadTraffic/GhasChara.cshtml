@@ -1,0 +1,86 @@
+﻿
+
+@{
+    ViewData["Title"] = "GhasChara";
+}
+
+<div class="card-body">
+    <div class="card-title">
+        <h5>પત્રક-૭ જાહેરમાં ઘાસચારા વેચનાર સામે કરવામાં આવેલ કેસોનું પત્રક</h5>
+    </div>
+</div>
+
+
+<section class="section" style="font-weight:900">
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- Basic Modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal" style="margin-left:20px">
+                + ADD ઘાસચારા
+            </button>
+            <div class="modal modal-lg" id="basicModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">ઘાસચારા</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card">
+                                <div class="card-body" style="margin:20px">
+                                    <!-- Multi Columns Form -->
+                                    <form class="row g-4 center">
+                                        <div class="col-md-12">
+                                            <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
+                                            <select id="inputState" class="form-select" >
+                                                <option selected>---Select PoliceStation---</option>
+                                            </select>
+                                        </div>
+                                       <div class="col-md-6">
+                                            <label for="inputAddress5" class="form-label">આજના કેસની સંખ્યા</label>
+                                            <input type="text" class="form-control" id="inputAddres5s" placeholder="આજના ગુન્‍હા" >
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">ગઇકાલના કેસની સંખ્યા</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="ગઇકાલ ના ગુન્‍હા">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress5" class="form-label">ચાલુ માસના આજદીન સુધીના કેસની સંખ્યા</label>
+                                            <input type="text" class="form-control" id="inputAddres5s" placeholder="ચાલુ માસના આજદીન સુધીના" >
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">ગયા માસના આજદીન સુધીના કેસની સંખ્યા</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="ગયા માસના આજદીન સુધીના" >
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress5" class="form-label">ચાલુ સાલના આજદીન સુધીના કેસની સંખ્યા</label>
+                                            <input type="text" class="form-control" id="inputAddres5s" placeholder="ચાલુ માસના આજદીન સુધીના" >
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">ગઇ સાલના આજદીન સુધીના કેસની સંખ્યા</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="ગયા માસના આજદીન સુધીના">
+                                        </div>
+                                         <div class="col-md-12">
+                                            <label for="inputCity" class="form-label">તારીખ </label>
+                                            <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="..." >
+                                        </div>
+                                        
+
+                                    </form><!-- End Multi Columns Form -->
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">ADD ઘાસચારા</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Basic Modal-->
+
+        </div>
+    </div>
+
+</section>
+

@@ -1,0 +1,133 @@
+﻿@{
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
+    ViewData["Title"] = "Atakayati_Pagla";
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row card-title">
+            <div class="col p-0 align-items-center" style="display: flex;align-items: center;">
+                <h5>અટકાયતી પગલાની વિગત</h5>
+            </div>
+            <div class="col p-0">
+                <button type="button" class="btn btn-primary float-end" id="" data-bs-toggle="modal" data-bs-target="#basicModal">
+                    + ADD અટકાયતી પગલાની વિગત
+                </button>
+            </div>
+        </div>
+        <div class="row pb-4">
+            <div class="col-md-2 mb-1">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
+            </div>
+            <div class="col-md-4 mb-1">
+                @if (policeStationId == 0)
+                {
+                    <select id="searchPoliceStationId" name="searchPoliceStationId" class="form-select" asp-items="ViewBag.PoliceStation" required>
+                        <option value="" selected>--Select PoliceStation Name--</option>
+                    </select>
+                }
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" name="searchButton" value="Search" />
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-success" value="Report View" />
+            </div>
+        </div>
+        <table id="data_AtakayatiPagla" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
+        </table>
+    </div>
+</div>
+
+<!-- Basic Modal -->
+<div class="modal modal-xl" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">અટકાયતી પગલાની વિગત</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-0">
+                    <div class="card-body p-1 m-2">
+                        <!-- Multi Columns Form -->
+                        <form class="row g-4 " id="form_AtakayatiPagala">
+                            <input type="hidden" id="atakayatiPagalaBackupId" name="atakayatiPagalaBackupId" value="0" />
+                            @if (policeStationId == 0)
+                            {
+                                <div class="col-md-6">
+                                    <div class="dropdown">
+                                        <label for="policeStationId" class="form-label">પોલીસ સ્ટેશન</label>
+                                        <select id="policeStationId" name="policeStationId" class="form-select" required>
+                                            <option value="" selected disabled>--Select PoliceStation Name--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-md-6">
+                                <label for="createdDate" class="form-label">તારીખ </label>
+                                <input type="date" name="createdDate" id="createdDate" class="form-control date-today" aria-label="...">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="crpC107" class="form-label">સી.આર.પી.સી.–૧૦૭</label>
+                                <input type="text" class="form-control" id="crpc107" name="crpc107" placeholder="CRPC107" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="prohi93" class="form-label">પ્રોહી – ૯૩</label>
+                                <input type="text" class="form-control" id="prohi93" name="prohi93" placeholder="Prohi93" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="crpC109" class="form-label">સી.આર.પી.સી.–૧૦૯</label>
+                                <input type="text" class="form-control" id="crpc109" name="crpc109" placeholder="CRPC109" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="crpC110" class="form-label">સી.આર.પી.સી.–૧૧૦</label>
+                                <input type="text" class="form-control" id="crpc110" name="crpc110" placeholder="CRPC110" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="bpacT122C" class="form-label">બી.પી.એકટ –૧૨૨ સી</label>
+                                <input type="text" class="form-control" id="bpact122c" name="bpact122c" placeholder="BPACT122C" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="bpacT124" class="form-label">બી.પી.એકટ –૧૨૪</label>
+                                <input type="text" class="form-control" id="bpact124" name="bpact124" placeholder="BPACT124" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="bpacT56" class="form-label">બી.પી.એકટ –૫૬</label>
+                                <input type="text" class="form-control" id="bpact56" name="bpact56" placeholder="BPACT56  " />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="bpacT57" class="form-label">બી.પી.એકટ – ૫૭</label>
+                                <input type="text" class="form-control" id="bpact57" name="bpact57" placeholder="BPACT57" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="bpacT135_1" class="form-label">બી.પી.એકટ – ૧૩૫(૧)</label>
+                                <input type="text" class="form-control" id="bpact1351" name="bpact1351" placeholder="BPACT135_1" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="bpacT142" class="form-label">બી.પી.એકટ – ૧૪૨</label>
+                                <input type="text" class="form-control" id="bpact142" name="bpact142" placeholder="BPACT142" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="pasa" class="form-label">પાસા</label>
+                                <input type="text" class="form-control" id="pasa" name="pasa" placeholder="Pasa" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="submitbtn">+ADD અટકાયતી પગલાની વિગત </button>
+                            </div>
+                        </form>
+                        <!-- End Multi Columns Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- End Basic Modal-->
+
+@section Scripts {
+    <script src="~/js/AhmedabadCityDR_JS/AtakayatiPagla.js" type="text/javascript"></script>
+}

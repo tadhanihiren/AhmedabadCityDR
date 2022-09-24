@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Accidental_Details";
+}
+
+<div class="card-body">
+    <div class="card-title">
+        <h5>અકસ્માત મોત </h5>
+    </div>
+</div>
+
+
+<section class="section" style="font-weight:900">
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- Basic Modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal" style="margin-left:20px">
+                + ADD ટ્રાફિક અકસ્માતની માહિતી
+            </button>
+            <div class="modal modal-xl" id="basicModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">ટ્રાફિક અકસ્માતની માહિતી </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card">
+                                <div class="card-body" style="margin:20px">
+                                    <!-- Multi Columns Form -->
+                                    <form class="row g-4 " style="font-style:bold">
+                                        <div class="col-md-6">
+                                            <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
+                                            <select id="inputState" class="form-select" >
+                                                <option selected>---Select PoliceStation---</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputState" class="form-label">SubCategory</label>
+                                            <select id="inputState" class="form-select" >
+                                                <option selected>---Select SubCategory---</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress5" class="form-label">ગુના રજી. નંબર / કલમ</label>
+                                            <input type="text" class="form-control" id="inputAddres5s" placeholder="ગુના રજી. નંબર / કલમ" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">બનાવ બના ટાઇમ, તારીખ</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="બનાવ બના ટાઇમ, તારીખ" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress5" class="form-label">બનાવ બન્યાનું સ્થળ</label>
+                                            <input type="text" class="form-control" id="inputAddres5s" placeholder="બનાવ બન્યાનું સ્થળ" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">બનાવ જાહેર તારીખ, ટાઇમ</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="બનાવ જાહેર તારીખ, ટાઇમ" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress5" class="form-label">અક્ષાંશ</label>
+                                            <input type="text" class="form-control" id="inputAddres5s" placeholder="અક્ષાંશ" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">રેખાંશ</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="રેખાંશ" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">ફરિયાદીનું નામ તથા સરનામું</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="ફરિયાદીનું નામ તથા સરનામું" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">આરોપીનું નામ તથા સરનામું</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="આરોપીનું નામ તથા સરનામું" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">મરણ/ઇજા પામનારનું નામ</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="મરણ/ઇજા પામનારનું નામ" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">તપાસ કરનારનું નામ</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="તપાસ કરનારનું નામ" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">ટૂંકી વિગતો</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="ટૂંકી વિગતો" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputCity" class="form-label">તારીખ </label>
+                                            <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="..." >
+                                        </div>
+
+                                    </form>
+
+                                    <!-- End Multi Columns Form -->
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">+ADD ટ્રાફિક અકસ્માતની માહિતી </button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Basic Modal-->
+
+        </div>
+    </div>
+
+</section>
+

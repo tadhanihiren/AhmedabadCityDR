@@ -1,0 +1,116 @@
+﻿@{
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
+    ViewData["Title"] = "ProhibitionRaidCase";
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row card-title">
+            <div class="col p-0 align-items-center" style="display: flex;align-items: center;">
+                <h5>પ્રોહીબીશનના કેસોમા રેઇડ દરમ્યાન સ્થળ ઉપરથી આરોપીઓ ભાગી ગયેલ હોય તેવા કેસોની હકીકત દર્શાવતુ પત્રક</h5>
+            </div>
+            <div class="col p-0">
+                <button type="button" class="btn btn-primary float-end" id="addData" data-bs-toggle="modal" data-bs-target="#basicModal">
+                     + ADD પ્રોહીબીશનના કેસોમા રેઇડ
+                </button>
+            </div>
+        </div>
+        <div class="row pb-4">
+            <div class="col-md-2 mb-1">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
+            </div>
+            <div class="col-md-4 mb-1">
+                @if (policeStationId == 0)
+                {
+                    <select id="searchPoliceStationId" name="searchPoliceStationId" class="form-select" asp-items="ViewBag.PoliceStation" required>
+                        <option value="" selected>--Select PoliceStation Name--</option>
+                    </select>
+                }
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" name="searchButton" value="Search" />
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-success" value="Report View" />
+            </div>
+        </div>
+        <table id="data_ProhibitionRaidCase" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
+        </table>
+    </div>
+</div>
+
+<!-- Basic Modal -->
+<div class="modal modal-xl" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">પ્રોહીબીશનના કેસોમા રેઇડ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-0">
+                    <div class="card-body p-1 m-2">
+                        <!-- Multi Columns Form -->
+                        <form class="row g-4" id="form_ProhibitionRaidCase">
+                            @if (policeStationId == 0)
+                            {
+                                <div class="col-md-6">
+                                    <div class="dropdown">
+                                        <label for="policeStationId" class="form-label">પોલીસ સ્ટેશન</label>
+                                        <select id="policeStationId" name="policeStationId" class="form-select" required>
+                                            <option value="" selected disabled>--Select PoliceStation Name--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-md-6">
+                                <label for="policeStationNumber" class="form-label">પો.સ્ટે ગુ.ર.નં</label>
+                                <input type="text" class="form-control" id="policeStationNumber" name="policeStationNumber" placeholder="પો.સ્ટે ગુ.ર.નં" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="ipcact" class="form-label">કલમ નંબર</label>
+                                <input type="text" class="form-control" id="ipact" name="ipact" placeholder="કલમ નંબર" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="createdDate" class="form-label">તારીખ </label>
+                                <input type="date" name="createdDate" id="createdDate" class="form-control date-today" aria-label="...">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="crimePlace" class="form-label">ગુનાવાળી જગ્યા </label>
+                                <input type="text" class="form-control" id="crimePlace" name="crimePlace" placeholder="ગુનાવાળી જગ્યા " />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="gubatata" class="form-label">ગુ.બ.તા.ટા./ગુ.જા.તા.ટા.</label>
+                                <input type="text" class="form-control" id="gubatata" name="gubatata" placeholder="ગુ.બ.તા.ટા./ગુ.જા.તા.ટા." />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="raidTimeCriminalName" class="form-label">રેઈડ દરમ્યાન સ્થળ ઉપરથી ભાગી જનાર આરોપીના નામ</label>
+                                <input type="text" class="form-control" id="raidTimeCriminalName" name="raidTimeCriminalName" placeholder="રેઈડ દરમ્યાન સ્થળ ઉપરથી ભાગી જનાર આરોપીના નામ " />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="raidingPartyEmployeeName" class="form-label">રેઈડીંગ પાર્ટીના અધીકારી/ કર્મચારીઓના નામ</label>
+                                <input type="text" class="form-control" id="raidingPartyEmployeeName" name="raidingPartyEmployeeName" placeholder="રેઈડીંગ પાર્ટીના અધીકારી/ કર્મચારીઓના નામ " />
+                            </div><div class="col-md-6">
+                                <label for="investigationOfficerName" class="form-label">ત.ક.અધિ.નુ નામ</label>
+                                <input type="text" class="form-control" id="investigationOfficerName" name="investigationOfficerName" placeholder="ત.ક.અધિ.નુ નામ" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="submitbtn">+ ADD પ્રોહીબીશનના કેસોમા રેઇડ</button>
+                            </div>
+                        </form>
+                        <!-- End Multi Columns Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Basic Modal-->
+
+@section Scripts {
+    <script src="~/js/AhmedabadCityDR_JS/ProhibitionRaidCase.js" type="text/javascript"></script>
+}

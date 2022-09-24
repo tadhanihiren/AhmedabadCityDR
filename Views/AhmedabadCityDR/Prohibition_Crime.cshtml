@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewData["Title"] = "Prohibition_Crime";
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
+}
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="row card-title">
+            <div class="col p-0 align-items-center" style="display: flex;align-items: center;">
+                <h5>પાર્ટ-સી ના ગુનાઓની હકિકત દર્શાવતુપત્રક</h5>
+            </div>
+            <div class="col p-0">
+                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                    + ADD પાર્ટ-સી ના ગુનાઓ
+                </button>
+            </div>
+        </div>
+        <div class="row pb-4">
+            <div class="col-md-2 mb-1">
+                <input type="date" name="fromDate" id="fromDate" class="form-control date-today">
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="date" name="toDate" id="toDate" class="form-control date-today">
+            </div>
+            <div class="col-md-4 mb-1">
+                @if (policeStationId == 0)
+                {
+                    <select id="searchPoliceStationId" name="searchPoliceStationId" class="form-select" required>
+                        <option value="" disabled selected>--Select PoliceStation Name--</option>
+                    </select>
+                }
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="submit" class="form-control btn btn-outline-secondary" id="searchButton" value="Search" />
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-success" value="Report View" />
+            </div>
+        </div>
+        <table id="data_ProhibitionCrime" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
+        </table>
+    </div>
+</div>
+    <!-- Basic Modal -->
+
+    <div class="modal modal-xl" id="basicModal" tabindex="2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">પાર્ટ-સી ના ગુનાઓ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card mb-0">
+                        <div class="card-body p-1 m-2" style="margin:20px">
+                            <!-- Multi Columns Form -->
+                            <form class="row g-4 " id="form_ProhibitionCrime">
+                                <input type="hidden" id="akasmatId" name="akasmatId" value="0" />
+                                <div class="col-md-4">
+                                    @if (policeStationId == 0)
+                                    {
+                                        <label for="policeStationId" class="form-label">પોલીસ સ્ટેશન</label>
+                                        <select id="policeStationId" name="policeStationId" class="form-select" required>
+                                            <option value="" selected disabled>--Select PoliceStation Name--</option>
+                                        </select>
+                                    }
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="createdDate" class="form-label">તારીખ </label>
+                                    <input type="date" id="createdDate" name="createdDate" class="form-control date-today" aria-label="..." required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="pidhela" class="form-label">પીધેલા</label>
+                                    <input type="text" class="form-control" id="pidhela" name="pidhela" placeholder="પીધેલા" required/>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="kabjama" class="form-label">કબજાના</label>
+                                    <input type="text" class="form-control" id="kabjama" name="kabjama" placeholder="કબજાના" required />
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="crimeNumber" class="form-label">આરોપી અટક ની સંખ્‍યા </label>
+                                    <input type="text" class="form-control" id="crimeNumber" name="crimeNumber" placeholder="આરોપી અટક ની સંખ્‍યા " required/>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="arrestsNumber" class="form-label">પકડવાના બાકી સંખ્યા</label>
+                                    <input type="text" class="form-control" id="arrestsNumber" name="arrestsNumber" placeholder="પકડવાના બાકી સંખ્યા" required/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="mudamal_value" class="form-label">મુદ્દામાલની વિગત</label>
+                                    <input type="text" class="form-control" id="mudamal_value" name="mudamal_value" placeholder="મુદ્દામાલની વિગત" required />
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="issue" class="form-label">મુદ્દામાલની કીંમત</label>
+                                    <input type="text" class="form-control" id="issue" name="issue" placeholder="મુદ્દામાલની કીંમત" required/>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="totalNumberCase" class="form-label">કુલ કેસોની સંખ્યા</label>
+                                    <input type="text" class="form-control" id="totalNumberCase" name="totalNumberCase" placeholder="કુલ કેસોની સંખ્યા" required/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">+ ADD પાર્ટ-સી ના ગુનાઓ</button>
+                                </div>
+                            </form>
+
+                            <!-- End Multi Columns Form -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- End Basic Modal-->
+    @section Scripts{
+    <script src="~/js/AhmedabadCityDR_JS/Prohibition_Crime.js" type="text/javascript"></script>
+}

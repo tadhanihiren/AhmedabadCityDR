@@ -1,0 +1,195 @@
+﻿@{
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
+    ViewData["Title"] = "Part1_5_Crimes";
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row card-title">
+            <div class="col p-0 align-items-center" style="display: flex;align-items: center;">
+                <h5>પાર્ટ-એ(ભાગ ૧ થી ૫ પ્રકાર)</h5>
+            </div>
+            <div class="col p-0">
+                <button type="button" id="addData" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                    + ADD પાર્ટ-એ
+                </button>
+            </div>
+        </div>
+        <div class="row pb-4">
+            <div class="col-md-2 mb-1">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
+            </div>
+            <div class="col-md-4 mb-1">
+                @if (policeStationId == 0)
+                {
+                    <select id="searchPoliceStationId" name="searchPoliceStationId" class="form-select" required>
+                        <option value="" selected>--Select PoliceStation Name--</option>
+                    </select>
+                }
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" name="searchButton" value="Search" />
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-success" value="Report View" />
+            </div>
+        </div>
+        <table id="data_Part1_5_Crime" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
+        </table>
+        <h4 style="color:red;">
+            1)જાહેરનામા નો ભંગ <br />
+            2)જાહેરનામા નો ભંગ/એપેડેમિક ડીસીઝ એકટ /ડિઝાસ્ટર મેનેજમેન્ટ એકટ
+            પાર્ટ એ ના પ્રકાર માં આપેલ છે જેની નોધ લેવી.
+        </h4>
+    </div>
+</div>
+
+<div class="modal modal-xl" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content pb-0">
+            <div class="modal-header">
+                <h5 class="modal-title">પાર્ટ-એ(ભાગ ૧ થી ૫ પ્રકાર)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-0">
+                    <div class="card-body p-1 m-2" style="margin:20px">
+                        <form class="row g-4" id="form_Part1_5Crime">
+                            <input type="hidden" id="crimesId" name="crimesId" value="0" />
+                            @if (policeStationId == 0)
+                            {
+                                <div class="col-md-4">
+                                    <div class="dropdown">
+                                        <label for="policeStationId" class="form-label">પોલીસ સ્ટેશન</label>
+                                        <select id="policeStationId" name="policeStationId" class="form-select" required>
+                                            <option value="" selected disabled>--Select PoliceStation Name--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-md-4">
+                                <div class="dropdown">
+                                    <label for="subCategoryId" class="form-label">પાર્ટ-એ(ભાગ ૧ થી ૫ પ્રકાર) </label>
+                                    <select id="subCategoryId" name="subCategoryId" asp-items="ViewBag.SubCategory" class="form-select" required>
+                                        <option value="" selected disabled>--Select Category --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="policeStationNumber" class="form-label">પો.સ્ટે ગુ.ર.નં</label>
+                                <input type="text" class="form-control" id="policeStationNumber" name="policeStationNumber" placeholder="પો.સ્ટે ગુ.ર.નં" required />
+                            </div>
+                            <div class="col-md-12" id="prohibitionCat">
+                                <div class="dropdown">
+                                    <label for="pidhelaKabjanaType" class="form-label">આઇ. પી. સી. માં કોને પકડેલ ની વિગત</label>
+                                    <select id="pidhelaKabjanaType" name="pidhelaKabjanaType" asp-items="ViewBag.PidhelaKabja" class="form-select">
+                                        <option value="" selected disabled>--આઇ. પી. સી./જાહેરનામા નો ભંગ/એપેડેમિક  ડીસીઝ એકટ / ડિઝાસ્ટર મેનેજમેન્ટ એકટ માં કોને પકડેલ ની વિગત--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="ipcact" class="form-label">કલમ નંબર</label>
+                                <input type="text" class="form-control" id="ipcact" name="ipcact" placeholder="કલમ નંબર" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="complainer" class="form-label">ફરીયાદીનુ નામ મોબાઇલ નંબર અને સરનામુ</label>
+                                <input type="text" class="form-control" id="complainer" name="complainer" placeholder="ફરીયાદીનુ નામ મોબાઇલ નંબર અને સરનામુ" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="accused" class="form-label">આરોપીનુ નામ અને સરનામુ</label>
+                                <input type="text" class="form-control" id="accused" name="accused" placeholder="આરોપીનુ નામ અને સરનામુ" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="gubatata" class="form-label">ગુ.બ.તા.ટા.</label>
+                                <input type="text" class="form-control" id="gubatata" name="gubatata" placeholder="ગુ.બ.તા.ટા." required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="gujatata" class="form-label">ગુ.જા.તા.ટા.</label>
+                                <input type="text" class="form-control" id="gujatata" name="gujatata" placeholder="ગુ.જા.તા.ટા." required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="gudatata" class="form-label">ગુ.દા.તા.ટા.</label>
+                                <input type="text" class="form-control" id="gudatata" name="gudatata" placeholder="ગુ.દા.તા.ટા." required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="crimePlace" class="form-label">ગુનાની જગ્યા </label>
+                                <input type="text" class="form-control" id="crimePlace" name="crimePlace" placeholder="ગુનાની જગ્યા " required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="crimePurpose" class="form-label">ગુનાનો હેતુ</label>
+                                <input type="text" class="form-control" id="crimePurpose" name="crimePurpose" placeholder="ગુનાનો હેતુ" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="personNameWhoFiledCrime" class="form-label">ગુન્હો દાખલ કરનારનુ નામ હોદ્દો</label>
+                                <input type="text" class="form-control" id="personNameWhoFiledCrime" name="personNameWhoFiledCrime" placeholder="ગુન્હો દાખલ કરનારનુ નામ હોદ્દો" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="investigationOfficer" class="form-label">તપાસ કરનારનુ નામ હોદ્દો</label>
+                                <input type="text" class="form-control" id="investigationOfficer" name="investigationOfficer" placeholder="તપાસ કરનારનુ નામ હોદ્દો" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="shortDetail" class="form-label">ટુંક વિગત</label>
+                                <input type="text" class="form-control" id="shortDetail" name="shortDetail" placeholder="ટુંક વિગત" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="lateComplaintReason" class="form-label">લેટ ફરીયાદનુ કારણ</label>
+                                <input type="text" class="form-control" id="lateComplaintReason" name="lateComplaintReason" placeholder="લેટ ફરીયાદનુ કારણ" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="hdiitsEntry" class="form-label">Hdiits અંતર્ગત એન્ટ્રી કરેલ છે.કે કેમ?</label>
+                                <input type="text" class="form-control" id="hdiitsEntry" name="hdiitsEntry" placeholder="Hdiits અંતર્ગત એન્ટ્રી કરેલ છે.કે કેમ?" required />
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <label class="form-check-label" for="savendansil">
+                                                સંવેદનશીલ
+                                            </label>
+                                            <input type="checkbox" class="form-check-input" id="savendansil" name="savendansil" value="true">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <label class="form-check-label" for="binSavendansil">
+                                                બીન સંવેદનશીલ
+                                            </label>
+                                            <input type="checkbox" class="form-check-input" id="binSavendansil" name="binSavendansil" value="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="latitude" class="form-label">અક્ષાંશ</label>
+                                <input type="text" class="form-control" id="latitude" name="latitude" placeholder="અક્ષાંશ" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="longitude" class="form-label">રેખાંશ</label>
+                                <input type="text" class="form-control" id="longitude" name="longitude" placeholder="રેખાંશ" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="complainerAccusedCriminalHistory" class="form-label">ફરીયાદી/આરોપી પક્ષ ગુનાહીત ઇતિહાસ ધરાવે છે કે કેમ?</label>
+                                <input type="text" class="form-control" id="complainerAccusedCriminalHistory" name="complainerAccusedCriminalHistory" placeholder="ફરીયાદી/આરોપી પક્ષ ગુનાહીત ઇતિહાસ ધરાવે છે કે કેમ?" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="createdDate" class="form-label">તારીખ </label>
+                                <input type="date" id="createdDate" name="createdDate" class="form-control date-today" aria-label="..." required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="submitbtn">+ ADD પાર્ટ-એ</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/AhmedabadCityDR_JS/Part1_5_Crime.js" type="text/javascript"></script>
+}

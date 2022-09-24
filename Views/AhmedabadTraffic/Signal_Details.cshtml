@@ -1,0 +1,81 @@
+﻿
+
+@{
+    ViewData["Title"] = "Signal_Details";
+}
+
+<div class="card-body">
+    <div class="card-title">
+        <h5>ટ્રાફિક સિગ્‍નલ અંગે</h5>
+    </div>
+</div>
+
+
+<section class="section" style="font-weight:900">
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- Basic Modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal" style="margin-left:20px">
+                + ADD ટ્રાફિક સિગ્‍નલ 
+            </button>
+            <div class="modal modal-lg" id="basicModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">ટ્રાફિક સિગ્‍નલ </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card">
+                                <div class="card-body" style="margin:20px">
+                                    <!-- Multi Columns Form -->
+                                    <form class="row g-4 center">
+                                        <div class="col-md-12">
+                                            <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
+                                            <select id="inputState" class="form-select" >
+                                                <option selected>---Select PoliceStation---</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="inputAddress5" class="form-label">પો.સ્‍ટે વિસ્‍તારમાં કુલ કેટલા સિગ્‍નલ આવેલ છે?</label>
+                                            <input type="text" class="form-control" id="inputAddres5s" placeholder="પો.સ્‍ટે વિસ્‍તારમાં કુલ કેટલા સિગ્‍નલ આવેલ છે?" >
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress2" class="form-label">કેટલા સિગ્‍નલ ચાલુ હાલતમાં છે.</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="કેટલા સિગ્‍નલ ચાલુ હાલતમાં છે.">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress5" class="form-label">કેટલા સિગ્‍નલ બંધ હાલતમાં છે.</label>
+                                            <input type="text" class="form-control" id="inputAddres5s" placeholder="કેટલા સિગ્‍નલ બંધ હાલતમાં છે.">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="inputAddress2" class="form-label">બંધ હાલતમાં રહેવાનું કારણ</label>
+                                            <input type="text" class="form-control" id="inputAddress2" placeholder="બંધ હાલતમાં રહેવાનું કારણ">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputAddress5" class="form-label">બંધ રહેવા અંગે શું કાર્યવાહી કરવામાં આવેલ છે?</label>
+                                            <input type="text" class="form-control" id="inputAddres5s" placeholder="બંધ રહેવા અંગે શું કાર્યવાહી કરવામાં આવેલ છે?">
+                                        </div>
+                                         <div class="col-md-6">
+                                            <label for="inputCity" class="form-label">તારીખ </label>
+                                            <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="..." >
+                                        </div>
+                                       
+                                    </form><!-- End Multi Columns Form -->
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">ADD ટ્રાફિક સિગ્‍નલ </button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Basic Modal-->
+
+        </div>
+    </div>
+
+</section>
+
