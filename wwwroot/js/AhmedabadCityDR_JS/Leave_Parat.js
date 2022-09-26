@@ -81,10 +81,10 @@ $(document).ready(function () {
     $("#form_LeaveParat").validate({
         rules: {
             designationId: "required",
-            tempSZDPId: "required",
+            tempPoliceStationId: "required",
             employeeId: "required",
             inchargeDesignationId: "required",
-            tempInchargeSectorId: "required",
+            tempInchargePoliceStationId: "required",
             inchargeEmployeeId: "required",
             leaveTypeId: "required",
             fromDate: "required",
@@ -94,10 +94,10 @@ $(document).ready(function () {
         },
         messages: {
             designationId: "required",
-            tempSZDPId: "required",
+            tempPoliceStationId: "required",
             employeeId: "required",
             inchargeDesignationId: "required",
-            tempInchargeSectorId: "required",
+            tempInchargePoliceStationId: "required",
             inchargeEmployeeId: "required",
             leaveTypeId: "required",
             fromDate: "required",
@@ -149,27 +149,27 @@ $(document).ready(function () {
 
     $("#designationId").change(
         function (e) {
-            $("#tempSZDPId").empty();
+            $("#tempPoliceStationId").empty();
             $.get("/api/ApiCommon/GetSector",
                 { designationId: $("#designationId").val() },
                 function (data) {
 
-                    $("#tempSZDPId").append("<option selected disabled>--Select Sector/Zone/Division/PoliceStation:--</option>")
+                    $("#tempPoliceStationId").append("<option selected disabled>--Select Sector/Zone/Division/PoliceStation:--</option>")
 
                     $.each(data, function (index, row) {
                         //console.log(row);
-                        $("#tempSZDPId").append("<option value='" + row.value + "'>" + row.text + "</option>")
+                        $("#tempPoliceStationId").append("<option value='" + row.value + "'>" + row.text + "</option>")
                     });
                 },
             );
         }
     );
 
-    $("#tempSZDPId").change(
+    $("#tempPoliceStationId").change(
         function (e) {
             $("#employeeId").empty();
             $.get("/api/ApiCommon/GetEmployee",
-                { policeStationId: $("#tempSZDPId").val(), designationId: $("#designationId").val() },
+                { policeStationId: $("#tempPoliceStationId").val(), designationId: $("#designationId").val() },
                 function (data) {
 
                     $("#employeeId").append("<option selected disabled>--Select Employee Name--</option>")
@@ -197,27 +197,27 @@ $(document).ready(function () {
 
     $("#inchargeDesignationId").change(
         function (e) {
-            $("#tempInchargeSectorId").empty();
+            $("#tempInchargePoliceStationId").empty();
             $.get("/api/ApiCommon/GetInchargeSector",
                 { inchargeDesignationId: $("#inchargeDesignationId").val() },
                 function (data) {
 
-                    $("#tempInchargeSectorId").append("<option selected disabled>--Select Sector/Zone/Division/PoliceStation:--</option>")
+                    $("#tempInchargePoliceStationId").append("<option selected disabled>--Select Sector/Zone/Division/PoliceStation:--</option>")
 
                     $.each(data, function (index, row) {
                         //console.log(row);
-                        $("#tempInchargeSectorId").append("<option value='" + row.value + "'>" + row.text + "</option>")
+                        $("#tempInchargePoliceStationId").append("<option value='" + row.value + "'>" + row.text + "</option>")
                     });
                 },
             );
         }
     );
 
-    $("#tempInchargeSectorId").change(
+    $("#tempInchargePoliceStationId").change(
         function (e) {
             $("#inchargeEmployeeId").empty();
             $.get("/api/ApiCommon/GetInchargeEmployee",
-                { inchargePoliceStationId: $("#tempInchargeSectorId").val(), inchargeDesignationId: $("#inchargeDesignationId").val() },
+                { inchargePoliceStationId: $("#tempInchargePoliceStationId").val(), inchargeDesignationId: $("#inchargeDesignationId").val() },
                 function (data) {
                     $("#inchargeEmployeeId").append("<option selected disabled>--Select Employee Name--</option>")
                     $.each(data, function (index, row) {
