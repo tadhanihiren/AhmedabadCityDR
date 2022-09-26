@@ -1,8 +1,6 @@
 ﻿using AhmedabadCityDR.Interfaces;
 using AhmedabadCityDR.Models.TableModels;
-using AhmedabadCityDR.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 
 namespace AhmedabadCityDR.APIs
 {
@@ -242,7 +240,7 @@ namespace AhmedabadCityDR.APIs
 
                 default:
                     return new JsonResult(null);
-            }            
+            }
         }
 
         /// <summary>

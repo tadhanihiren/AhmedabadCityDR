@@ -50,6 +50,11 @@
         public IAtakayatiPaglaSummaryMaster AtakayatiPaglaSummary { get; set; }
 
         /// <summary>
+        /// Gets or sets atakayati Details.
+        /// </summary>
+        public IAtakayatiDetails AtakayatiDetails { get; set; }
+
+        /// <summary>
         /// Gets or sets Aksmat Death.
         /// </summary>
         public IAksmat_Death Aksmat_Death { get; set; }

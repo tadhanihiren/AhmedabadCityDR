@@ -5,12 +5,12 @@ using Microsoft.Data.SqlClient;
 
 namespace AhmedabadCityDR.Repository
 {
-    public class ProhibitionCrimeRepository : GenericRepository<TblProhibitionCrimeMaster>, IProhibitionCrime
+    public class AtakayatiDetailsRepository : GenericRepository<TblAtakayatidetail>,IAtakayatiDetails
     {
-        #region Private Members
+        #region Private Memebers
 
         /// <summary>
-        /// Get context.
+        /// Context.
         /// </summary>
         private readonly AhmCityDrDbContext _context;
 
@@ -19,15 +19,16 @@ namespace AhmedabadCityDR.Repository
         #region Constructors
 
         /// <summary>
-        /// Constructors
+        /// Constructor
         /// </summary>
         /// <param name="context">Context</param>
-        public ProhibitionCrimeRepository(AhmCityDrDbContext context) : base(context)
+        public AtakayatiDetailsRepository(AhmCityDrDbContext context) : base(context)
         {
             _context = context;
         }
+
         #endregion
-        public IEnumerable<ProhibitionCrimeViewModel> GetProhibitionCrimes(int roleId, int sectorId, int zoneId, int divisionId, int policeStationId, DateTime fromDate, DateTime toDate)
+        public IEnumerable<AtakayatiDetailsViewModel> GetAtakayatiDetails(int roleId, int sectorId, int zoneId, int divisionId, int policeStationId, DateTime fromDate, DateTime toDate)
         {
             var pRoleId = new SqlParameter("@RoleId", roleId);
             var pSectorId = new SqlParameter("@SectorId", sectorId);
@@ -36,9 +37,16 @@ namespace AhmedabadCityDR.Repository
             var pPoliceStationId = new SqlParameter("@PoliceStationId", policeStationId);
             var pFromDate = new SqlParameter("@FromDate", fromDate);
             var pToDate = new SqlParameter("@ToDate", toDate);
-          
-            return _context.Set<ProhibitionCrimeViewModel>()
-                           .FromSqlRaw("exec USP_tblProhibitionCrimeMaster_SEL @RoleId, @SectorId, @ZoneId, @DivisionId, @PoliceStationId, @FromDate, @ToDate", pRoleId, pSectorId, pZoneId, PDivisionId, pPoliceStationId, pFromDate, pToDate)
+
+            return _context.Set<AtakayatiDetailsViewModel>()
+                           .FromSqlRaw("exec USP_tblAtakayatidetails_SEL @RoleId, @SectorId, @ZoneId, @DivisionId, @PoliceStationId, @FromDate, @ToDate",
+                                       pRoleId,
+                                       pSectorId,
+                                       pZoneId,
+                                       PDivisionId,
+                                       pPoliceStationId,
+                                       pFromDate,
+                                       pToDate)
                            .ToList();
         }
     }

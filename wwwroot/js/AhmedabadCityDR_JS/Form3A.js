@@ -59,7 +59,7 @@ $(document).ready(function () {
 
     PopulateSearchPoliceStationDRD();
 
-    $("#addData").click(() => {
+    $("#AddForm3A").click(() => {
         $('#form_Form3A').trigger('reset');
     });
 
@@ -79,6 +79,16 @@ $(document).ready(function () {
         "language": {
             processing: '<div class="spinner-grow text-primary" role="status"></div>'
         },
+        lengthMenu: [[10, 50, 100, 500, 1000, 1500, 2000], [10, 50, 100, 500, 1000, 1500, 2000]],
+        "columnStyle": true,
+        "scrollX": true,
+        "sScrollXInner": "100%",
+        "destroy": true,
+        "info": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "autoWidth": false,
+        bAutoWidth: false,
         "ajax": {
             url: "/api/ApiForm3A/Get",
             type: "get",
@@ -94,14 +104,7 @@ $(document).ready(function () {
                 "Content-Type": "application/json",
             }
         },
-        "columnStyle": true,
-        "scrollX": true,
-        "sScrollXInner": "100%",
-        "destroy": true,
-        "info": true,
-        "bLengthChange": false,
-        "bFilter": false,
-        "autoWidth": false,
+       
         "columns": [
             { title: 'akasmatId', data: 'akasmatId', "width": "100px" },
             { title: 'પો.સ્ટેશન', data: 'policeStationName', "width": "100px" },

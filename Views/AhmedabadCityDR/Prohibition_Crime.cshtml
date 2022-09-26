@@ -19,10 +19,10 @@
         </div>
         <div class="row pb-4">
             <div class="col-md-2 mb-1">
-                <input type="date" name="fromDate" id="fromDate" class="form-control date-today">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
             </div>
             <div class="col-md-2 mb-1">
-                <input type="date" name="toDate" id="toDate" class="form-control date-today">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
             </div>
             <div class="col-md-4 mb-1">
                 @if (policeStationId == 0)
@@ -39,8 +39,9 @@
                 <input type="button" class="form-control btn btn-outline-success" value="Report View" />
             </div>
         </div>
-        <table id="data_ProhibitionCrime" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
+         <table id="data_ProhibitionCrime" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
         </table>
+       
     </div>
 </div>
     <!-- Basic Modal -->
@@ -57,7 +58,7 @@
                         <div class="card-body p-1 m-2" style="margin:20px">
                             <!-- Multi Columns Form -->
                             <form class="row g-4 " id="form_ProhibitionCrime">
-                                <input type="hidden" id="akasmatId" name="akasmatId" value="0" />
+                                <input type="hidden" id="prohibitioncrimeId" name="prohibitioncrimeId" value="0" />
                                 <div class="col-md-4">
                                     @if (policeStationId == 0)
                                     {
@@ -90,8 +91,8 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="mudamal_value" class="form-label">મુદ્દામાલની વિગત</label>
-                                    <input type="text" class="form-control" id="mudamal_value" name="mudamal_value" placeholder="મુદ્દામાલની વિગત" required />
+                                    <label for="mudamalValue" class="form-label">મુદ્દામાલની વિગત</label>
+                                    <input type="text" class="form-control" id="mudamalValue" name="mudamalValue" placeholder="મુદ્દામાલની વિગત" required />
                                 </div>
                                 <div class="col-md-4">
                                     <label for="issue" class="form-label">મુદ્દામાલની કીંમત</label>
@@ -103,7 +104,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">+ ADD પાર્ટ-સી ના ગુનાઓ</button>
+                                    <button type="submit" class="btn btn-primary" id="addData">+ ADD પાર્ટ-સી ના ગુનાઓ</button>
                                 </div>
                             </form>
 

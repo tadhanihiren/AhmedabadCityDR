@@ -69,6 +69,11 @@ namespace AhmedabadCityDR.Repository
         public IAtakayatiPaglaSummaryMaster AtakayatiPaglaSummary { get; set; }
 
         /// <summary>
+        /// Gets or sets atakayati pagla summary.
+        /// </summary>
+        public IAtakayatiDetails AtakayatiDetails { get; set; }
+
+        /// <summary>
         /// Gets or sets Designation Master.
         /// </summary>
         public IDesignationMaster DesignationMaster { get; set; }
@@ -163,6 +168,7 @@ namespace AhmedabadCityDR.Repository
             EmployeeMaster = new EmployeeMasterRepository(_context);
             StoredProcedure = new StoredProcedure(_context);
             DesignationMaster = new DesignationMasterRepository(_context);
+            AtakayatiDetails = new AtakayatiDetailsRepository(_context);
             AtakayatiPaglaSummary = new AtakayatiPaglaSummaryRepository(_context);
             ProhibitionCrime = new ProhibitionCrimeRepository(_context);
             Aksmat_Death = new Aksmat_DeathRepository(_context);

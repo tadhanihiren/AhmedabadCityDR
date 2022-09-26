@@ -8,7 +8,7 @@ namespace AhmedabadCityDR.APIs
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApiLeaveApplicationMasterController : ControllerBase
+    public class ApiLeaveParatController : ControllerBase
     {
         #region Private Members
 
@@ -24,7 +24,7 @@ namespace AhmedabadCityDR.APIs
         /// <summary>
         /// Constructors
         /// </summary>
-        public ApiLeaveApplicationMasterController(IUnitOfWork unitOfWork)
+        public ApiLeaveParatController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -32,6 +32,15 @@ namespace AhmedabadCityDR.APIs
         #endregion
 
         #region Get Methods
+
+        [HttpGet("GetById")]
+        public JsonResult GetById(int? id)
+        {
+            return new JsonResult(new
+            {
+                Content = _unitOfWork.LeaveApplication.Find(x => x.LeaveApplicationId == id),
+            });
+        }
 
         [HttpGet("GetLeaveApplication")]
         public JsonResult GetLeaveApplication(DateTime? fromDate, DateTime? toDate)
@@ -370,8 +379,8 @@ namespace AhmedabadCityDR.APIs
             return new JsonResult(new
             {
                 Success = true,
-                Headers = "LeaveApplication",
-                Header_Title = "LeaveApplication",
+                Headers = "LeaveParat",
+                Header_Title = "LeaveParat",
                 Header_Desc = $"તારીખ : {fromDate.Value.Date} થી : {toDate.Value.Date}",
                 Content = responseData
             });
@@ -387,6 +396,35 @@ namespace AhmedabadCityDR.APIs
             try
             {
                 var user = HttpContext.GetClaimsPrincipal();
+
+                if (model.DesignationId == 2)
+                {
+                    model.SectorId = model.TempPoliceStationId.Value;
+                    model.ZoneId = 0;
+                    model.DivisionId = 0;
+                    model.PoliceStationId = 0;
+                }
+                else if (model.DesignationId == 3)
+                {
+                    model.ZoneId = model.TempPoliceStationId.Value;
+                    model.SectorId = 0;
+                    model.DivisionId = 0;
+                    model.PoliceStationId = 0;
+                }
+                else if (model.DesignationId == 4)
+                {
+                    model.DivisionId = model.TempPoliceStationId.Value;
+                    model.SectorId = 0;
+                    model.ZoneId = 0;
+                    model.PoliceStationId = 0;
+                }
+                else
+                {
+                    model.DivisionId = 0;
+                    model.SectorId = 0;
+                    model.ZoneId = 0;
+                    model.PoliceStationId = model.TempPoliceStationId.Value;
+                }
 
                 if (model.InchargeDesignationId == 2)
                 {
@@ -405,130 +443,48 @@ namespace AhmedabadCityDR.APIs
                 else if (model.InchargeDesignationId == 4)
                 {
                     model.InchargeDivisionId = model.TempInchargePoliceStationId;
-                    model.InchargeZoneId = 0;
                     model.InchargeSectorId = 0;
+                    model.InchargeZoneId = 0;
                     model.InchargePoliceStationId = 0;
                 }
                 else
                 {
                     model.InchargeDivisionId = 0;
-                    model.InchargeZoneId = 0;
                     model.InchargeSectorId = 0;
+                    model.InchargeZoneId = 0;
                     model.InchargePoliceStationId = model.TempInchargePoliceStationId;
                 }
 
-                var lastRecord = _unitOfWork.LeaveApplication.GetAll()
-                                    .OrderByDescending(x => x.LeaveApplicationId)
-                                    .Take(1).ToList();
-
-                var newRecordId = lastRecord[0].LeaveApplicationId + 1;
-
-                if (model.LeaveApplicationID == 0)
+                if (model.LeaveApplicationID != 0)
                 {
-                    if (model.LeaveTypeId == 20)
+                    if (model.LeaveTypeId == 36)
                     {
                         var data = new TblLeaveApplicationMaster();
 
-                        data.LeaveApplicationId = newRecordId;
+                        data.LeaveApplicationId = model.LeaveApplicationID;
+                        data.PoliceStationId = model.PoliceStationId;
+                        data.DesignationId = model.DesignationId;
+                        data.InchargeDesignationId = model.InchargeDesignationId;
+                        data.InchargePoliceStationId = model.InchargePoliceStationId;
+                        data.InchargeEmployeeId = model.InchargeEmployeeId;
+                        data.LeaveTypeId = model.LeaveTypeId;
+                        data.EmployeeId = model.EmployeeId;
+                        data.Name = string.Empty;
+                        data.FromDate = model.FromDate;
+                        data.ToDate = model.ToDate;
+                        data.TotalDays = model.TotalDays;
+                        data.Remarks = model.Remarks;
+                        data.CreatedUserId = Convert.ToInt32(user.UserId);
+                        data.IsActive = true;
+                        data.IsDelete = false;
+                        data.SectorId = model.SectorId;
+                        data.ZoneId = model.ZoneId;
+                        data.DivisionId = model.DivisionId;
+                        data.InchargeSectorId = model.InchargeSectorId;
+                        data.InchargeZoneId = model.InchargeZoneId;
+                        data.InchargeDivisionId = model.InchargeDivisionId;
 
-                        if (model.DesignationId == 2)
-                        {
-                            data.PoliceStationId = 0;
-                            data.DesignationId = model.DesignationId;
-                            data.InchargeDesignationId = model.InchargeDesignationId;
-                            data.InchargePoliceStationId = model.InchargePoliceStationId;
-                            data.InchargeEmployeeId = model.InchargeEmployeeId;
-                            data.LeaveTypeId = model.LeaveTypeId;
-                            data.EmployeeId = model.EmployeeId;
-                            data.Name = string.Empty;
-                            data.FromDate = model.FromDate;
-                            data.ToDate = model.ToDate;
-                            data.TotalDays = model.TotalDays;
-                            data.Remarks = model.Remarks;
-                            data.CreatedUserId = Convert.ToInt32(user.UserId);
-                            data.IsActive = true;
-                            data.IsDelete = false;
-                            data.SectorId = model.TempPoliceStationId;
-                            data.ZoneId = 0;
-                            data.DivisionId = 0;
-                            data.InchargeSectorId = model.InchargeSectorId;
-                            data.InchargeZoneId = model.InchargeZoneId;
-                            data.InchargeDivisionId = model.InchargeDivisionId;
-                        }
-                        else if (model.DesignationId == 3)
-                        {
-                            data.PoliceStationId = 0;
-                            data.DesignationId = model.DesignationId;
-                            data.InchargeDesignationId = model.InchargeDesignationId;
-                            data.InchargePoliceStationId = model.InchargePoliceStationId;
-                            data.InchargeEmployeeId = model.InchargeEmployeeId;
-                            data.LeaveTypeId = model.LeaveTypeId;
-                            data.EmployeeId = model.EmployeeId;
-                            data.Name = string.Empty;
-                            data.FromDate = model.FromDate;
-                            data.ToDate = model.ToDate;
-                            data.TotalDays = model.TotalDays;
-                            data.Remarks = model.Remarks;
-                            data.CreatedUserId = Convert.ToInt32(user.UserId);
-                            data.IsActive = true;
-                            data.IsDelete = false;
-                            data.SectorId = 0;
-                            data.ZoneId = model.TempPoliceStationId;
-                            data.DivisionId = 0;
-                            data.InchargeSectorId = model.InchargeSectorId;
-                            data.InchargeZoneId = model.InchargeZoneId;
-                            data.InchargeDivisionId = model.InchargeDivisionId;
-                        }
-                        else if (model.DesignationId == 4)
-                        {
-                            data.PoliceStationId = 0;
-                            data.DesignationId = model.DesignationId;
-                            data.InchargeDesignationId = model.InchargeDesignationId;
-                            data.InchargePoliceStationId = model.InchargePoliceStationId;
-                            data.InchargeEmployeeId = model.InchargeEmployeeId;
-                            data.LeaveTypeId = model.LeaveTypeId;
-                            data.EmployeeId = model.EmployeeId;
-                            data.Name = string.Empty;
-                            data.FromDate = model.FromDate;
-                            data.ToDate = model.ToDate;
-                            data.TotalDays = model.TotalDays;
-                            data.Remarks = model.Remarks;
-                            data.CreatedUserId = Convert.ToInt32(user.UserId);
-                            data.IsActive = true;
-                            data.IsDelete = false;
-                            data.SectorId = 0;
-                            data.ZoneId = 0;
-                            data.DivisionId = model.TempPoliceStationId;
-                            data.InchargeSectorId = model.InchargeSectorId;
-                            data.InchargeZoneId = model.InchargeZoneId;
-                            data.InchargeDivisionId = model.InchargeDivisionId;
-                        }
-                        else
-                        {
-                            data.PoliceStationId = model.TempPoliceStationId;
-                            data.DesignationId = model.DesignationId;
-                            data.InchargeDesignationId = model.InchargeDesignationId;
-                            data.InchargePoliceStationId = model.InchargePoliceStationId;
-                            data.InchargeEmployeeId = model.InchargeEmployeeId;
-                            data.LeaveTypeId = model.LeaveTypeId;
-                            data.EmployeeId = model.EmployeeId;
-                            data.Name = string.Empty;
-                            data.FromDate = model.FromDate;
-                            data.ToDate = model.ToDate;
-                            data.TotalDays = model.TotalDays;
-                            data.Remarks = model.Remarks;
-                            data.CreatedUserId = Convert.ToInt32(user.UserId);
-                            data.IsActive = true;
-                            data.IsDelete = false;
-                            data.SectorId = 0;
-                            data.ZoneId = 0;
-                            data.DivisionId = 0;
-                            data.InchargeSectorId = model.InchargeSectorId;
-                            data.InchargeZoneId = model.InchargeZoneId;
-                            data.InchargeDivisionId = model.InchargeDivisionId;
-                        }
-
-                        _unitOfWork.LeaveApplication.Add(data);
+                        _unitOfWork.LeaveApplication.Update(data, model.LeaveApplicationID);
                         _unitOfWork.Save();
 
                         var updateData = _unitOfWork.EmployeeMaster.Find(x => x.EmployeeId == model.EmployeeId);
@@ -539,112 +495,35 @@ namespace AhmedabadCityDR.APIs
 
                         _unitOfWork.EmployeeMaster.Update(updateData, updateData.EmployeeId);
                         _unitOfWork.Save();
-
                     }
                     else
                     {
                         var data = new TblLeaveApplicationMaster();
 
-                        data.LeaveApplicationId = newRecordId;
+                        data.LeaveApplicationId = model.LeaveApplicationID;
+                        data.PoliceStationId = 0;
+                        data.DesignationId = model.DesignationId;
+                        data.InchargeDesignationId = model.InchargeDesignationId;
+                        data.InchargePoliceStationId = model.InchargePoliceStationId;
+                        data.InchargeEmployeeId = model.InchargeEmployeeId;
+                        data.LeaveTypeId = model.LeaveTypeId;
+                        data.EmployeeId = model.EmployeeId;
+                        data.Name = string.Empty;
+                        data.FromDate = model.FromDate;
+                        data.ToDate = model.ToDate;
+                        data.TotalDays = model.TotalDays;
+                        data.Remarks = model.Remarks;
+                        data.CreatedUserId = Convert.ToInt32(user.UserId);
+                        data.IsActive = true;
+                        data.IsDelete = false;
+                        data.SectorId = model.TempPoliceStationId;
+                        data.ZoneId = 0;
+                        data.DivisionId = 0;
+                        data.InchargeSectorId = model.InchargeSectorId;
+                        data.InchargeZoneId = model.InchargeZoneId;
+                        data.InchargeDivisionId = model.InchargeDivisionId;
 
-                        if (model.DesignationId == 2)
-                        {
-                            data.PoliceStationId = 0;
-                            data.DesignationId = model.DesignationId;
-                            data.InchargeDesignationId = model.InchargeDesignationId;
-                            data.InchargePoliceStationId = model.InchargePoliceStationId;
-                            data.InchargeEmployeeId = model.InchargeEmployeeId;
-                            data.LeaveTypeId = model.LeaveTypeId;
-                            data.EmployeeId = model.EmployeeId;
-                            data.Name = string.Empty;
-                            data.FromDate = model.FromDate;
-                            data.ToDate = model.ToDate;
-                            data.TotalDays = model.TotalDays;
-                            data.Remarks = model.Remarks;
-                            data.CreatedUserId = Convert.ToInt32(user.UserId);
-                            data.IsActive = true;
-                            data.IsDelete = false;
-                            data.SectorId = model.TempPoliceStationId;
-                            data.ZoneId = 0;
-                            data.DivisionId = 0;
-                            data.InchargeSectorId = model.InchargeSectorId;
-                            data.InchargeZoneId = model.InchargeZoneId;
-                            data.InchargeDivisionId = model.InchargeDivisionId;
-                        }
-                        else if (model.DesignationId == 3)
-                        {
-                            data.PoliceStationId = 0;
-                            data.DesignationId = model.DesignationId;
-                            data.InchargeDesignationId = model.InchargeDesignationId;
-                            data.InchargePoliceStationId = model.InchargePoliceStationId;
-                            data.InchargeEmployeeId = model.InchargeEmployeeId;
-                            data.LeaveTypeId = model.LeaveTypeId;
-                            data.EmployeeId = model.EmployeeId;
-                            data.Name = string.Empty;
-                            data.FromDate = model.FromDate;
-                            data.ToDate = model.ToDate;
-                            data.TotalDays = model.TotalDays;
-                            data.Remarks = model.Remarks;
-                            data.CreatedUserId = Convert.ToInt32(user.UserId);
-                            data.IsActive = true;
-                            data.IsDelete = false;
-                            data.SectorId = 0;
-                            data.ZoneId = model.TempPoliceStationId;
-                            data.DivisionId = 0;
-                            data.InchargeSectorId = model.InchargeSectorId;
-                            data.InchargeZoneId = model.InchargeZoneId;
-                            data.InchargeDivisionId = model.InchargeDivisionId;
-                        }
-                        else if (model.DesignationId == 4)
-                        {
-                            data.PoliceStationId = 0;
-                            data.DesignationId = model.DesignationId;
-                            data.InchargeDesignationId = model.InchargeDesignationId;
-                            data.InchargePoliceStationId = model.InchargePoliceStationId;
-                            data.InchargeEmployeeId = model.InchargeEmployeeId;
-                            data.LeaveTypeId = model.LeaveTypeId;
-                            data.EmployeeId = model.EmployeeId;
-                            data.Name = string.Empty;
-                            data.FromDate = model.FromDate;
-                            data.ToDate = model.ToDate;
-                            data.TotalDays = model.TotalDays;
-                            data.Remarks = model.Remarks;
-                            data.CreatedUserId = Convert.ToInt32(user.UserId);
-                            data.IsActive = true;
-                            data.IsDelete = false;
-                            data.SectorId = 0;
-                            data.ZoneId = 0;
-                            data.DivisionId = model.TempPoliceStationId;
-                            data.InchargeSectorId = model.InchargeSectorId;
-                            data.InchargeZoneId = model.InchargeZoneId;
-                            data.InchargeDivisionId = model.InchargeDivisionId;
-                        }
-                        else
-                        {
-                            data.PoliceStationId = model.TempPoliceStationId;
-                            data.DesignationId = model.DesignationId;
-                            data.InchargeDesignationId = model.InchargeDesignationId;
-                            data.InchargePoliceStationId = model.InchargePoliceStationId;
-                            data.InchargeEmployeeId = model.InchargeEmployeeId;
-                            data.LeaveTypeId = model.LeaveTypeId;
-                            data.EmployeeId = model.EmployeeId;
-                            data.Name = string.Empty;
-                            data.FromDate = model.FromDate;
-                            data.ToDate = model.ToDate;
-                            data.TotalDays = model.TotalDays;
-                            data.Remarks = model.Remarks;
-                            data.CreatedUserId = Convert.ToInt32(user.UserId);
-                            data.IsActive = true;
-                            data.IsDelete = false;
-                            data.SectorId = 0;
-                            data.ZoneId = 0;
-                            data.DivisionId = 0;
-                            data.InchargeSectorId = model.InchargeSectorId;
-                            data.InchargeZoneId = model.InchargeZoneId;
-                            data.InchargeDivisionId = model.InchargeDivisionId;
-                        }
-
-                        _unitOfWork.LeaveApplication.Add(data);
+                        _unitOfWork.LeaveApplication.Update(data, model.LeaveApplicationID);
                         _unitOfWork.Save();
 
                         var updateData = _unitOfWork.EmployeeMaster.Find(x => x.EmployeeId == model.EmployeeId);

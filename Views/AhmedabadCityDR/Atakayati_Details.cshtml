@@ -1,17 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Atakayati_Details";
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
 }
-<style>
-    table {
-        table-layout: fixed;
-        overflow-x: scroll;
-    }
 
-    td, th {
-        word-wrap: break-word;
-    }
-
-</style>
 <div class="card">
     <div class="card-body">
         <div class="row card-title">
@@ -19,32 +10,36 @@
                 <h5>અટકાયતી પગલાની વિગત-પત્રક નંબર–૫</h5>
             </div>
             <div class="col p-0">
-                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                <button type="button" class="btn btn-primary float-end" id="addData" data-bs-toggle="modal" data-bs-target="#basicModal">
                     + ADD અટકાયતી પગલાની વિગત
                 </button>
             </div>
         </div>
-        <form class="row pb-4" method="post">
+        <div class="row pb-4">
             <div class="col-md-2 mb-1">
-                <input type="date" name="fromDate" id="fromDate" class="form-control date-today">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
             </div>
             <div class="col-md-2 mb-1">
-                <input type="date" name="toDate" id="toDate" class="form-control date-today">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
             </div>
             <div class="col-md-4 mb-1">
-                <select id="policeStationId" name="policeStationId" asp-items="ViewBag.PoliceStation" class="form-select" required>
-                    <option value="" selected disabled>--Select PoliceStation Name--</option>
-                </select>
+                @if (policeStationId == 0)
+                {
+                    <select id="searchPoliceStationId" name="searchPoliceStationId" class="form-select" required>
+                        <option value="" disabled selected>--Select PoliceStation Name--</option>
+                    </select>
+                }
             </div>
             <div class="col-md-2 mb-1">
-                <input type="submit" class="form-control btn btn-outline-secondary" value="Search" />
+                <input type="submit" class="form-control btn btn-outline-secondary" id="searchButton" value="Search" />
             </div>
             <div class="col-md-2 mb-1">
                 <input type="button" class="form-control btn btn-outline-success" value="Report View" />
             </div>
-        </form>
-        <table id="" class="display nowrap" style="width:100%;overflow-x: scroll;">
+        </div>
+        <table id="data_AtakayatiDetails" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
         </table>
+
     </div>
 </div>
 
@@ -60,42 +55,46 @@
                 <div class="card mb-0">
                     <div class="card-body p-1 m-2" style="margin:20px">
                         <!-- Multi Columns Form -->
-                        <form class="row g-4 ">
+                        <form class="row g-4 " id="form_AtakayatiDetails">
+                            <input type="hidden" id="atakayatiPagalaSummaryId" name="atakayatiPagalaSummaryId" value="0" />
                             <div class="col-md-4">
-                                <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>---Select PoliceStation---</option>
+                                @if (policeStationId == 0)
+                                {
+                                    <label for="policeStationId" class="form-label">પોલીસ સ્ટેશન</label>
+                                    <select id="policeStationId" name="policeStationId" class="form-select" required>
+                                        <option value="" selected disabled>--Select PoliceStation Name--</option>
+                                    </select>
+                                }
+                            </div>
+                            <div class="col-md-4">
+                                <label for="subCategoryId" class="form-label">અટકાયતી પગલાના પ્રકાર </label>
+                                <select id="subCategoryId" name="subCategoryId" asp-value="" class="form-select" asp-items="ViewBag.SubCategory" required>
+                                    <option selected disabled value="">--Select SubCategory--</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label for="inputState" class="form-label">અટકાયતી પગલાના પ્રકાર </label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>---Select Category---</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="inputCity" class="form-label">તારીખ </label>
-                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                                <label for="createdDate" class="form-label">તારીખ </label>
+                                <input type="date" id="createdDate" name="createdDate" class="form-control date-today" aria-label="..." required>
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">આજના</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આ ડેટા પત્રક ૬ માંથી આવશે" disabled="disabled" />
+                                <label for="today" class="form-label">આજના</label>
+                                <input type="text" class="form-control" id="today" name="today" placeholder="આ ડેટા પત્રક ૬ માંથી આવશે" disabled="disabled" required />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress2" class="form-label">ગઇકાલના</label>
-                                <input type="text" class="form-control" id="inputAddress2" placeholder="આ ડેટા પત્રક ૬ માંથી આવશે" disabled="disabled" />
+                                <label for="last" class="form-label">ગઇકાલના</label>
+                                <input type="text" class="form-control" id="last" name="last" placeholder="આ ડેટા પત્રક ૬ માંથી આવશે" disabled="disabled" required />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">ચાલુ સાલના આજદીન સુધીના</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="ચાલુ સાલના આજદીન સુધીના" />
+                                <label for="currentYear" class="form-label">ચાલુ સાલના આજદીન સુધીના</label>
+                                <input type="text" class="form-control" id="currentYear" name="currentYear" placeholder="ચાલુ સાલના આજદીન સુધીના" required />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress2" class="form-label">ગઇ સાલના આજદીન સુધીના</label>
-                                <input type="text" class="form-control" id="inputAddress2" placeholder="ગઇ સાલના આજદીન સુધીના" />
+                                <label for="lastYear" class="form-label">ગઇ સાલના આજદીન સુધીના</label>
+                                <input type="text" class="form-control" id="lastYear" name="lastYear" placeholder="ગઇ સાલના આજદીન સુધીના" required />
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">+ ADD  અટકાયતી પગલાની વિગત</button>
+                                <button type="submit" class="btn btn-primary" id="submitbtn">+ ADD  અટકાયતી પગલાની વિગત</button>
                             </div>
 
                         </form>
@@ -108,3 +107,6 @@
         </div>
     </div>
 </div><!-- End Basic Modal-->
+@section Scripts{
+    <script src="~/js/AhmedabadCityDR_JS/Atakayati_Details.js" type="text/javascript"></script>
+}

@@ -13,10 +13,14 @@
         public int? InchargePoliceStationId { get; set; }
         public int? EmployeeId { get; set; }
         public int? InchargeEmployeeId { get; set; }
-        public int? TempSZDPId { get; set; }
+        public int? TempPoliceStationId { get; set; }
         public int? InchargeZoneId { get; set; }
-        public int? TempInchargeSectorId { get; set; }
+        public int? TempInchargePoliceStationId { get; set; }
         public int? InchargeSectorId { get; set; }
         public int? InchargeDivisionId { get; set; }
+        public int ZoneId { get; set; }
+        public int SectorId { get; set; }
+        public int DivisionId { get; set; }
+        public int PoliceStationId { get; set; }
     }
 }

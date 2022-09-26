@@ -139,6 +139,7 @@ namespace AhmedabadCityDR.Controllers
 
         public IActionResult Atakayati_Details()
         {
+            ViewBag.SubCategory = GetSubcategory(24);
             return View();
         }
 
