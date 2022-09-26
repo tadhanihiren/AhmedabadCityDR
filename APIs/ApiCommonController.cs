@@ -295,5 +295,39 @@ namespace AhmedabadCityDR.APIs
             var lstLeaveType = _unitOfWork.LeaveType.GetAll().Select(X => new { Value = X.LeaveTypeId, Text = X.LeaveTypeName }).ToList();
             return new JsonResult(lstLeaveType);
         }
+
+        [HttpGet("Get_PolicestationId_For_NightRound")]
+        public JsonResult Get_PolicestationId_For_NightRound(int? DesignationId)
+        {
+            switch (DesignationId)
+            {
+                case 1:
+                    var lstSectorAll = _unitOfWork.SectorMaster.GetAll().Select(X => new { Value = X.SectorId, Text = X.SectorName }).ToList();
+                    return new JsonResult(lstSectorAll);
+
+                case 2:
+                case 15:
+                    var lstSector = _unitOfWork.SectorMaster.GetAll().Where(X => X.SectorId != 0).Select(X => new { X.SectorId, text = X.SectorName }).ToList();
+                    return new JsonResult(lstSector);
+
+                case 3:
+                    var lstZone = _unitOfWork.ZoneMaster.GetAll().Where(X => X.ZoneId != 0).Select(X => new { Value = X.ZoneId, Text = X.ZoneName }).ToList();
+                    return new JsonResult(lstZone);
+
+                case 4:
+                    var lstDivision = _unitOfWork.DivisionMaster.GetAll().Where(X => X.DivisionId != 0).Select(X => new { Value = X.DivisionId, Text = X.DivisionName }).ToList();
+                    return new JsonResult(lstDivision);
+
+                case 5:
+                case 6:
+                    var lstPolicestation = _unitOfWork.PoliceStationMaster.GetAll().Where(X => X.PoliceStationId != 0).Select(X => new { Value = X.PoliceStationId, Text = X.PoliceStationName }).ToList();
+                    return new JsonResult(lstPolicestation);
+
+                default:
+                    break;
+            }
+
+            return new JsonResult(null);
+        }
     }
 }

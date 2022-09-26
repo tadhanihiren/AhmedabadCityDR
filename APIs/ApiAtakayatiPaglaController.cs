@@ -106,9 +106,7 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                var entity = _unitOfWork.AtakayatiPagla.Find(x => x.AtakayatiPagalaBackupId == id);
-                _unitOfWork.AtakayatiPagla.Delete(entity);
-                _unitOfWork.Save();
+                _unitOfWork.AtakayatiPagla.DeleteById(id);
 
                 return new JsonResult(new
                 {

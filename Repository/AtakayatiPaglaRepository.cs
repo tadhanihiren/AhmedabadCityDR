@@ -32,6 +32,11 @@ namespace AhmedabadCityDR.Repository
 
         #region Public Methods
 
+        public void DeleteById(int id)
+        {
+            _context.Database.ExecuteSqlRaw($"SP_tblAtakatiPagla_DEL {id}");
+        }
+
         public IEnumerable<AtakayatiPaglaViewModel> GetAtakayatiPagla(int roleId, int sectorId, int zoneId, int divisionId, int policeStationId, DateTime fromDate, DateTime toDate)
         {
             var pRoleId = new SqlParameter("@RoleId", roleId);

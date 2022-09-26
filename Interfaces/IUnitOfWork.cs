@@ -139,6 +139,11 @@
         /// </summary>
         public IBin_varsi_lash Bin_varsi_lash { get; set; }
 
+        /// <summary>
+        /// Gets or sets Night Round
+        /// </summary>
+        public INightRound NightRound { get; set; }
+
         #endregion
 
         #region Public Method

@@ -31,6 +31,11 @@ namespace AhmedabadCityDR.Repository
 
         #region Public Methods
 
+        public void DeleteById(int id)
+        {
+            _context.Database.ExecuteSqlRaw($"SP_tbl_ProhibitionRaidCase_DEL {id}");
+        }
+
         /// <summary>
         /// Find Prohibition Raid Case by police satation
         /// </summary>

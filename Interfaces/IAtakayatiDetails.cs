@@ -7,5 +7,6 @@ namespace AhmedabadCityDR.Interfaces
     {
          IEnumerable<AtakayatiDetailsViewModel> GetAtakayatiDetails(int roleId, int sectorId, int zoneId, int divisionId, int policeStationId, DateTime fromDate, DateTime toDate);
 
+        public void DeleteById(int id);
     }
 }

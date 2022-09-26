@@ -126,9 +126,7 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                var entity = _unitOfWork.ProhibitionRaidCase.Find(x => x.ProhibitionRaidCaseId == id);
-                _unitOfWork.ProhibitionRaidCase.Delete(entity);
-                _unitOfWork.Save();
+                _unitOfWork.ProhibitionRaidCase.DeleteById(id);
 
                 return new JsonResult(new
                 {
@@ -170,7 +168,7 @@ namespace AhmedabadCityDR.APIs
                                                                                        0,
                                                                                        0,
                                                                                        0,
-                                                                                       Convert.ToInt32(user.PoliceStationId),
+                                                                                       model.PoliceStationId.Value,
                                                                                        CategoryID,
                                                                                        model.PoliceStationNumber);
 

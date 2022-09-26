@@ -1,17 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Night_Round";
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
 }
-<style>
-    table {
-        table-layout: fixed;
-        overflow-x: scroll;
-    }
 
-    td, th {
-        word-wrap: break-word;
-    }
-
-</style>
 <div class="card">
     <div class="card-body">
         <div class="row card-title">
@@ -24,26 +15,29 @@
                 </button>
             </div>
         </div>
-        <form class="row pb-4" method="post">
+        <div class="row pb-4">
             <div class="col-md-2 mb-1">
-                <input type="date" name="fromDate" id="fromDate" class="form-control date-today">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
             </div>
             <div class="col-md-2 mb-1">
-                <input type="date" name="toDate" id="toDate" class="form-control date-today">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
             </div>
             <div class="col-md-4 mb-1">
-                <select id="policeStationId" name="policeStationId" asp-items="ViewBag.PoliceStation" class="form-select" required>
-                    <option value="" selected disabled>--Select PoliceStation Name--</option>
-                </select>
+                @if (policeStationId == 0)
+                {
+                    <select id="searchPoliceStationId" name="searchPoliceStationId" class="form-select" required>
+                        <option value="" disabled selected>--Select PoliceStation Name--</option>
+                    </select>
+                }
             </div>
             <div class="col-md-2 mb-1">
-                <input type="submit" class="form-control btn btn-outline-secondary" value="Search" />
+                <input type="submit" class="form-control btn btn-outline-secondary" id="searchButton" value="Search" />
             </div>
             <div class="col-md-2 mb-1">
                 <input type="button" class="form-control btn btn-outline-success" value="Report View" />
             </div>
-        </form>
-        <table id="" class="display nowrap" style="width:100%;overflow-x: scroll;">
+        </div>
+        <table id="" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
         </table>
     </div>
 </div>
@@ -59,49 +53,49 @@
                 <div class="card mb-0">
                     <div class="card-body p-1 m-2" style="margin:20px">
                         <!-- Multi Columns Form -->
-                        <form class="row g-4 ">
-
+                        <form class="row g-4 " id="form_NightRound">
+                            <input type="hidden" id="nightRoundId" name="nightRoundId" value="0" />
                             <div class="col-md-6">
-                                <label for="inputState" class="form-label">Designation </label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>--Select Designation Name--</option>
+                                <label for="designationId" class="form-label">Designation</label>
+                                <select id="designationId" name="designationId" class="form-select" asp-items="ViewBag.Designation" required>
+                                    <option selected disabled value="">--Select Designation--</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="inputState" class="form-label">Sector/Zone/Divison/PoliceStation </label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>--Select Sector/Zone/Division/Policestation Name--</option>
+                                <label for="tempId" class="form-label">Sector/Zone/Division/PoliceStation:</label>
+                                <select id="tempId" name="tempId" class="form-select" required>
+                                    <option selected disabled value="">--Select Sector/Zone/Division/PoliceStation:--</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label"> ના.રા.માં નિકળનાર અધિકારીશ્રીઓના નામ</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="ના.રા.માં નિકળનાર અધિકારીશ્રીઓના નામ" />
+                                <label for="nightRoundOfficerName" class="form-label"> ના.રા.માં નિકળનાર અધિકારીશ્રીઓના નામ</label>
+                                <input type="text" class="form-control" id="nightRoundOfficerName" name="nightRoundOfficerName" placeholder="ના.રા.માં નિકળનાર અધિકારીશ્રીઓના નામ" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">રવાના સમય</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="રવાના સમય" />
+                                <label for="goingTime" class="form-label">રવાના સમય</label>
+                                <input type="text" class="form-control" id="goingTime" name="goingTime" placeholder="રવાના સમય" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">પરત સમય</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="પરત સમય" />
+                                <label for="returnTime" class="form-label">પરત સમય</label>
+                                <input type="text" class="form-control" id="returnTime" name="returnTime" placeholder="પરત સમય" />
                             </div>
 
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">ના.રા.વિસ્તાર</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="ના.રા.વિસ્તાર" />
+                                <label for="nightRoundPlace" class="form-label">ના.રા.વિસ્તાર</label>
+                                <input type="text" class="form-control" id="nightRoundPlace" name="nightRoundPlace" placeholder="ના.રા.વિસ્તાર" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress2" class="form-label">નોંધ</label>
-                                <input type="text" class="form-control" id="inputAddress2" placeholder="નોંધ" />
+                                <label for="remarks" class="form-label">નોંધ</label>
+                                <input type="text" class="form-control" id="remarks" name="remarks" placeholder="નોંધ" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputCity" class="form-label">તારીખ</label>
-                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                                <label for="createdDate" class="form-label">તારીખ </label>
+                                <input type="date" id="createdDate" name="createdDate" class="form-control date-today" aria-label="..." required>
                             </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">+ ADD અધિકારીઓ ની રજા</button>
+                                <button type="submit" class="btn btn-primary" id="submitbtn">+ ADD અધિકારીઓ ની રજા</button>
                             </div>
                         </form>
 
@@ -113,3 +107,6 @@
         </div>
     </div>
 </div><!-- End Basic Modal-->
+@section Scripts{
+    <script src="~/js/AhmedabadCityDR_JS/Night_Round.js" type="text/javascript"></script>
+}

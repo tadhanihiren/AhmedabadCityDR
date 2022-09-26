@@ -63,9 +63,7 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                var entity = _iUnitOfWork.Aksmat_Death.Find(x => x.CrimesId == id);
-                _iUnitOfWork.Aksmat_Death.Delete(entity);
-                _iUnitOfWork.Save();
+                _iUnitOfWork.Aksmat_Death.DeleteById(id);
 
                 return new JsonResult(new
                 {

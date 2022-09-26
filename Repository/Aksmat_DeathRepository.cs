@@ -13,6 +13,10 @@ namespace AhmedabadCityDR.Repository
         {
             _context = context;
         }
+        public void DeleteById(int id)
+        {
+            _context.Database.ExecuteSqlRaw($"SP_tblPart1_5_Crimes_DEL {id}");
+        }
 
         /// <summary>
         /// Gets Part Aksmat Death Crimes

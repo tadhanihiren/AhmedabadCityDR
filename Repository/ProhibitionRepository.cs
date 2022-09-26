@@ -29,6 +29,10 @@ namespace AhmedabadCityDR.Repository
 
         #endregion
 
+        public void DeleteById(int id)
+        {
+            _context.Database.ExecuteSqlRaw($"SP_tblPart1_5_Crimes_DEL {id}");
+        }
         #region Public Methods
 
         /// <summary>

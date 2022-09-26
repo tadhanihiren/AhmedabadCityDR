@@ -2,6 +2,7 @@
 using AhmedabadCityDR.Models.TableModels;
 using AhmedabadCityDR.Models.ViewModels;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace AhmedabadCityDR.Repository
 {
@@ -30,6 +31,11 @@ namespace AhmedabadCityDR.Repository
         #endregion
 
         #region Public Methods
+
+        public void DeleteById(int id)
+        {
+            _context.Database.ExecuteSqlRaw($"SP_tblPart1_5_Crimes_DEL {id}");
+        }
 
         /// <summary>
         /// Gets Part 1 to 5 Crimes

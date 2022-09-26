@@ -27,6 +27,12 @@ namespace AhmedabadCityDR.Repository
             _context = context;
         }
         #endregion
+
+        public void DeleteById(int id)
+        {
+            _context.Database.ExecuteSqlRaw($"SP_tblProhibitioncrime_DEL {id}");
+        }
+
         public IEnumerable<ProhibitionCrimeViewModel> GetProhibitionCrimes(int roleId, int sectorId, int zoneId, int divisionId, int policeStationId, DateTime fromDate, DateTime toDate)
         {
             var pRoleId = new SqlParameter("@RoleId", roleId);

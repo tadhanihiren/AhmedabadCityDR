@@ -153,6 +153,11 @@ namespace AhmedabadCityDR.Repository
         /// </summary>
         public IBin_varsi_lash Bin_varsi_lash { get; set; }
 
+        /// <summary>
+        /// Gets or sets  Night Round
+        /// </summary>
+        public INightRound NightRound { get; set; }
+
         #endregion
 
         #region Constructors
@@ -172,6 +177,7 @@ namespace AhmedabadCityDR.Repository
             AtakayatiPaglaSummary = new AtakayatiPaglaSummaryRepository(_context);
             ProhibitionCrime = new ProhibitionCrimeRepository(_context);
             Aksmat_Death = new Aksmat_DeathRepository(_context);
+            NightRound = new NightRoundRepository(_context);
             Form3A = new Form3ARepository(_context);
             LoginMaster = new LoginMasterRepository(_context);
             SectorMaster = new SectorMasterRepository(_context);
@@ -192,6 +198,7 @@ namespace AhmedabadCityDR.Repository
             LeaveApplication = new LeaveApplicationMasterRepository(_context);
             DesignationName = new DesignationNameRepository(_context);
             LeaveType = new LeaveTypeMasterRepository(_context);
+
         }
 
         #endregion

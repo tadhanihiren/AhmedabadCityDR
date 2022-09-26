@@ -137,9 +137,7 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                var entity = _unitOfWork.Bin_varsi_lash.Find(x => x.CrimesId == id);
-                _unitOfWork.Bin_varsi_lash.Delete(entity);
-                _unitOfWork.Save();
+                _unitOfWork.Bin_varsi_lash.DeleteById(id);
 
                 return new JsonResult(new
                 {

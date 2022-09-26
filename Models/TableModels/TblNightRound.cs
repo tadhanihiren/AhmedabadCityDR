@@ -8,7 +8,6 @@ namespace AhmedabadCityDR.Models.TableModels
     {
         [Key]
         public int NightRoundId { get; set; }
-
         public string? NightRoundOfficerName { get; set; }
         public int? PoliceStationId { get; set; }
         public string? GoingTime { get; set; }
@@ -25,7 +24,6 @@ namespace AhmedabadCityDR.Models.TableModels
 
         [Column(TypeName = "datetime")]
         public DateTime? ModifiedDate { get; set; }
-
         public int? DesignationId { get; set; }
         public int? SectorId { get; set; }
         public int? ZoneId { get; set; }

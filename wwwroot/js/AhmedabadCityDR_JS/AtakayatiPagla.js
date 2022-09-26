@@ -132,93 +132,53 @@ $().ready(() => {
 
     $("#form_AtakayatiPagala").validate({
         rules: {
-            bpacT122C: {
+            crpc107: {
                 required: true,
                 regex: /^[0-9]*$/,
             },
-            bpacT124: {
-                required: true,
-                regex: /^[0-9]*$/,
-            },  
-            bpacT135_1: {
-                required: true,
-                regex: /^[0-9]*$/,
-            },  
-            bpacT142: {
-                required: true,
-                regex: /^[0-9]*$/,
-            },  
-            bpacT56: {
-                required: true,
-                regex: /^[0-9]*$/,
-            },  
-            bpacT57: {
-                required: true,
-                regex: /^[0-9]*$/,
-            },  
-            crpC107: {
-                required: true,
-                regex: /^[0-9]*$/,
-            },  
-            crpC109: {
-                required: true,
-                regex: /^[0-9]*$/,
-            },  
-            crpC110: {
-                required: true,
-                regex: /^[0-9]*$/,
-            },  
-            pasa: {
-                required: true,
-                regex: /^[0-9]*$/,
-            },  
             prohi93: {
                 required: true,
                 regex: /^[0-9]*$/,
             },  
-            total: {
+            crpc109: {
+                required: true,
+                regex: /^[0-9]*$/,
+            },  
+            crpc110: {
+                required: true,
+                regex: /^[0-9]*$/,
+            },  
+            bpact122c: {
+                required: true,
+                regex: /^[0-9]*$/,
+            },  
+            bpact124: {
+                required: true,
+                regex: /^[0-9]*$/,
+            },  
+            bpact56: {
+                required: true,
+                regex: /^[0-9]*$/,
+            },  
+            bpact57: {
+                required: true,
+                regex: /^[0-9]*$/,
+            },  
+            bpact1351: {
+                required: true,
+                regex: /^[0-9]*$/,
+            },  
+            bpact142: {
+                required: true,
+                regex: /^[0-9]*$/,
+            },  
+            pasa: {
                 required: true,
                 regex: /^[0-9]*$/,
             },           
         },
         messages: {
-            bpacT122C: {
-                required: "required",
-                regex: "Numbers only.",
-            },
-            bpacT124: {
-                required: "required",
-                regex: "Numbers only.",
-            },
-            bpacT135_1: {
-                required: "required",
-                regex: "Numbers only.",
-            },
-            bpacT142: {
-                required: "required",
-                regex: "Numbers only.",
-            },
-            bpacT56: {
-                required: "required",
-                regex: "Numbers only.",
-            },
-            bpacT57: {
-                required: "required",
-                regex: "Numbers only.",
-            },
-            crpC107: {
-                required: "required",
-                regex: "Numbers only.",
-            },
-            crpC109: {
-                required: "required",
-                regex: "Numbers only.",
-            },
-            crpC110: {
-                required: "required",
-                regex: "Numbers only.",
-            },
-            pasa: {
+            crpc107: {
                 required: "required",
                 regex: "Numbers only.",
             },
@@ -226,7 +186,39 @@ $().ready(() => {
                 required: "required",
                 regex: "Numbers only.",
             },
-            total: {
+            crpc109: {
+                required: "required",
+                regex: "Numbers only.",
+            },
+            crpc110: {
+                required: "required",
+                regex: "Numbers only.",
+            },
+            bpact122c: {
+                required: "required",
+                regex: "Numbers only.",
+            },
+            bpact124: {
+                required: "required",
+                regex: "Numbers only.",
+            },
+            bpact56: {
+                required: "required",
+                regex: "Numbers only.",
+            },
+            bpact57: {
+                required: "required",
+                regex: "Numbers only.",
+            },
+            bpact1351: {
+                required: "required",
+                regex: "Numbers only.",
+            },
+            bpact142: {
+                required: "required",
+                regex: "Numbers only.",
+            },
+            pasa: {
                 required: "required",
                 regex: "Numbers only.",
             },

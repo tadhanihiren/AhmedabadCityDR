@@ -31,6 +31,11 @@ namespace AhmedabadCityDR.Repository
 
         #region Public Methods
 
+        public void DeleteById(int id)
+        {
+            _context.Database.ExecuteSqlRaw($"SP_tblForm3A_DEL_ONLY {id}");
+        }
+
         /// <summary>
         /// Gets Form3A
         /// </summary>

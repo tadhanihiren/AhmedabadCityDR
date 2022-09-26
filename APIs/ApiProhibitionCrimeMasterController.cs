@@ -32,7 +32,6 @@ namespace AhmedabadCityDR.APIs
 
         #endregion
 
-
         #region Get Methodes
 
         /// <summary>
@@ -55,9 +54,7 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                var entity = _iUnitOfWork.ProhibitionCrime.Find(x => x.ProhibitioncrimeId == id);
-                _iUnitOfWork.ProhibitionCrime.Delete(entity);
-                _iUnitOfWork.Save();
+                _iUnitOfWork.ProhibitionCrime.DeleteById(id);
 
                 return new JsonResult(new
                 {
@@ -137,8 +134,6 @@ namespace AhmedabadCityDR.APIs
             });
         }
         #endregion
-
-
 
         #region Post Methods
 

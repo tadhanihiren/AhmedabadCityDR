@@ -31,6 +31,11 @@ namespace AhmedabadCityDR.Repository
 
         #region Public Methods
 
+        public void DeleteById(int id)
+        {
+            _context.Database.ExecuteSqlRaw($"SP_tblPart1_5_Crimes_DEL {id}");
+        }
+
         /// <summary>
         /// Gets Bin_varsi_lash Crimes by police satation
         /// /// </summary>

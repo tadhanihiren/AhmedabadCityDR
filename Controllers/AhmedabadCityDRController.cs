@@ -70,6 +70,25 @@ namespace AhmedabadCityDR.Controllers
             return pidhelaKabja;
         }
 
+        public List<SelectListItem> GetDesignation(int id)
+        {
+            var lstDesignation = _iUnitOfWork.DesignationMaster.GetAll()
+                .Where(X => X.DesignationId <= id)
+                .Select(X => new { X.DesignationId, X.DesignationName })
+                .ToList();
+
+            var designation = new List<SelectListItem>();
+
+            foreach (var item in lstDesignation)
+            {
+                designation.Add(new SelectListItem { Value = item.DesignationId.ToString(), Text = item.DesignationName });
+            }
+
+            ViewBag.Designation = designation;
+
+            return designation;
+        }
+
         public IActionResult Daily_Report()
         {
             return View();
@@ -186,6 +205,7 @@ namespace AhmedabadCityDR.Controllers
 
         public IActionResult Night_Round()
         {
+            ViewBag.Designation = GetDesignation(5);
             return View();
         }
 
