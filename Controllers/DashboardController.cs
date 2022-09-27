@@ -12,7 +12,7 @@ namespace AhmedabadCityDR.Controllers
         /// <summary>
         /// Unit of work.
         /// </summary>
-        protected IUnitOfWork _iUnitOfWork;
+        protected IUnitOfWork _unitOfWork;
 
         #endregion Pivate Members
 
@@ -23,7 +23,7 @@ namespace AhmedabadCityDR.Controllers
         /// </summary>
         public DashboardController(IUnitOfWork iUnitOfWork)
         {
-            _iUnitOfWork = iUnitOfWork;
+            _unitOfWork = iUnitOfWork;
         }
 
         #endregion Constructors
@@ -49,7 +49,7 @@ namespace AhmedabadCityDR.Controllers
             int zoneId = Convert.ToInt32(user.ZoneId);
             int divisionId = Convert.ToInt32(user.DivisionId);
             int policeStationId = Convert.ToInt32(user.PoliceStationId);
-            var dashboardCityCount = await _iUnitOfWork.StoredProcedure.GetCityDashboardCountAsync(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value, toDate.Value);
+            var dashboardCityCount = await _unitOfWork.StoredProcedure.GetCityDashboardCountAsync(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value, toDate.Value);
             return View(dashboardCityCount);
         }
 
@@ -73,7 +73,7 @@ namespace AhmedabadCityDR.Controllers
             int divisionId = Convert.ToInt32(user.DivisionId);
             int policeStationId = Convert.ToInt32(user.PoliceStationId);
 
-            var dashboardTrafficCount = await _iUnitOfWork.StoredProcedure.GetTrafficDashboardCountAsync(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value, toDate.Value);
+            var dashboardTrafficCount = await _unitOfWork.StoredProcedure.GetTrafficDashboardCountAsync(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value, toDate.Value);
             return View(dashboardTrafficCount);
         }
 

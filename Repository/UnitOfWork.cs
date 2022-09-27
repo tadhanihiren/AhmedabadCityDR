@@ -158,6 +158,11 @@ namespace AhmedabadCityDR.Repository
         /// </summary>
         public INightRound NightRound { get; set; }
 
+        /// <summary>
+        /// Gets or sets INightEmployeeMaster
+        /// </summary>
+        public INightEmployeeMaster NightEmployeeMaster { get; set; }
+
         #endregion
 
         #region Constructors
@@ -177,6 +182,7 @@ namespace AhmedabadCityDR.Repository
             AtakayatiPaglaSummary = new AtakayatiPaglaSummaryRepository(_context);
             ProhibitionCrime = new ProhibitionCrimeRepository(_context);
             Aksmat_Death = new Aksmat_DeathRepository(_context);
+            NightEmployeeMaster = new NightEmployeeMasterRepository(_context);
             NightRound = new NightRoundRepository(_context);
             Form3A = new Form3ARepository(_context);
             LoginMaster = new LoginMasterRepository(_context);

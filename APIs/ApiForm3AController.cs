@@ -1,8 +1,6 @@
 ﻿using AhmedabadCityDR.Interfaces;
 using AhmedabadCityDR.Models.APIModels;
 using AhmedabadCityDR.Models.TableModels;
-using AhmedabadCityDR.Repository;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AhmedabadCityDR.APIs
@@ -16,7 +14,7 @@ namespace AhmedabadCityDR.APIs
         /// <summary>
         /// IUnitOfWork.
         /// </summary>
-        private readonly IUnitOfWork _iUnitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         #endregion
 
@@ -28,7 +26,7 @@ namespace AhmedabadCityDR.APIs
         /// <param name="iUnitOfWork"></param>
         public ApiForm3AController(IUnitOfWork iUnitOfWork)
         {
-            _iUnitOfWork = iUnitOfWork;
+            _unitOfWork = iUnitOfWork;
         }
 
         #endregion
@@ -40,7 +38,7 @@ namespace AhmedabadCityDR.APIs
         {
             return new JsonResult(new
             {
-                Content = _iUnitOfWork.Form3A.Find(x => x.AkasmatId == id),
+                Content = _unitOfWork.Form3A.Find(x => x.AkasmatId == id),
             });
         }
 
@@ -49,7 +47,7 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                _iUnitOfWork.Form3A.DeleteById(id);
+                _unitOfWork.Form3A.DeleteById(id);
 
                 return new JsonResult(new
                 {
@@ -65,8 +63,6 @@ namespace AhmedabadCityDR.APIs
                 });
             }
         }
-
-
 
         [HttpGet("Get")]
         public JsonResult Get(DateTime? fromDate, DateTime? toDate, int? searchPoliceStationId)
@@ -94,7 +90,7 @@ namespace AhmedabadCityDR.APIs
                 policeStationId = searchPoliceStationId.Value;
             }
 
-            var responseData = _iUnitOfWork.Form3A.GetForm3A(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date)
+            var responseData = _unitOfWork.Form3A.GetForm3A(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date)
                 .OrderByDescending(x => x.CreatedDate)
                 .OrderBy(x => x.PoliceStationId)
                 .Select(x => new
@@ -142,11 +138,11 @@ namespace AhmedabadCityDR.APIs
                         IsDeleted = false,
                     };
 
-                    _iUnitOfWork.Form3A.Add(data);
+                    _unitOfWork.Form3A.Add(data);
                 }
                 else
                 {
-                    var data = _iUnitOfWork.Form3A.Find(x => x.AkasmatId == form3A.AkasmatId);
+                    var data = _unitOfWork.Form3A.Find(x => x.AkasmatId == form3A.AkasmatId);
 
                     if (data == null)
                     {
@@ -164,7 +160,7 @@ namespace AhmedabadCityDR.APIs
                     data.ModifiedDate = form3A.CreatedDate;
                     data.ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId);
 
-                    _iUnitOfWork.Form3A.Update(data, data.AkasmatId);
+                    _unitOfWork.Form3A.Update(data, data.AkasmatId);
                 }
 
                 return new JsonResult(new

@@ -24,7 +24,7 @@ namespace AhmedabadCityDR.APIs
         /// <summary>
         /// IUnitOfWork.
         /// </summary>
-        private readonly IUnitOfWork _iUnitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         #endregion
 
@@ -36,7 +36,7 @@ namespace AhmedabadCityDR.APIs
         /// <param name="iUnitOfWork"></param>
         public ApiPart6CrimesController(IUnitOfWork iUnitOfWork)
         {
-            _iUnitOfWork = iUnitOfWork;
+            _unitOfWork = iUnitOfWork;
         }
 
         #endregion
@@ -53,7 +53,7 @@ namespace AhmedabadCityDR.APIs
         {
             return new JsonResult(new
             {
-                Content = _iUnitOfWork.Part6Crime.Find(x => x.CrimesId == id),
+                Content = _unitOfWork.Part6Crime.Find(x => x.CrimesId == id),
             });
         }
 
@@ -89,7 +89,7 @@ namespace AhmedabadCityDR.APIs
                 policeStationId = searchPoliceStationId.Value;
             }
 
-            var responseData = _iUnitOfWork.Part6Crime
+            var responseData = _unitOfWork.Part6Crime
                 .GetPart1_5Crime(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date, PartBCategoryID)
                 .OrderByDescending(x => x.CreatedDate)
                 .OrderBy(x => x.SubCategoryId)
@@ -142,7 +142,7 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                _iUnitOfWork.Part6Crime.DeleteById(id);
+                _unitOfWork.Part6Crime.DeleteById(id);
 
                 return new JsonResult(new
                 {
@@ -180,7 +180,7 @@ namespace AhmedabadCityDR.APIs
 
                 var user = HttpContext.GetClaimsPrincipal();
 
-                var oldData = _iUnitOfWork.Part6Crime.FindByPoliceStaionNumber(0,
+                var oldData = _unitOfWork.Part6Crime.FindByPoliceStaionNumber(0,
                                                                                0,
                                                                                0,
                                                                                0,
@@ -222,7 +222,7 @@ namespace AhmedabadCityDR.APIs
                         PidhelaKabjanaType = model.PidhelaKabjanaType
                     };
 
-                    _iUnitOfWork.Part6Crime.Add(newData);
+                    _unitOfWork.Part6Crime.Add(newData);
                 }
                 else
                 {
@@ -231,7 +231,7 @@ namespace AhmedabadCityDR.APIs
                         model.CrimesId = oldData.CrimesId;
                     }
 
-                    var data = _iUnitOfWork.Part6Crime.Find(x => x.CrimesId == model.CrimesId);
+                    var data = _unitOfWork.Part6Crime.Find(x => x.CrimesId == model.CrimesId);
 
                     if (data == null)
                     {
@@ -267,10 +267,10 @@ namespace AhmedabadCityDR.APIs
                     data.Ipcact = model.Ipcact;
                     data.PidhelaKabjanaType = model.PidhelaKabjanaType;
 
-                    _iUnitOfWork.Part6Crime.Update(data, data.CrimesId);
+                    _unitOfWork.Part6Crime.Update(data, data.CrimesId);
                 }
 
-                _iUnitOfWork.Save();
+                _unitOfWork.Save();
 
                 return new JsonResult(new
                 {

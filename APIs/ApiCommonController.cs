@@ -257,28 +257,28 @@ namespace AhmedabadCityDR.APIs
                 case 2:
                 case 15:
                     var lstSector = _unitOfWork.EmployeeMaster.GetAll()
-                                                              .Where(x => x.SectorId == inchargePoliceStationId && x.DesignationId == inchargeDesignationId && x.IsActive == true && x.IsDeleted == false)
+                                                              .Where(x => x.SectorId == inchargepoliceStationId && x.DesignationId == inchargedesignationId && x.IsActive == true && x.IsDeleted == false)
                                                               .Select(x => new { Value = x.EmployeeId, Text = x.EmployeName })
                                                               .ToList();
                     return new JsonResult(lstSector);
 
                 case 3:
                     var lstZone = _unitOfWork.EmployeeMaster.GetAll()
-                                                            .Where(x => x.ZoneId == inchargePoliceStationId && x.DesignationId == inchargeDesignationId && x.IsActive == true && x.IsDeleted == false)
+                                                            .Where(x => x.ZoneId == inchargepoliceStationId && x.DesignationId == inchargedesignationId && x.IsActive == true && x.IsDeleted == false)
                                                             .Select(x => new { Value = x.EmployeeId, Text = x.EmployeName })
                                                             .ToList();
                     return new JsonResult(lstZone);
 
                 case 4:
                     var lstDivision = _unitOfWork.EmployeeMaster.GetAll()
-                                                                .Where(x => x.DivisionId == inchargePoliceStationId && x.DesignationId == inchargeDesignationId && x.IsActive == true && x.IsDeleted == false)
+                                                                .Where(x => x.DivisionId == inchargepoliceStationId && x.DesignationId == inchargedesignationId && x.IsActive == true && x.IsDeleted == false)
                                                                 .Select(x => new { Value = x.EmployeeId, Text = x.EmployeName })
                                                                 .ToList();
                     return new JsonResult(lstDivision);
 
                 default:
                     var lstPolicestation = _unitOfWork.EmployeeMaster.GetAll()
-                                                                     .Where(x => x.PoliceStationId == inchargePoliceStationId && x.DesignationId == inchargeDesignationId && x.IsActive == true && x.IsDeleted == false)
+                                                                     .Where(x => x.PoliceStationId == inchargepoliceStationId && x.DesignationId == inchargedesignationId && x.IsActive == true && x.IsDeleted == false)
                                                                      .Select(x => new { Value = x.EmployeeId, Text = x.EmployeName })
                                                                      .ToList();
                     return new JsonResult(lstPolicestation);
@@ -296,10 +296,10 @@ namespace AhmedabadCityDR.APIs
             return new JsonResult(lstLeaveType);
         }
 
-        [HttpGet("Get_PolicestationId_For_NightRound")]
-        public JsonResult Get_PolicestationId_For_NightRound(int? DesignationId)
+        [HttpGet("Get_policeStationId_For_NightRound")]
+        public JsonResult Get_policeStationId_For_NightRound(int? designationId)
         {
-            switch (DesignationId)
+            switch (designationId)
             {
                 case 1:
                     var lstSectorAll = _unitOfWork.SectorMaster.GetAll().Select(X => new { Value = X.SectorId, Text = X.SectorName }).ToList();
@@ -328,6 +328,27 @@ namespace AhmedabadCityDR.APIs
             }
 
             return new JsonResult(null);
+        }
+
+
+        [HttpGet("Get_DesignationId_For_NightEmployeeRound")]
+        public JsonResult Get_DesignationId_For_NightEmployeeRound()
+        {
+            var lstSectorAll = _unitOfWork.DesignationMaster.GetAll()
+                .Where(x => x.DesignationId >= 5 && x.DesignationId <= 14)
+                .Select(X => new { Value = X.DesignationId, Text = X.DesignationName })
+                .ToList();
+            return new JsonResult(lstSectorAll);
+        }
+
+        [HttpGet("GetEmployeeForNARA")]
+        public JsonResult GetEmployeeForNARA(int designationId, int policeStationId)
+        {
+            var lstSectorAll = _unitOfWork.EmployeeMaster.GetAll()
+                .Where(x => x.IsActive == true && x.IsDeleted == false && x.PoliceStationId == policeStationId && x.DesignationId == designationId)
+                .Select(X => new { Value = X.EmployeeId, Text = X.EmployeName })
+                .ToList();
+            return new JsonResult(lstSectorAll);
         }
     }
 }

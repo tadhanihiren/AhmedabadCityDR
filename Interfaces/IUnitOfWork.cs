@@ -144,6 +144,11 @@
         /// </summary>
         public INightRound NightRound { get; set; }
 
+        /// <summary>
+        /// Gets or sets INightEmployeeMaster
+        /// </summary>
+        public INightEmployeeMaster NightEmployeeMaster { get; set; }
+
         #endregion
 
         #region Public Method

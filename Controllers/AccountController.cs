@@ -19,7 +19,7 @@ namespace AhmedabadCityDR.Controllers
         /// <summary>
         /// Unit of work.
         /// </summary>
-        protected IUnitOfWork _iUnitOfWork;
+        protected IUnitOfWork _unitOfWork;
 
         #endregion Pivate Members
 
@@ -30,7 +30,7 @@ namespace AhmedabadCityDR.Controllers
         /// </summary>
         public AccountController(IUnitOfWork iUnitOfWork)
         {
-            _iUnitOfWork = iUnitOfWork;
+            _unitOfWork = iUnitOfWork;
         }
 
         #endregion Constructors
@@ -55,7 +55,7 @@ namespace AhmedabadCityDR.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _iUnitOfWork.EmployeeMaster.AuthenticateUser(loginViewModel.UserName.Trim(), loginViewModel.Password.Trim());
+                var user = await _unitOfWork.EmployeeMaster.AuthenticateUser(loginViewModel.UserName.Trim(), loginViewModel.Password.Trim());
 
                 if (user == null)
                 {

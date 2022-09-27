@@ -9,11 +9,11 @@ namespace AhmedabadCityDR.APIs
     [ApiController]
     public class ApiUserNamePasswordController : ControllerBase
     {
-        private readonly IUnitOfWork _iUnitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public ApiUserNamePasswordController(IUnitOfWork iUnitOfWork)
         {
-            _iUnitOfWork = iUnitOfWork;
+            _unitOfWork = iUnitOfWork;
         }
 
         [HttpGet("GetById")]
@@ -21,14 +21,14 @@ namespace AhmedabadCityDR.APIs
         {
             return new JsonResult(new
             {
-                Content = _iUnitOfWork.LoginMaster.Find(x => x.LoginId == id),
+                Content = _unitOfWork.LoginMaster.Find(x => x.LoginId == id),
             });
         }
 
         [HttpGet("Get")]
         public JsonResult Get()
         {
-            var responseData = _iUnitOfWork.LoginMaster.GetLoginUsers()
+            var responseData = _unitOfWork.LoginMaster.GetLoginUsers()
                 .OrderBy(x => x.PoliceStationId)
                 .Select(x => new
                 {
@@ -114,11 +114,11 @@ namespace AhmedabadCityDR.APIs
                         DesignationId = postLoginMaster.DesignationId,
                         FierBaseId = postLoginMaster.FierBaseId
                     };
-                    _iUnitOfWork.LoginMaster.Add(data);
+                    _unitOfWork.LoginMaster.Add(data);
                 }
                 else
                 {
-                    var data = _iUnitOfWork.LoginMaster.Find(x => x.LoginId == postLoginMaster.LoginId);
+                    var data = _unitOfWork.LoginMaster.Find(x => x.LoginId == postLoginMaster.LoginId);
 
                     if (data == null)
                     {
@@ -149,9 +149,9 @@ namespace AhmedabadCityDR.APIs
                     data.DesignationId = postLoginMaster.DesignationId;
                     data.FierBaseId = postLoginMaster.FierBaseId;
 
-                    _iUnitOfWork.LoginMaster.Update(data, data.LoginId);
+                    _unitOfWork.LoginMaster.Update(data, data.LoginId);
                 }
-                _iUnitOfWork.Save();
+                _unitOfWork.Save();
 
                 return new JsonResult(new
                 {

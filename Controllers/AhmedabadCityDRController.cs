@@ -11,7 +11,7 @@ namespace AhmedabadCityDR.Controllers
         /// <summary>
         /// Unit of work
         /// </summary>
-        private readonly IUnitOfWork _iUnitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         #endregion
 
@@ -23,7 +23,7 @@ namespace AhmedabadCityDR.Controllers
         /// <param name="iUnitOfWork">Unit of work</param>
         public AhmedabadCityDRController(IUnitOfWork iUnitOfWork)
         {
-            _iUnitOfWork = iUnitOfWork;
+            _unitOfWork = iUnitOfWork;
         }
 
         #endregion
@@ -35,11 +35,11 @@ namespace AhmedabadCityDR.Controllers
         /// <returns>Returns list of SelectListItem of sub category</returns>
         public List<SelectListItem> GetSubcategory(int? subCategoryId)
         {
-            var lstSubcategory = _iUnitOfWork.SubCategoryMaster.GetAll();
+            var lstSubcategory = _unitOfWork.SubCategoryMaster.GetAll();
 
             if (subCategoryId != null)
             {
-                lstSubcategory = _iUnitOfWork.SubCategoryMaster.GetAll()
+                lstSubcategory = _unitOfWork.SubCategoryMaster.GetAll()
                     .Where(x => x.CategoryId == subCategoryId.Value);
             }
 
@@ -59,7 +59,7 @@ namespace AhmedabadCityDR.Controllers
         /// <returns>Returns list of SelectListItem of Pidhela Kabja</returns>
         public List<SelectListItem> GetPidhelaKabja()
         {
-            var lstPidhelaKabja = _iUnitOfWork.Pidhela_Kabja_CategoryMaster.GetAll();
+            var lstPidhelaKabja = _unitOfWork.Pidhela_Kabja_CategoryMaster.GetAll();
 
             var pidhelaKabja = new List<SelectListItem>();
 
@@ -72,7 +72,7 @@ namespace AhmedabadCityDR.Controllers
 
         public List<SelectListItem> GetDesignation(int id)
         {
-            var lstDesignation = _iUnitOfWork.DesignationMaster.GetAll()
+            var lstDesignation = _unitOfWork.DesignationMaster.GetAll()
                 .Where(X => X.DesignationId <= id)
                 .Select(X => new { X.DesignationId, X.DesignationName })
                 .ToList();

@@ -350,6 +350,7 @@ namespace AhmedabadCityDR.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<NightEmployeeMasterViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<LeaveApplicationMasterViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Samans_DetailsViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<AtakayatiPaglaViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);

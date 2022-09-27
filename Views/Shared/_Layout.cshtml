@@ -16,10 +16,6 @@
     <link href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet" />
 
-    <!-- Data Table CSS-->
-    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
-
     <!-- =======================================================
     * Template Name: NiceAdmin - v2.3.1
     * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -39,6 +35,13 @@
 
     <link href="~/css/Layout.css" rel="stylesheet" />
     <link href="~/css/screen.css" rel="stylesheet" />
+
+    <!-- Data Table CSS-->
+    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/fixedcolumns/4.1.0/js/dataTables.fixedColumns.min.js" rel="stylesheet" />
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.js"></script>
@@ -91,7 +94,6 @@
                     </a>
                 </li>
                 <!--End Side bar header-->
-
                 @if (roleId <= 2)
                 {
                     @switch (trafficFor)
@@ -887,6 +889,6 @@
 }
 else
 {
-    @Html.ActionLink("Go To Login","Login","Account");
+    @Html.ActionLink("Go To Login","Login","Account")
 }
 </html>

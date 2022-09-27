@@ -30,7 +30,7 @@ namespace AhmedabadCityDR.APIs
         /// <summary>
         /// IUnitOfWork.
         /// </summary>
-        private readonly IUnitOfWork _iUnitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         #endregion
 
@@ -42,7 +42,7 @@ namespace AhmedabadCityDR.APIs
         /// <param name="iUnitOfWork"></param>
         public ApiAksmat_DeathController(IUnitOfWork iUnitOfWork)
         {
-            _iUnitOfWork = iUnitOfWork;
+            _unitOfWork = iUnitOfWork;
         }
 
         #endregion
@@ -54,7 +54,7 @@ namespace AhmedabadCityDR.APIs
         {
             return new OkObjectResult(new
             {
-                Content = _iUnitOfWork.Aksmat_Death.Find(x => x.CrimesId == id),
+                Content = _unitOfWork.Aksmat_Death.Find(x => x.CrimesId == id),
             });
         }
 
@@ -63,7 +63,7 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                _iUnitOfWork.Aksmat_Death.DeleteById(id);
+                _unitOfWork.Aksmat_Death.DeleteById(id);
 
                 return new JsonResult(new
                 {
@@ -106,7 +106,7 @@ namespace AhmedabadCityDR.APIs
                 policeStationId = policestationId.Value;
             }
 
-            var responseData = _iUnitOfWork.Aksmat_Death.GetAksmat_Death(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date, AksmatDeathCategoryID)
+            var responseData = _unitOfWork.Aksmat_Death.GetAksmat_Death(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date, AksmatDeathCategoryID)
              .OrderBy(x => x.PoliceStationId)
             .Select(x => new
             {
@@ -150,7 +150,7 @@ namespace AhmedabadCityDR.APIs
 
                 var policeStationId = Convert.ToInt32(user.PoliceStationId);
 
-                var oldData = _iUnitOfWork.Aksmat_Death.FindByPoliceStaionNumber(0,
+                var oldData = _unitOfWork.Aksmat_Death.FindByPoliceStaionNumber(0,
                                                                                  0,
                                                                                  0,
                                                                                  0,
@@ -184,7 +184,7 @@ namespace AhmedabadCityDR.APIs
                         Ipcact = model.Ipcact,
                     };
 
-                    _iUnitOfWork.Aksmat_Death.Add(data);
+                    _unitOfWork.Aksmat_Death.Add(data);
                 }
                 else
                 {
@@ -192,7 +192,7 @@ namespace AhmedabadCityDR.APIs
                     {
                         model.CrimesId = oldData.CrimesId;
                     }
-                    var data = _iUnitOfWork.Aksmat_Death.Find(x => x.CrimesId == model.CrimesId);
+                    var data = _unitOfWork.Aksmat_Death.Find(x => x.CrimesId == model.CrimesId);
 
                     if (data == null)
                     {
@@ -218,16 +218,14 @@ namespace AhmedabadCityDR.APIs
                     data.HdiitsEntry = model.HdiitsEntry;
                     data.IsActive = true;
                     data.IsDelete = false;
-                    data.CreatedDate = model.CreatedDate;
                     data.ModifiedDate = model.CreatedDate;
-                    data.CreatedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId);
                     data.ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId);
                     data.Ipcact = model.Ipcact;
 
-                    _iUnitOfWork.Aksmat_Death.Update(data, data.CrimesId);
+                    _unitOfWork.Aksmat_Death.Update(data, data.CrimesId);
                 }
 
-                _iUnitOfWork.Save();
+                _unitOfWork.Save();
 
                 return new JsonResult(new
                 {
