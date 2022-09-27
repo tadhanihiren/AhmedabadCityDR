@@ -81,7 +81,7 @@ namespace AhmedabadCityDR.APIs
         }
 
         [HttpGet("Get")]
-        public IActionResult Get(DateTime? fromDate, DateTime? toDate, int? policestationId)
+        public JsonResult Get(DateTime? fromDate, DateTime? toDate, int? searchPoliceStationId)
         {
             if (!fromDate.HasValue)
             {
@@ -94,16 +94,16 @@ namespace AhmedabadCityDR.APIs
             }
 
             var user = HttpContext.GetClaimsPrincipal();
+            var roleId = Convert.ToInt32(user.RoleId);
+            var sectorId = Convert.ToInt32(user.SectorId);
+            var zoneId = Convert.ToInt32(user.ZoneId);
+            var divisionId = Convert.ToInt32(user.DivisionId);
+            var policeStationId = Convert.ToInt32(user.PoliceStationId);
 
-            int roleId = Convert.ToInt32(user.RoleId);
-            int sectorId = Convert.ToInt32(user.SectorId);
-            int zoneId = Convert.ToInt32(user.ZoneId);
-            int divisionId = Convert.ToInt32(user.DivisionId);
-            int policeStationId = Convert.ToInt32(user.PoliceStationId);
-
-            if (policeStationId == 0 && policestationId.HasValue)
+            if (policeStationId == 0 && searchPoliceStationId.HasValue)
             {
-                policeStationId = policestationId.Value;
+                roleId = 0;
+                policeStationId = searchPoliceStationId.Value;
             }
 
             var responseData = _unitOfWork.Aksmat_Death.GetAksmat_Death(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date, AksmatDeathCategoryID)
@@ -127,7 +127,8 @@ namespace AhmedabadCityDR.APIs
                 x.IPCACT,
             });
 
-            return new OkObjectResult(new
+
+            return new JsonResult(new
             {
                 Success = true,
                 Headers = "Aksmat_Death",

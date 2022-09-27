@@ -350,6 +350,7 @@ namespace AhmedabadCityDR.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<NightRountPersonCountMasterViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<NightEmployeeMasterViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<LeaveApplicationMasterViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Samans_DetailsViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
@@ -365,6 +366,7 @@ namespace AhmedabadCityDR.Repository
             modelBuilder.Entity<Part6CrimesViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Aksmat_DeathViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Login_UserNamePassWord_ViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<NightRoundViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Part1_5CrimeViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<DashboardCommonCityCount>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<DashboardCommonTrafficCount>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);

@@ -213,12 +213,12 @@ namespace AhmedabadCityDR.APIs
         /// <summary>
         /// Gets Incharge Sector
         /// </summary>
-        /// <param name="inchargeDesignationId">Incharge Designation Id</param>
+        /// <param name="inchargedesignationId">Incharge Designation Id</param>
         /// <returns>returns Incharge list</returns>
         [HttpGet("GetInchargeSector")]
-        public JsonResult GetInchargeSector(int? inchargeDesignationId)
+        public JsonResult GetInchargeSector(int? inchargedesignationId)
         {
-            switch (inchargeDesignationId)
+            switch (inchargedesignationId)
             {
                 case 2:
                 case 15:
@@ -246,13 +246,13 @@ namespace AhmedabadCityDR.APIs
         /// <summary>
         /// Gets Employee id and name.
         /// </summary>
-        /// <param name="inchargePoliceStationId">PoliceStation Id</param>
-        /// <param name="inchargeDesignationId">Designation Id</param>
+        /// <param name="inchargepoliceStationId">PoliceStation Id</param>
+        /// <param name="inchargedesignationId">Designation Id</param>
         /// <returns>List of Employee</returns>
         [HttpGet("GetInchargeEmployee")]
-        public JsonResult GetInchargeEmployee(int? inchargePoliceStationId, int? inchargeDesignationId)
+        public JsonResult GetInchargeEmployee(int? inchargepoliceStationId, int? inchargedesignationId)
         {
-            switch (inchargeDesignationId)
+            switch (inchargedesignationId)
             {
                 case 2:
                 case 15:
@@ -307,7 +307,7 @@ namespace AhmedabadCityDR.APIs
 
                 case 2:
                 case 15:
-                    var lstSector = _unitOfWork.SectorMaster.GetAll().Where(X => X.SectorId != 0).Select(X => new { X.SectorId, text = X.SectorName }).ToList();
+                    var lstSector = _unitOfWork.SectorMaster.GetAll().Where(X => X.SectorId != 0).Select(X => new { Value = X.SectorId, Text = X.SectorName }).ToList();
                     return new JsonResult(lstSector);
 
                 case 3:
@@ -319,7 +319,6 @@ namespace AhmedabadCityDR.APIs
                     return new JsonResult(lstDivision);
 
                 case 5:
-                case 6:
                     var lstPolicestation = _unitOfWork.PoliceStationMaster.GetAll().Where(X => X.PoliceStationId != 0).Select(X => new { Value = X.PoliceStationId, Text = X.PoliceStationName }).ToList();
                     return new JsonResult(lstPolicestation);
 

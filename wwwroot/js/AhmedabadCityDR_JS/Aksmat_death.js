@@ -108,7 +108,7 @@ $(document).ready(function () {
             { title: 'મરણ ની જગ્યા', data: 'crimePlace', "width": "900px" },
             { title: 'ગુન્હો દાખલ કરનારનુ નામ હોદ્દો', data: 'personNameWhoFiledCrime', "width": "100px" },
             { title: 'તપાસ કરનારનુ નામ હોદ્દો', data: 'investigationOfficer', "width": "100px" },
-            { title: 'ગુનાની ટુંક વિગત', data: 'shortDetail', "width": "1000px" },
+            { title: 'ગુનાની ટુંક વિગત', data: 'shortDetail', "width": "150px" },
             { title: 'Hdiits અંતર્ગત એન્ટ્રી કરેલ છે.કે કેમ?', data: 'hdiitsEntry', "width": "100px" },
             { title: 'કલમ', data: 'ipcact', "width": "100px" },
             {

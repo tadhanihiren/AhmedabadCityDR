@@ -9,7 +9,6 @@
         public string? ReturnTime { get; set; }
         public string? NightRoundPlace { get; set; }
         public string? Remarks { get; set; }
-        public int? RoleId { get; set; } = 0;
         public int? SectorId { get; set; } = 0;
         public int? ZoneId { get; set; } = 0;
         public int? DivisionId { get; set; } = 0;

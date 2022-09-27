@@ -10,7 +10,7 @@
                 <h5>નાઇટ રાઉન્‍ડ હકીકત</h5>
             </div>
             <div class="col p-0">
-                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                <button type="button" id="addData" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
                     + ADD નાઇટ રાઉન્‍ડ
                 </button>
             </div>
@@ -37,7 +37,7 @@
                 <input type="button" class="form-control btn btn-outline-success" value="Report View" />
             </div>
         </div>
-        <table id="" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
+        <table id="data_Night_Round" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
         </table>
     </div>
 </div>
@@ -51,7 +51,7 @@
             </div>
             <div class="modal-body">
                 <div class="card mb-0">
-                    <div class="card-body p-1 m-2" style="margin:20px">
+                    <div class="card-body p-1 m-2" >
                         <!-- Multi Columns Form -->
                         <form class="row g-4 " id="form_NightRound">
                             <input type="hidden" id="nightRoundId" name="nightRoundId" value="0" />
@@ -95,7 +95,7 @@
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" id="submitbtn">+ ADD અધિકારીઓ ની રજા</button>
+                                <button type="submit" class="btn btn-primary" id="submitbtn">+ ADD નાઇટ રાઉન્‍ડ </button>
                             </div>
                         </form>
 

@@ -1,17 +1,8 @@
 ﻿@{
     ViewData["Title"] = "NightRound_HEKO_PO";
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
 }
-<style>
-    table {
-        table-layout: fixed;
-        overflow-x: scroll;
-    }
 
-    td, th {
-        word-wrap: break-word;
-    }
-
-</style>
 <div class="card">
     <div class="card-body">
         <div class="row card-title">
@@ -19,23 +10,34 @@
                 <h5>પો.સ્‍ટે. તરફ થી મો.સા. ઉ૫ર નીકળેલ હે.કો./પો.કો. ની હકીકત દર્શાવતુ ૫ત્રક</h5>
             </div>
             <div class="col-md-4 p-0">
-                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                <button type="button" id="addData" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
                     + Add હે.કો./પો.કો.
                 </button>
             </div>
         </div>
-        <form class="row pb-4" method="post">
-            <div class="col-md-4">
-                <input type="date" name="fromDate" id="fromDate" class="form-control date-today">
+        <div class="row pb-4">
+            <div class="col-md-2 mb-1">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
             </div>
-            <div class="col-md-4">
-                <input type="date" name="toDate" id="toDate" class="form-control date-today">
+            <div class="col-md-2 mb-1">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
             </div>
-            <div class="col-md-2">
-                <input type="submit" class="form-control btn btn-outline-secondary" value="Search" />
+            <div class="col-md-4 mb-1">
+                @if (policeStationId == 0)
+                {
+                    <select id="searchPoliceStationId" name="searchPoliceStationId" class="form-select" required>
+                        <option value="" disabled selected>--Select PoliceStation Name--</option>
+                    </select>
+                }
             </div>
-        </form>
-        <table id="" class="display nowrap" style="width:100%;overflow-x: scroll;">
+            <div class="col-md-2 mb-1">
+                <input type="submit" class="form-control btn btn-outline-secondary" id="searchButton" value="Search" />
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-success" value="Report View" />
+            </div>
+        </div>
+        <table id="data_Night_Round" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
         </table>
     </div>
 </div>
@@ -49,13 +51,13 @@
             </div>
             <div class="modal-body">
                 <div class="card mb-0">
-                    <div class="card-body p-1 m-2" style="margin:20px">
+                    <div class="card-body p-1 m-2" >
                         <!-- Multi Columns Form -->
                         <form class="row g-4 ">
 
                             <div class="col-md-6">
-                                <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
-                                <select id="inputState" class="form-select" >
+                                <label for="" class="form-label">પોલીસ સ્ટેશન</label>
+                                <select id="inputState" class="form-select">
                                     <option selected>---Select PoliceStation---</option>
                                 </select>
                             </div>
@@ -72,7 +74,7 @@
                                 <input type="text" class="form-control" id="inputAddres5s" placeholder="ના.રા.માં નીકળેલ મો.સા. ની સંખ્‍યા." />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">મો.સા. સાથે ના.રા.માં નીકળેલ હે.કો./પો.કો. ની સંખ્‍યા</label>
+                                <label for="inputAddress5" class="form-label">મો.સા.સાથે ના.રા.માં નીકળેલ હે.કો./પો.કો. ની સંખ્‍યા</label>
                                 <input type="text" class="form-control" id="inputAddres5s" placeholder="મો.સા. સાથે ના.રા.માં નીકળેલ હે.કો./પો.કો. ની સંખ્‍યા" />
                             </div>
 

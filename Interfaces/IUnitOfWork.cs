@@ -5,6 +5,11 @@
         #region Properties
 
         /// <summary>
+        /// Gets or sets NightRountPersonCountMaster.
+        /// </summary>
+        public INightRountPersonCountMaster NightRountPersonCountMaster { get; set; }
+
+        /// <summary>
         /// Gets or sets Leave Type.
         /// </summary>
         public ILeaveTypeMaster LeaveType { get; set; }

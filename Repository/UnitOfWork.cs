@@ -1,4 +1,5 @@
 ﻿using AhmedabadCityDR.Interfaces;
+using AhmedabadCityDR.Models.ViewModels;
 
 namespace AhmedabadCityDR.Repository
 {
@@ -17,6 +18,11 @@ namespace AhmedabadCityDR.Repository
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets NightRountPersonCountMaster.
+        /// </summary>
+        public INightRountPersonCountMaster NightRountPersonCountMaster { get; set; }
 
         /// <summary>
         /// Gets or sets Leave Type.
@@ -204,6 +210,7 @@ namespace AhmedabadCityDR.Repository
             LeaveApplication = new LeaveApplicationMasterRepository(_context);
             DesignationName = new DesignationNameRepository(_context);
             LeaveType = new LeaveTypeMasterRepository(_context);
+            NightRountPersonCountMaster = new NightRountPersonCountMasterRepository(_context);
 
         }
 
