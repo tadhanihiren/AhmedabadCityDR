@@ -1,5 +1,4 @@
 ﻿using AhmedabadCityDR.Interfaces;
-using AhmedabadCityDR.Models.ViewModels;
 
 namespace AhmedabadCityDR.Repository
 {
@@ -18,6 +17,11 @@ namespace AhmedabadCityDR.Repository
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets CRPC41Master.
+        /// </summary>
+        public ICRPC41Master CRPC41Master { get; set; }
 
         /// <summary>
         /// Gets or sets NightRountPersonCountMaster.
@@ -211,7 +215,7 @@ namespace AhmedabadCityDR.Repository
             DesignationName = new DesignationNameRepository(_context);
             LeaveType = new LeaveTypeMasterRepository(_context);
             NightRountPersonCountMaster = new NightRountPersonCountMasterRepository(_context);
-
+            CRPC41Master = new CRPC41MasterRepository(_context);
         }
 
         #endregion

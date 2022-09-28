@@ -85,6 +85,7 @@ namespace AhmedabadCityDR.APIs
 
             if (policeStationId == 0 && searchPoliceStationId.HasValue)
             {
+                roleId = 0;
                 policeStationId = searchPoliceStationId.Value;
             }
 

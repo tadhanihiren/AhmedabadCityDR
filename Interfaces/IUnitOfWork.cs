@@ -5,6 +5,11 @@
         #region Properties
 
         /// <summary>
+        /// Gets or sets CRPC41Master.
+        /// </summary>
+        public ICRPC41Master CRPC41Master { get; set; }
+
+        /// <summary>
         /// Gets or sets NightRountPersonCountMaster.
         /// </summary>
         public INightRountPersonCountMaster NightRountPersonCountMaster { get; set; }

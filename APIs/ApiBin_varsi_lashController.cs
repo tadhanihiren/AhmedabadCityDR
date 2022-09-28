@@ -91,6 +91,7 @@ namespace AhmedabadCityDR.APIs
 
             if (policeStationId == 0 && searchPoliceStationId.HasValue)
             {
+                roleId = 0;
                 policeStationId = searchPoliceStationId.Value;
             }
 
@@ -184,7 +185,7 @@ namespace AhmedabadCityDR.APIs
                                                                                   0,
                                                                                   0,
                                                                                   0,
-                                                                                  Convert.ToInt32(user.PoliceStationId),
+                                                                                  model.PoliceStationId.Value,
                                                                                   CategoryID,
                                                                                   model.PoliceStationNumber);
 

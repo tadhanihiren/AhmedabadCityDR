@@ -1,17 +1,8 @@
 ﻿@{
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
     ViewData["Title"] = "CRPC";
 }
-<style>
-    table {
-        table-layout: fixed;
-        overflow-x: scroll;
-    }
 
-    td, th {
-        word-wrap: break-word;
-    }
-
-</style>
 <div class="card">
     <div class="card-body">
         <div class="row card-title">
@@ -19,31 +10,34 @@
                 <h5>CRPC ૪૧(૧)ડી મુજબના કેસો ની વિગત</h5>
             </div>
             <div class="col p-0">
-                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                <button type="button" id="addData" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
                     + Add CRPC ૪૧(૧) ની વિગત
                 </button>
             </div>
         </div>
-        <form class="row pb-4" method="post">
+        <div class="row pb-4">
             <div class="col-md-2 mb-1">
-                <input type="date" name="fromDate" id="fromDate" class="form-control date-today">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
             </div>
             <div class="col-md-2 mb-1">
-                <input type="date" name="toDate" id="toDate" class="form-control date-today">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
             </div>
             <div class="col-md-4 mb-1">
-                <select id="policeStationId" name="policeStationId" asp-items="ViewBag.PoliceStation" class="form-select" required>
-                    <option value="" selected disabled>--Select PoliceStation Name--</option>
-                </select>
+                @if (policeStationId == 0)
+                {
+                    <select id="searchPoliceStationId" name="searchPoliceStationId" class="form-select" required>
+                        <option value="" selected>--Select PoliceStation Name--</option>
+                    </select>
+                }
             </div>
             <div class="col-md-2 mb-1">
-                <input type="submit" class="form-control btn btn-outline-secondary" value="Search" />
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" name="searchButton" value="Search" />
             </div>
             <div class="col-md-2 mb-1">
                 <input type="button" class="form-control btn btn-outline-success" value="Report View" />
             </div>
-        </form>
-        <table id="" class="display nowrap" style="width:100%;overflow-x: scroll;">
+        </div>
+        <table id="data_CRPC" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
         </table>
     </div>
 </div>
@@ -57,57 +51,64 @@
             </div>
             <div class="modal-body">
                 <div class="card mb-0">
-                    <div class="card-body p-1 m-2" >
+                    <div class="card-body p-1 m-2">
                         <!-- Multi Columns Form -->
-                        <form class="row g-4 ">
+                        <form class="row g-4 " id="form_CRPC">
+                            <input type="hidden" id="crpcid" name="crpcid" value="0" />
+                            @if (policeStationId == 0)
+                            {
+                                <div class="col-md-6">
+                                    <div class="dropdown">
+                                        <label for="policeStationId" class="form-label">પોલીસ સ્ટેશન</label>
+                                        <select id="policeStationId" name="policeStationId" class="form-select" required>
+                                            <option value="" selected disabled>--Select PoliceStation Name--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-md-6">
+                                <label for="crpcnumber" class="form-label">સ્ટે. ડા. એ.નં.</label>
+                                <input type="text" class="form-control" id="crpcnumber" name="crpcnumber" placeholder="સ્ટે. ડા. એ.નં." />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="crime" class="form-label">ફરીયાદી</label>
+                                <input type="text" class="form-control" id="crime" name="crime" placeholder="ફરીયાદી" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="accusedName" class="form-label">પકડાયેલ આરોપી</label>
+                                <input type="text" class="form-control" id="accusedName" name="accusedName" placeholder="પકડાયેલ આરોપી" />
+                            </div>
 
                             <div class="col-md-6">
-                                <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>---Select PoliceStation---</option>
-                                </select>
+                                <label for="vehicalDetails" class="form-label">મળી આવેલ વાહન/ મુદ્દામાલની વિગત</label>
+                                <input type="text" class="form-control" id="vehicalDetails" name="vehicalDetails" placeholder="મળી આવેલ વાહન/ મુદ્દામાલની વિગત" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">સ્ટે. ડા. એ.નં.</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="સ્ટે. ડા. એ.નં." />
+                                <label for="accusedDetails" class="form-label">પકડાયેલ આરોપીથી શોધાયેલ ગુન્હાની વિગત</label>
+                                <input type="text" class="form-control" id="accusedDetails" name="accusedDetails" placeholder="પકડાયેલ આરોપીથી શોધાયેલ ગુન્હાની વિગત" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">ફરીયાદી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="ફરીયાદી" />
+                                <label for="shortDetails" class="form-label">આરોપીનો પૂર્વ ઇતિહાસ</label>
+                                <input type="text" class="form-control" id="shortDetails" name="shortDetails" placeholder="આરોપીનો પૂર્વ ઇતિહાસ" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">પકડાયેલ આરોપી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="પકડાયેલ આરોપી" />
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">મળી આવેલ વાહન/ મુદ્દામાલની વિગત</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="મળી આવેલ વાહન/ મુદ્દામાલની વિગત" />
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">પકડાયેલ આરોપીથી શોધાયેલ ગુન્હાની વિગત</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="પકડાયેલ આરોપીથી શોધાયેલ ગુન્હાની વિગત" />
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">આરોપીનો પૂર્વ ઇતિહાસ</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આરોપીનો પૂર્વ ઇતિહાસ" />
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputCity" class="form-label">તારીખ</label>
-                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                                <label for="createdDate" class="form-label">તારીખ</label>
+                                <input type="date" name="createdDate" id="createdDate" class="form-control date-today" aria-label="...">
                             </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">+ ADD CRPC ૪૧(૧) ની વિગત.</button>
+                                <button type="submit" id="submitbtn" class="btn btn-primary">+ ADD CRPC ૪૧(૧) ની વિગત.</button>
                             </div>
                         </form>
-
                         <!-- End Multi Columns Form -->
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div><!-- End Basic Modal-->
+</div>
+<!-- End Basic Modal-->
+@section Scripts {
+    <script src="~/js/AhmedabadCityDR_JS/CRPC.js" type="text/javascript"></script>
+}

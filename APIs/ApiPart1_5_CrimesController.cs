@@ -187,7 +187,7 @@ namespace AhmedabadCityDR.APIs
                                                                                 0,
                                                                                 0,
                                                                                 0,
-                                                                                Convert.ToInt32(user.PoliceStationId),
+                                                                                model.PoliceStationId.Value,
                                                                                 PartACategoryID,
                                                                                 model.PoliceStationNumber);
 

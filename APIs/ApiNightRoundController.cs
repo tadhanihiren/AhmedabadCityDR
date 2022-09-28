@@ -30,6 +30,7 @@ namespace AhmedabadCityDR.APIs
         }
 
         #endregion
+
         #region Get Methods
 
         [HttpGet("GetById")]

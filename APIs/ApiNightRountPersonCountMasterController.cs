@@ -125,6 +125,20 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
+                var user = HttpContext.GetClaimsPrincipal();
+
+                if (model.PoliceStationId == null && Convert.ToInt32(user.PoliceStationId) != 0)
+                {
+                    model.PoliceStationId = Convert.ToInt32(user.PoliceStationId);
+                }
+
+                var oldData = _unitOfWork.NightRountPersonCountMaster.FindByPoliceStaionNumber(0,
+                                                                                               0,
+                                                                                               0,
+                                                                                               0,
+                                                                                               model.PoliceStationId.Value,
+                                                                                               model.CreatedDate.Value,
+                                                                                               model.CreatedDate.Value);
 
                 if (model.NightRoundPersonCountId == 0)
                 {
@@ -151,6 +165,11 @@ namespace AhmedabadCityDR.APIs
                 }
                 else
                 {
+                    if (oldData != null)
+                    {
+                        model.NightRoundPersonCountId = oldData.NightRoundPersonCountId;
+                    }
+
                     var data = _unitOfWork.NightRountPersonCountMaster.Find(x => x.NightRoundPersonCountId == model.NightRoundPersonCountId);
 
                     if (data == null)
