@@ -37,7 +37,7 @@
                 <input type="button" class="form-control btn btn-outline-success" value="Report View" />
             </div>
         </div>
-        <table id="data_Night_Round" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
+        <table id="data_Night_Round_HEKO_PO" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
         </table>
     </div>
 </div>
@@ -53,47 +53,52 @@
                 <div class="card mb-0">
                     <div class="card-body p-1 m-2" >
                         <!-- Multi Columns Form -->
-                        <form class="row g-4 ">
+                        <form class="row g-4 " id="form_NightRound_HEKOPO">
+                            <input type="text" id="nightRoundHekoPoid" name="nightRoundHekoPoid" value="0" style="display:none" class="d-none" placeholder="" />
+                            @if (policeStationId == 0)
+                            {
+                                <div class="col-md-6">
+                                    <div class="dropdown">
+                                        <label for="policeStationId" class="form-label">પોલીસ સ્ટેશન</label>
+                                        <select id="policeStationId" name="policeStationId" class="form-select" required>
+                                            <option value="" selected disabled>--Select PoliceStation Name--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-md-6">
+                                <label for="createdDate" class="form-label">તારીખ </label>
+                                <input type="date" id="createdDate" name="createdDate" class="form-control date-today" aria-label="..." required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="totalOfMotarcycle" class="form-label">પો.સ્‍ટે.માં ફાળવેલ કુલ મોટર સાયકલની સંખ્‍યા</label>
+                                <input type="text" class="form-control" id="totalOfMotarcycle" name="totalOfMotarcycle" placeholder="પો.સ્‍ટે.માં ફાળવેલ કુલ મોટર સાયકલની સંખ્‍યા" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="maofNumber" class="form-label">ના.રા.માં નીકળેલ મો.સા. ની સંખ્‍યા.</label>
+                                <input type="text" class="form-control" id="maofNumber" name="maofNumber" placeholder="ના.રા.માં નીકળેલ મો.સા. ની સંખ્‍યા." />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="nightRoundHekoPonumber" class="form-label">મો.સા.સાથે ના.રા.માં નીકળેલ હે.કો./પો.કો. ની સંખ્‍યા</label>
+                                <input type="text" class="form-control" id="nightRoundHekoPonumber" name="nightRoundHekoPonumber" placeholder="મો.સા. સાથે ના.રા.માં નીકળેલ હે.કો./પો.કો. ની સંખ્‍યા" />
+                            </div>
 
                             <div class="col-md-6">
-                                <label for="" class="form-label">પોલીસ સ્ટેશન</label>
-                                <select id="inputState" class="form-select">
-                                    <option selected>---Select PoliceStation---</option>
-                                </select>
+                                <label for="defectNumber" class="form-label">એમ.ટી.માં જમા મો.સા. (ડીફેકટ) ની સંખ્યા</label>
+                                <input type="text" class="form-control" id="defectNumber" name="defectNumber" placeholder="એમ.ટી.માં જમા મો.સા. (ડીફેકટ) ની સંખ્યા" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputCity" class="form-label">તારીખ</label>
-                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                                <label for="notavailabelNumber" class="form-label">એમ.ટી.માં જમા સિ’વાય મો.સા.નહી નીકળેલા સંખ્યા</label>
+                                <input type="text" class="form-control" id="notavailabelNumber" name="notavailabelNumber" placeholder="એમ.ટી.માં જમા સિ’વાય મો.સા.નહી નીકળેલા સંખ્યા" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">પો.સ્‍ટે.માં ફાળવેલ કુલ મોટર સાયકલની સંખ્‍યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="પો.સ્‍ટે.માં ફાળવેલ કુલ મોટર સાયકલની સંખ્‍યા" />
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">ના.રા.માં નીકળેલ મો.સા. ની સંખ્‍યા.</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="ના.રા.માં નીકળેલ મો.સા. ની સંખ્‍યા." />
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">મો.સા.સાથે ના.રા.માં નીકળેલ હે.કો./પો.કો. ની સંખ્‍યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="મો.સા. સાથે ના.રા.માં નીકળેલ હે.કો./પો.કો. ની સંખ્‍યા" />
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">એમ.ટી.માં જમા મો.સા. (ડીફેકટ) ની સંખ્યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="એમ.ટી.માં જમા મો.સા. (ડીફેકટ) ની સંખ્યા" />
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">એમ.ટી.માં જમા સિ’વાય મો.સા.નહી નીકળેલા સંખ્યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="એમ.ટી.માં જમા સિ’વાય મો.સા.નહી નીકળેલા સંખ્યા" />
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">રિમાર્કસ</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="રિમાર્કસ" />
+                                <label for="remark" class="form-label">રિમાર્કસ</label>
+                                <input type="text" class="form-control" id="remark" name="remark" placeholder="રિમાર્કસ" />
                             </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">+ ADD હે.કો./પો.કો.</button>
+                                <button type="submit" class="btn btn-primary" id="submitbtn">+ ADD હે.કો./પો.કો.</button>
                             </div>
 
                         </form>
@@ -106,3 +111,6 @@
         </div>
     </div>
 </div><!-- End Basic Modal-->
+@section Scripts{
+    <script src="~/js/AhmedabadCityDR_JS/NightRound_HEKO_PO.js" type="text/javascript"></script>
+}

@@ -19,6 +19,16 @@ namespace AhmedabadCityDR.Repository
         #region Properties
 
         /// <summary>
+        /// Gets or sets VehicleCheckingMaster.
+        /// </summary>
+        public IVehicleCheckingMaster VehicleCheckingMaster { get; set; }
+
+        /// <summary>
+        /// Gets or sets DcbPolicestationMaster.
+        /// </summary>
+        public IDcbPolicestationMaster DcbPolicestationMaster { get; set; }
+
+        /// <summary>
         /// Gets or sets CRPC41Master.
         /// </summary>
         public ICRPC41Master CRPC41Master { get; set; }
@@ -169,6 +179,11 @@ namespace AhmedabadCityDR.Repository
         public INightRound NightRound { get; set; }
 
         /// <summary>
+        /// Gets or sets  Night Round HEKO PO
+        /// </summary>
+        public INightRound_HEKO_PO NightRound_HEKO_PO { get; set; }
+
+        /// <summary>
         /// Gets or sets INightEmployeeMaster
         /// </summary>
         public INightEmployeeMaster NightEmployeeMaster { get; set; }
@@ -194,6 +209,7 @@ namespace AhmedabadCityDR.Repository
             Aksmat_Death = new Aksmat_DeathRepository(_context);
             NightEmployeeMaster = new NightEmployeeMasterRepository(_context);
             NightRound = new NightRoundRepository(_context);
+            NightRound_HEKO_PO = new NightRound_HEKO_PO_Repository(_context);
             Form3A = new Form3ARepository(_context);
             LoginMaster = new LoginMasterRepository(_context);
             SectorMaster = new SectorMasterRepository(_context);
@@ -216,6 +232,8 @@ namespace AhmedabadCityDR.Repository
             LeaveType = new LeaveTypeMasterRepository(_context);
             NightRountPersonCountMaster = new NightRountPersonCountMasterRepository(_context);
             CRPC41Master = new CRPC41MasterRepository(_context);
+            DcbPolicestationMaster = new DcbPolicestationMasterRepository(_context);
+            VehicleCheckingMaster = new VehicleCheckingMasterRepository(_context);
         }
 
         #endregion

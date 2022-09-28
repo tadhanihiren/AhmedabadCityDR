@@ -98,7 +98,7 @@ namespace AhmedabadCityDR.APIs
                     x.NightRoundId,
                     x.NightRoundOfficerName,
                     x.PoliceStationName,
-                    x.CreatedDate,
+                    CreatedDate = x.CreatedDate.Value.ToString("dd/MM/yyyy"),
                     x.GoingTime,
                     x.ReturnTime,
                     x.NightRoundPlace,
@@ -190,10 +190,33 @@ namespace AhmedabadCityDR.APIs
                 }
                 else
                 {
-                                      
+                    var data = _unitOfWork.NightRound.Find(x => x.NightRoundId == model.NightRoundId);
+
+                    if (data == null)
+                    {
+                        return new JsonResult(new
+                        {
+                            IsValid = false,
+                            Error = ConstantsData.ErrDataNotFound,
+                        });
+                    }
+                    data.PoliceStationId = model.PoliceStationId;
+                    data.NightRoundOfficerName = model.NightRoundOfficerName;
+                    data.GoingTime = model.GoingTime;
+                    data.ReturnTime = model.ReturnTime;
+                    data.NightRoundPlace = model.NightRoundPlace;
+                    data.Remarks = model.Remarks;
+                    data.IsActive = true;
+                    data.IsDeleted = false;
+                    data.ModifiedDate = model.CreatedDate;
+                    data.ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId);
+                    data.SectorId = model.SectorId;
+                    data.ZoneId = model.ZoneId;
+                    data.DivisionId = model.DivisionId;
+                    data.DesignationId = model.DesignationId;
+
+                    _unitOfWork.NightRound.Update(data, data.NightRoundId);
                 }
-
-
                 return new JsonResult(new
                 {
                     IsValid = true,

@@ -241,6 +241,7 @@ namespace AhmedabadCityDR.Controllers
 
         public IActionResult Vehicle_Checking()
         {
+            ViewBag.SubCategory = GetSubcategory(33);
             return View();
         }
 

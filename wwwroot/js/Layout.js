@@ -24,15 +24,23 @@
         if (date < 10) {
             date = "0" + date;
         }
-        var maxDate = year + "-" + month + "-" + date;
+        var newTodayDate = year + "-" + month + "-" + date;
 
-        // Get a NodeList of all .demo elements
-        const demoClasses = document.querySelectorAll('.date-today');
+        // Get a NodeList of all .date-today elements
+        const newDate = document.querySelectorAll('.date-today');
 
         // Change the attribute of multiple elements with a loop
-        demoClasses.forEach(element => {
-            element.setAttribute("max", maxDate);
-            element.setAttribute("value", maxDate);
+        newDate.forEach(element => {
+            element.setAttribute("max", newTodayDate);
+            element.setAttribute("value", newTodayDate);
+        });
+
+        // Get a NodeList of all .max-date-today elements
+        const maxDate = document.querySelectorAll('.max-date-today');
+
+        // Change the attribute of multiple elements with a loop
+        maxDate.forEach(element => {
+            element.setAttribute("max", newTodayDate);
         });
     }
 });

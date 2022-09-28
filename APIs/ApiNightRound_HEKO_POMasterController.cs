@@ -1,13 +1,14 @@
 ﻿using AhmedabadCityDR.Interfaces;
 using AhmedabadCityDR.Models.APIModels;
 using AhmedabadCityDR.Models.TableModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AhmedabadCityDR.APIs
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApiForm3AController : ControllerBase
+    public class ApiNightRound_HEKO_POMasterController : ControllerBase
     {
         #region Private Members
 
@@ -24,11 +25,10 @@ namespace AhmedabadCityDR.APIs
         /// Constructors
         /// </summary>
         /// <param name="iUnitOfWork"></param>
-        public ApiForm3AController(IUnitOfWork iUnitOfWork)
+        public ApiNightRound_HEKO_POMasterController(IUnitOfWork iUnitOfWork)
         {
             _unitOfWork = iUnitOfWork;
         }
-
         #endregion
 
         #region Get Methods
@@ -38,7 +38,7 @@ namespace AhmedabadCityDR.APIs
         {
             return new JsonResult(new
             {
-                Content = _unitOfWork.Form3A.Find(x => x.AkasmatId == id),
+                Content = _unitOfWork.NightRound_HEKO_PO.Find(x => x.NightRoundHekoPoid == id),
             });
         }
 
@@ -47,7 +47,7 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                _unitOfWork.Form3A.DeleteById(id);
+                _unitOfWork.NightRound_HEKO_PO.DeleteById(id);
 
                 return new JsonResult(new
                 {
@@ -90,59 +90,65 @@ namespace AhmedabadCityDR.APIs
                 policeStationId = searchPoliceStationId.Value;
             }
 
-            var responseData = _unitOfWork.Form3A.GetForm3A(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date)
-                .OrderByDescending(x => x.CreatedDate)
-                .OrderBy(x => x.PoliceStationId)
+            var responseData = _unitOfWork.NightRound_HEKO_PO.GetNightRound_HEKO_PO(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date)
+                 .OrderByDescending(x => x.CreatedDate)
+                 .OrderBy(x => x.PoliceStationId)
                 .Select(x => new
                 {
-                    x.AkasmatId,
-                    CreatedDate = x.CreatedDate.ToString("dd/MM/yyyy"),
+                    x.NightRound_HEKO_POID,
                     x.PoliceStationName,
-                    x.Complainant_accused,
-                    x.Complainant_accusedName,
-                    x.HistoryofPast,
-                }); ;
+                    CreatedDate = x.CreatedDate.Value.ToString("dd/MM/yyyy"),
+                    x.TotalOfMotarcycle,
+                    x.MaofNumber,
+                    x.NightRound_Heko_PONumber,
+                    x.DefectNumber,
+                    x.NotavailabelNumber,
+                    x.Remark,
+
+                });
 
             return new JsonResult(new
             {
                 Success = true,
-                Headers = "Form3A",
-                Header_Title = "Form3A",
-                Header_Desc = $"તારીખ : {fromDate.Value.Date} થી : {toDate.Value.Date}",
+                Headers = "Night Round HEKO_PO",
+                Header_Title = "Night Round HEKO_PO",
                 Content = responseData
             });
         }
-
         #endregion
 
         #region Post Methods
 
         [HttpPost("Save")]
-        public JsonResult Save(Post_Form3A form3A)
+        public JsonResult Save(Post_NightRound_HEKO_PO model)
         {
             try
             {
-                if (form3A.AkasmatId == 0)
+                if (model.NightRoundHekoPoid == 0)
                 {
-                    var data = new TblForm3A
+                    var data = new TblNightRoundHekoPomaster
                     {
-                        PoliceStationId = form3A.PoliceStationId,
-                        ComplainantAccused = form3A.ComplainantAccused,
-                        ComplainantAccusedName = form3A.ComplainantAccusedName,
-                        HistoryofPast = form3A.HistoryofPast,
-                        CreatedDate = form3A.CreatedDate,
-                        ModifiedDate = form3A.CreatedDate,
-                        CreateduserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
+                        PoliceStationId = model.PoliceStationId,
+                        TotalOfMotarcycle = model.TotalOfMotarcycle,
+                        MaofNumber = model.MaofNumber,
+                        NightRoundHekoPonumber = model.NightRoundHekoPonumber,
+                        DefectNumber = model.DefectNumber,
+                        NotavailabelNumber = model.NotavailabelNumber,
+                        Remark = model.Remark,
+                        CreatedDate = model.CreatedDate,
+                        ModifiedDate = model.CreatedDate,
+                        CreatedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
                         ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
                         IsActive = true,
                         IsDeleted = false,
                     };
 
-                    _unitOfWork.Form3A.Add(data);
+                    _unitOfWork.NightRound_HEKO_PO.Add(data);
+                    _unitOfWork.Save();
                 }
                 else
                 {
-                    var data = _unitOfWork.Form3A.Find(x => x.AkasmatId == form3A.AkasmatId);
+                    var data = _unitOfWork.NightRound_HEKO_PO.Find(x => x.NightRoundHekoPoid == model.NightRoundHekoPoid);
 
                     if (data == null)
                     {
@@ -152,14 +158,19 @@ namespace AhmedabadCityDR.APIs
                             Error = ConstantsData.ErrDataNotFound,
                         });
                     }
-                    data.PoliceStationId = form3A.PoliceStationId;
-                    data.ComplainantAccused = form3A.ComplainantAccused;
-                    data.ComplainantAccusedName = form3A.ComplainantAccusedName;
-                    data.HistoryofPast = form3A.HistoryofPast;
-                   data.ModifiedDate = form3A.CreatedDate;
+                    data.PoliceStationId = model.PoliceStationId;
+                    data.TotalOfMotarcycle = model.TotalOfMotarcycle;
+                    data.MaofNumber = model.MaofNumber;
+                    data.NightRoundHekoPonumber = model.NightRoundHekoPonumber;
+                    data.DefectNumber = model.DefectNumber;
+                    data.NotavailabelNumber = model.NotavailabelNumber;
+                    data.Remark = model.Remark;
+                    data.ModifiedDate = model.CreatedDate;
                     data.ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId);
+                    data.IsActive = true;
+                    data.IsDeleted = false;
 
-                    _unitOfWork.Form3A.Update(data, data.AkasmatId);
+                    _unitOfWork.NightRound_HEKO_PO.Update(data, data.NightRoundHekoPoid);
                 }
 
                 return new JsonResult(new

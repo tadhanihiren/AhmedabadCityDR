@@ -140,7 +140,7 @@ namespace AhmedabadCityDR.APIs
                                                                                                model.CreatedDate.Value,
                                                                                                model.CreatedDate.Value);
 
-                if (model.NightRoundPersonCountId == 0)
+                if (model.NightRoundPersonCountId == 0 && oldData == null)
                 {
                     var lastRecord = _unitOfWork.NightRountPersonCountMaster.GetAll().OrderByDescending(x => x.NightRoundPersonCountId).Take(1).ToList();
                     var newId = lastRecord[0].NightRoundPersonCountId + 1;

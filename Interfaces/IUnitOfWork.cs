@@ -5,6 +5,16 @@
         #region Properties
 
         /// <summary>
+        /// Gets or sets VehicleCheckingMaster.
+        /// </summary>
+        public IVehicleCheckingMaster VehicleCheckingMaster { get; set; }
+
+        /// <summary>
+        /// Gets or sets DcbPolicestationMaster.
+        /// </summary>
+        public IDcbPolicestationMaster DcbPolicestationMaster { get; set; }
+
+        /// <summary>
         /// Gets or sets CRPC41Master.
         /// </summary>
         public ICRPC41Master CRPC41Master { get; set; }
@@ -153,6 +163,11 @@
         /// Gets or sets Night Round
         /// </summary>
         public INightRound NightRound { get; set; }
+
+        /// <summary>
+        /// Gets or sets Night Round HEKO PO
+        /// </summary>
+        public INightRound_HEKO_PO NightRound_HEKO_PO { get; set; }
 
         /// <summary>
         /// Gets or sets INightEmployeeMaster

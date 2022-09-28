@@ -1,9 +1,7 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Prohibition_Crime";
     var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
 }
-
 
 <div class="card">
     <div class="card-body">
@@ -40,8 +38,7 @@
             </div>
         </div>
          <table id="data_ProhibitionCrime" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
-        </table>
-       
+        </table>       
     </div>
 </div>
     <!-- Basic Modal -->
@@ -58,7 +55,7 @@
                         <div class="card-body p-1 m-2" >
                             <!-- Multi Columns Form -->
                             <form class="row g-4 " id="form_ProhibitionCrime">
-                                <input type="hidden" id="prohibitioncrimeId" name="prohibitioncrimeId" value="0" />
+                            <input type="text" id="prohibitioncrimeId" name="prohibitioncrimeId" value="0" style="display:none" class="d-none" placeholder="" />
                                 <div class="col-md-4">
                                     @if (policeStationId == 0)
                                     {
