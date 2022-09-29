@@ -19,6 +19,26 @@ namespace AhmedabadCityDR.Repository
         #region Properties
 
         /// <summary>
+        /// Gets or sets Gender.
+        /// </summary>
+        public IGender Gender { get; set; }
+
+        /// <summary>
+        /// Gets or sets MissingChildDetails.
+        /// </summary>
+        public IMissingChildDetails MissingChildDetails { get; set; }
+
+        /// <summary>
+        /// Gets or sets MCRDetails.
+        /// </summary>
+        public IMCRDetails MCRDetails { get; set; }
+
+        /// <summary>
+        /// Gets or sets Detain.
+        /// </summary>
+        public IDetain Detain { get; set; }
+
+        /// <summary>
         /// Gets or sets VehicleCheckingMaster.
         /// </summary>
         public IVehicleCheckingMaster VehicleCheckingMaster { get; set; }
@@ -234,6 +254,10 @@ namespace AhmedabadCityDR.Repository
             CRPC41Master = new CRPC41MasterRepository(_context);
             DcbPolicestationMaster = new DcbPolicestationMasterRepository(_context);
             VehicleCheckingMaster = new VehicleCheckingMasterRepository(_context);
+            Detain = new DetainRepository(_context);
+            MCRDetails = new MCRDetailsRepository(_context);
+            MissingChildDetails = new MissingChildDetailsRepository(_context);
+            Gender = new GenderRepository(_context);
         }
 
         #endregion

@@ -30,6 +30,18 @@ namespace AhmedabadCityDR.APIs
         #endregion
 
         /// <summary>
+        /// Gets Gender id and name.
+        /// </summary>
+        /// <returns>List of police stations</returns>
+        [HttpGet("GetGender")]
+        public JsonResult GetGender()
+        {
+            var lstGender = _unitOfWork.Gender.GetAll().Select(x => new { Value = x.GenderId, Text = x.Gender });
+
+            return new JsonResult(lstGender);
+        }
+
+        /// <summary>
         /// Gets police station id and name.
         /// </summary>
         /// <returns>List of police stations</returns>

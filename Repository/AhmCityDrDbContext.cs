@@ -351,6 +351,9 @@ namespace AhmedabadCityDR.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<MissingChildDetailsViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<MCRDetailsViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<DetainViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<VehicleCheckingMasterViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<DcbPolicestationMasterViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<CRPC41MasterViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);

@@ -247,6 +247,7 @@ namespace AhmedabadCityDR.Controllers
 
         public IActionResult Detain()
         {
+            ViewBag.SubCategory = GetSubcategory(34);
             return View();
         }
 

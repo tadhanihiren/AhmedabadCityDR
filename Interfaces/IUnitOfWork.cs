@@ -5,6 +5,26 @@
         #region Properties
 
         /// <summary>
+        /// Gets or sets Gender.
+        /// </summary>
+        public IGender Gender { get; set; }
+
+        /// <summary>
+        /// Gets or sets MissingChildDetails.
+        /// </summary>
+        public IMissingChildDetails MissingChildDetails { get; set; }
+
+        /// <summary>
+        /// Gets or sets MCRDetails.
+        /// </summary>
+        public IMCRDetails MCRDetails { get; set; }
+
+        /// <summary>
+        /// Gets or sets Detain.
+        /// </summary>
+        public IDetain Detain { get; set; }
+
+        /// <summary>
         /// Gets or sets VehicleCheckingMaster.
         /// </summary>
         public IVehicleCheckingMaster VehicleCheckingMaster { get; set; }
