@@ -261,12 +261,12 @@ namespace AhmedabadCityDR.Controllers
             return View();
         }
 
-        public IActionResult CurrentYear_Missing_Details()
+        public IActionResult HistoryOfCurrentMissing()
         {
             return View();
         }
 
-        public IActionResult CurrentYear_Agewise_Missing()
+        public IActionResult HistoryCurrentYear_Agewise_Missing()
         {
             return View();
         }
@@ -288,6 +288,7 @@ namespace AhmedabadCityDR.Controllers
 
         public IActionResult Labor_Information()
         {
+            ViewBag.SubCategory = GetSubcategory(31);
             return View();
         }
 

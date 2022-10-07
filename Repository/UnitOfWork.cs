@@ -19,6 +19,16 @@ namespace AhmedabadCityDR.Repository
         #region Properties
 
         /// <summary>
+        /// Gets or sets PoliceStationWiseVehical.
+        /// </summary>
+        public IPoliceStationWiseVehical PoliceStationWiseVehical { get; set; }
+
+        /// <summary>
+        /// Gets or sets LaborInformationMaster.
+        /// </summary>
+        public ILaborInformationMaster LaborInformation { get; set; }
+
+        /// <summary>
         /// Gets or sets Gender.
         /// </summary>
         public IGender Gender { get; set; }
@@ -208,6 +218,28 @@ namespace AhmedabadCityDR.Repository
         /// </summary>
         public INightEmployeeMaster NightEmployeeMaster { get; set; }
 
+        /// <summary>
+        /// Gets or sets IVisitation_CrimeBranch
+        /// </summary>
+        public IVisitation_CrimeBranch Visitation_CrimeBranch { get; set; }
+
+        /// <summary>
+        /// Gets or sets IVisitation_CrimeBranch
+        /// </summary>
+        public IHistoryOfCurrentYearMissing HistoryOfCurrentYearMissing { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets IVisitation_CrimeBranch
+        /// </summary>
+        public IMissingAgeWise HistoryOfMissingAgeWiseChaild { get; set; }
+
+        /// <summary>
+        /// Gets or sets StationaryDetails
+        /// </summary>
+        public IStationaryDetails StationaryDetails { get; set; }
+
+
         #endregion
 
         #region Constructors
@@ -231,6 +263,8 @@ namespace AhmedabadCityDR.Repository
             NightRound = new NightRoundRepository(_context);
             NightRound_HEKO_PO = new NightRound_HEKO_PO_Repository(_context);
             Form3A = new Form3ARepository(_context);
+            HistoryOfCurrentYearMissing = new HistoryOfCurrentYearMissingRepository(_context);
+            HistoryOfMissingAgeWiseChaild = new MissingAgeWiseRepository(_context);
             LoginMaster = new LoginMasterRepository(_context);
             SectorMaster = new SectorMasterRepository(_context);
             ZoneMaster = new ZoneMasterRepository(_context);
@@ -239,6 +273,7 @@ namespace AhmedabadCityDR.Repository
             Part1_5Crime = new Part1_5CrimeRepository(_context);
             Part6Crime = new Part6CrimeRepository(_context);
             CategoryMaster = new CategoryMasterRepository(_context);
+            StationaryDetails = new Stationary_DetailsRepository(_context);
             SubCategoryMaster = new SubCategoryMasterRepository(_context);
             Pidhela_Kabja_CategoryMaster = new Pidhela_Kabja_CategoryMasterRepository(_context);
             Prohibition = new ProhibitionRepository(_context);
@@ -258,6 +293,9 @@ namespace AhmedabadCityDR.Repository
             MCRDetails = new MCRDetailsRepository(_context);
             MissingChildDetails = new MissingChildDetailsRepository(_context);
             Gender = new GenderRepository(_context);
+            Visitation_CrimeBranch = new Visitation_CrimeBranchRepository(_context);
+            LaborInformation = new LaborInformationMasterRepository(_context);
+            PoliceStationWiseVehical = new PoliceStationWiseVehicalRepository(_context);
         }
 
         #endregion

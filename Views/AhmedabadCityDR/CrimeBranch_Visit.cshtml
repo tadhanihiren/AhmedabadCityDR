@@ -1,50 +1,44 @@
 ﻿@{
     ViewData["Title"] = "CrimeBranch_Visit";
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
 }
 
-<style>
-    table {
-        table-layout: fixed;
-        overflow-x: scroll;
-    }
 
-    td, th {
-        word-wrap: break-word;
-    }
-
-</style>
 <div class="card">
     <div class="card-body">
         <div class="row card-title">
-            <div class="col p-0 align-items-center" style="display: flex;align-items: center;">
+            <div class="col-md-8 p-0 align-items-center" style="display: flex;align-items: center;">
                 <h5>ઘરફોડ ચોરીની ફરિયાદ દાખલ થાય ત્‍યારે ક્રાઇમ બ્રાન્ચ ની વીઝીટ અંગેની દૈનિક નોંઘ</h5>
             </div>
             <div class="col p-0">
-                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                <button type="button" id="addData" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
                     + Add ક્રાઇમ બ્રાન્ચ ની વીઝીટ
                 </button>
             </div>
         </div>
-        <form class="row pb-4" method="post">
+        <div class="row pb-4">
             <div class="col-md-2 mb-1">
-                <input type="date" name="fromDate" id="fromDate" class="form-control date-today">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
             </div>
             <div class="col-md-2 mb-1">
-                <input type="date" name="toDate" id="toDate" class="form-control date-today">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
             </div>
             <div class="col-md-4 mb-1">
-                <select id="policeStationId" name="policeStationId" asp-items="ViewBag.PoliceStation" class="form-select" required>
-                    <option value="" selected disabled>--Select PoliceStation Name--</option>
-                </select>
+                @if (policeStationId == 0)
+                {
+                    <select id="searchPoliceStationId" name="searchPoliceStationId" class="form-select" required>
+                        <option value="" selected>--Select PoliceStation Name--</option>
+                    </select>
+                }
             </div>
             <div class="col-md-2 mb-1">
-                <input type="submit" class="form-control btn btn-outline-secondary" value="Search" />
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" value="Search" />
             </div>
             <div class="col-md-2 mb-1">
                 <input type="button" class="form-control btn btn-outline-success" value="Report View" />
             </div>
-        </form>
-        <table id="" class="display nowrap" style="width:100%;overflow-x: scroll;">
+        </div>
+        <table id="data_CrimeBranch_Visit" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
         </table>
     </div>
 </div>
@@ -59,39 +53,42 @@
             </div>
             <div class="modal-body">
                 <div class="card mb-0">
-                    <div class="card-body p-1 m-2" >
+                    <div class="card-body p-1 m-2">
                         <!-- Multi Columns Form -->
-                        <form class="row g-4 ">
+                        <form class="row g-4 " id="form_CrimeBranch_Visit">
+                            <input type="text" id="c" name="visitationId" value="0" style="display:none" class="d-none" placeholder="" />
                             <div class="col-md-6">
-                                <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>---Select PoliceStation---</option>
-                                </select>
+                                @if (policeStationId == 0)
+                                {
+                                    <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
+                                    <select id="policeStationId" name="policeStationId" class="form-select" required>
+                                        <option value="" selected disabled>--Select PoliceStation Name--</option>
+                                    </select>
+                                }
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">ગુ.બ.તા.ટા તથા ગુનાની જગ્‍યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="ગુ.બ.તા.ટા તથા ગુનાની જગ્‍યા" />
+                                <label for="gubatataCrimePlace" class="form-label">ગુ.બ.તા.ટા તથા ગુનાની જગ્‍યા</label>
+                                <input type="text" class="form-control" id="gubatataCrimePlace" name="gubatataCrimePlace" placeholder="ગુ.બ.તા.ટા તથા ગુનાની જગ્‍યા" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">ગુનાનુ વીઝીટનુ સ્‍થળ</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="ગુનાનુ વીઝીટનુ સ્‍થળ" />
+                                <label for="crimeVisitPlace" class="form-label">ગુનાનુ વીઝીટનુ સ્‍થળ</label>
+                                <input type="text" class="form-control" id="crimeVisitPlace" name="crimeVisitPlace" placeholder="ગુનાનુ વીઝીટનુ સ્‍થળ" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputCity" class="form-label">વીઝીટ કર્યાની તા.ટા</label>
-                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                                <label for="visitDate" class="form-label">વીઝીટ કર્યાની તા.ટા</label>
+                                <input type="date" name="visitDate" id="visitDate" class="form-control max-date-today" aria-label="...">
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">વીઝીટ કરનાર અઘિકારી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="વીઝીટ કરનાર અઘિકારી" />
+                                <label for="visiterOfficerName" class="form-label">વીઝીટ કરનાર અઘિકારી</label>
+                                <input type="text" class="form-control" id="visiterOfficerName" name="visiterOfficerName" placeholder="વીઝીટ કરનાર અઘિકારી" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputCity" class="form-label">તારીખ</label>
-                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                                <label for="createdDate" class="form-label">તારીખ </label>
+                                <input type="date" id="createdDate" name="createdDate" class="form-control date-today" aria-label="..." required>
                             </div>
-
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">+ ADD ક્રાઇમ બ્રાન્ચ ની વીઝીટ</button>
+                                <button type="submit" class="btn btn-primary" id="submitbtn">+ ADD ક્રાઇમ બ્રાન્ચ ની વીઝીટ</button>
                             </div>
 
                         </form>
@@ -104,3 +101,6 @@
         </div>
     </div>
 </div><!-- End Basic Modal-->
+@section Scripts{
+    <script src="~/js/AhmedabadCityDR_JS/Visitation_CrimeBranch.js" type="text/javascript"></script>
+}

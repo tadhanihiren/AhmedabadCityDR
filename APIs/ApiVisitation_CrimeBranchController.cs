@@ -1,14 +1,16 @@
 ﻿using AhmedabadCityDR.Interfaces;
 using AhmedabadCityDR.Models.APIModels;
 using AhmedabadCityDR.Models.TableModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AhmedabadCityDR.APIs
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApiForm3AController : ControllerBase
+    public class ApiVisitation_CrimeBranchController : ControllerBase
     {
+
         #region Private Members
 
         /// <summary>
@@ -24,13 +26,11 @@ namespace AhmedabadCityDR.APIs
         /// Constructors
         /// </summary>
         /// <param name="iUnitOfWork"></param>
-        public ApiForm3AController(IUnitOfWork iUnitOfWork)
+        public ApiVisitation_CrimeBranchController(IUnitOfWork iUnitOfWork)
         {
             _unitOfWork = iUnitOfWork;
         }
-
         #endregion
-
         #region Get Methods
 
         [HttpGet("GetById")]
@@ -38,7 +38,7 @@ namespace AhmedabadCityDR.APIs
         {
             return new JsonResult(new
             {
-                Content = _unitOfWork.Form3A.Find(x => x.AkasmatId == id),
+                Content = _unitOfWork.Visitation_CrimeBranch.Find(x => x.VisitationId == id),
             });
         }
 
@@ -47,7 +47,7 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                _unitOfWork.Form3A.DeleteById(id);
+                _unitOfWork.Visitation_CrimeBranch.DeleteById(id);
 
                 return new JsonResult(new
                 {
@@ -90,59 +90,60 @@ namespace AhmedabadCityDR.APIs
                 policeStationId = searchPoliceStationId.Value;
             }
 
-            var responseData = _unitOfWork.Form3A.GetForm3A(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date)
-                .OrderByDescending(x => x.CreatedDate)
-                .OrderBy(x => x.PoliceStationId)
+            var responseData = _unitOfWork.Visitation_CrimeBranch.GetVisitationCrimeBranch(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date)
+                 .OrderByDescending(x => x.CreatedDate)
+                 .OrderBy(x => x.PoliceStationId)
                 .Select(x => new
                 {
-                    x.AkasmatId,
-                    CreatedDate = x.CreatedDate.ToString("dd/MM/yyyy"),
+                    x.VisitationId,
+                    VisitDate = x.VisitDate.Value.ToString("dd/MM/yyyy"),
+                    x.GUBATATA_CrimePlace,
                     x.PoliceStationName,
-                    x.Complainant_accused,
-                    x.Complainant_accusedName,
-                    x.HistoryofPast,
-                }); ;
+                    x.Visiter_OfficerName,
+                    x.CrimeVisitPlace,
+                    CreatedDate = x.CreatedDate.Value.ToString("dd/MM/yyyy"),
+                });
 
             return new JsonResult(new
             {
                 Success = true,
-                Headers = "Form3A",
-                Header_Title = "Form3A",
-                Header_Desc = $"તારીખ : {fromDate.Value.Date} થી : {toDate.Value.Date}",
+                Headers = "Visitation CrimeBranch",
+                Header_Title = "Visitation CrimeBranch",
                 Content = responseData
             });
         }
-
         #endregion
 
         #region Post Methods
 
         [HttpPost("Save")]
-        public JsonResult Save(Post_Form3A form3A)
+        public JsonResult Save(Post_Visitation_CrimeBranch model)
         {
             try
             {
-                if (form3A.AkasmatId == 0)
+                if (model.VisitationId == 0)
                 {
-                    var data = new TblForm3A
+                    var data = new TblVisitationCrimeBranch
                     {
-                        PoliceStationId = form3A.PoliceStationId,
-                        ComplainantAccused = form3A.ComplainantAccused,
-                        ComplainantAccusedName = form3A.ComplainantAccusedName,
-                        HistoryofPast = form3A.HistoryofPast,
-                        CreatedDate = form3A.CreatedDate,
-                        ModifiedDate = form3A.CreatedDate,
-                        CreateduserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
+                        PoliceStationId = model.PoliceStationId,
+                        GubatataCrimePlace = model.GubatataCrimePlace,
+                        VisitDate = model.VisitDate,
+                        CrimeVisitPlace = model.CrimeVisitPlace,
+                        VisiterOfficerName = model.VisiterOfficerName,
+                        CreatedDate = model.CreatedDate,
+                        ModifiedDate = model.CreatedDate,
+                        CreatedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
                         ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
                         IsActive = true,
                         IsDeleted = false,
                     };
 
-                    _unitOfWork.Form3A.Add(data);
+                    _unitOfWork.Visitation_CrimeBranch.Add(data);
+
                 }
                 else
                 {
-                    var data = _unitOfWork.Form3A.Find(x => x.AkasmatId == form3A.AkasmatId);
+                    var data = _unitOfWork.Visitation_CrimeBranch.Find(x => x.VisitationId == model.VisitationId);
 
                     if (data == null)
                     {
@@ -152,14 +153,16 @@ namespace AhmedabadCityDR.APIs
                             Error = ConstantsData.ErrDataNotFound,
                         });
                     }
-                    data.PoliceStationId = form3A.PoliceStationId;
-                    data.ComplainantAccused = form3A.ComplainantAccused;
-                    data.ComplainantAccusedName = form3A.ComplainantAccusedName;
-                    data.HistoryofPast = form3A.HistoryofPast;
-                    data.ModifiedDate = form3A.CreatedDate;
+                    data.PoliceStationId = model.PoliceStationId;
+                    data.GubatataCrimePlace = model.GubatataCrimePlace;
+                    data.VisitDate = model.VisitDate;
+                    data.CrimeVisitPlace = model.CrimeVisitPlace;
+                    data.VisiterOfficerName = model.VisiterOfficerName;
                     data.ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId);
+                    data.IsActive = true;
+                    data.IsDeleted = false;
 
-                    _unitOfWork.Form3A.Update(data, data.AkasmatId);
+                    _unitOfWork.Visitation_CrimeBranch.Update(data, data.VisitationId);
                 }
 
                 return new JsonResult(new

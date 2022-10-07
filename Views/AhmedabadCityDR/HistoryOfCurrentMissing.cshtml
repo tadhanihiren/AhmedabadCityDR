@@ -1,0 +1,130 @@
+﻿@{
+    ViewData["Title"] = "HistoryOfCurrentMissing";
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
+}
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="row card-title">
+            <div class="col-md-8 p-0 align-items-center" style="display: flex;align-items: center;">
+                <h5>ચાલુ વર્ષના આજદિન સુધીના ગુમ થયેલા બાળકો, વ્યકિતઓની આંકડાકીય માહિતી</h5>
+            </div>
+            <div class="col p-0">
+                <button type="button" id="addData" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                   + ADD CurrentYear_Missing_Details
+                </button>
+            </div>
+        </div>
+        <div class="row pb-4">
+            <div class="col-md-2 mb-1">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
+            </div>
+            
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" value="Search" />
+            </div>
+            
+        </div>
+        <table id="data_HistoryOfCurrentMissing" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
+        </table>
+    </div>
+</div>
+
+
+<div class="modal modal-xl" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> CurrentYear_Missing_Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-0">
+                    <div class="card-body p-1 m-2">
+                        <!-- Multi Columns Form -->
+                        <form class="row g-2 " id="form_CurrentYear_Missing_Details">
+                            <input type="text" id="c" name="histroryOfCurrentMissingId" value="0" style="display:none" class="d-none" placeholder="" />
+                           @if (policeStationId == 0)
+                            {
+                                <div class="col-md-4">
+                                    <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
+                                    <select id="policeStationId" name="policeStationId" class="form-select" required>
+                                        <option value="" selected disabled>--Select PoliceStation Name--</option>
+                                    </select>
+                                </div>
+                            }
+                            <div class="col-md-4">
+                                <label for="missingboy" class="form-label">ગુમ થયેલ છોકરા</label>
+                                <input type="text" class="form-control" id="missingboy" name="missingboy" placeholder="ગુમ થયેલ છોકરા" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="missinggirl" class="form-label">ગુમ થયેલ છોકરી</label>
+                                <input type="text" class="form-control" id="missinggirl" name="missinggirl" placeholder="ગુમ થયેલ છોકરી" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="returnboy" class="form-label">પરત મળ્યા છોકરા</label>
+                                <input type="text" class="form-control" id="returnboy" name="returnboy" placeholder="પરત મળ્યા છોકરા" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="returngirl" class="form-label">પરત મળ્યા છોકરી</label>
+                                <input type="text" class="form-control" id="returngirl" name="returngirl" placeholder="પરત મળ્યા છોકરી" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="missingwoman" class="form-label">ગુમ થયેલ સ્ત્રી</label>
+                                <input type="text" class="form-control" id="missingwoman" name="missingwoman" placeholder="ગુમ થયેલ સ્ત્રી" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="missingman" class="form-label">ગુમ થયેલ પુરૂષ</label>
+                                <input type="text" class="form-control" id="missingman" name="missingman" placeholder="ગુમ થયેલ પુરૂષ" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="returnWoman" class="form-label">પરત મળ્યા સ્ત્રી</label>
+                                <input type="text" class="form-control" id="returnWoman" name="returnWoman" placeholder="પરત મળ્યા સ્ત્રી" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="returnman" class="form-label">પરત મળ્યા પુરૂષ</label>
+                                <input type="text" class="form-control" id="returnman" name="returnman" placeholder="પરત મળ્યા પુરૂષ" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="totalmissingChild" class="form-label">કૂલ ગુમ બાળકો</label>
+                                <input type="text" class="form-control" id="totalmissingChild" name="totalmissingChild" placeholder="કૂલ ગુમ બાળકો" />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="totalRetrunChild" class="form-label">કૂલ પરત બાળકો</label>
+                                <input type="text" class="form-control" id="totalRetrunChild" name="totalRetrunChild" placeholder="કૂલ પરત બાળકો" />
+                            </div>
+                             <div class="col-md-4">
+                                 <label for="totalMissingPerson" class="form-label">કૂલ ગુમ વ્યક્તિઓ</label>
+                                <input type="text" class="form-control" id="totalMissingPerson" name="totalMissingPerson" placeholder="કૂલ ગુમ વ્યક્તિઓ" />
+                            </div>
+                             <div class="col-md-4">
+                                  <label for="totalReturnPerson" class="form-label">કૂલ પરત વ્યક્તિઓ</label>
+                                <input type="text" class="form-control" id="totalReturnPerson" name="totalReturnPerson" placeholder="કૂલ પરત વ્યક્તિઓ" />
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <label for="createdDate" class="form-label">તારીખ </label>
+                                <input type="date" id="createdDate" name="createdDate" class="form-control date-today" aria-label="..." required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="submitbtn">+ ADD CurrentYear_Missing_Details</button>
+                            </div>
+
+                        </form>
+
+                        <!-- End Multi Columns Form -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- End Basic Modal-->
+@section Scripts{
+    <script src="~/js/AhmedabadCityDR_JS/HistoryOfCurrenYearMissing.js" type="text/javascript"></script>
+}

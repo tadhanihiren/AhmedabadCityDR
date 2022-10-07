@@ -7,7 +7,7 @@ namespace AhmedabadCityDR.APIs
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApiMissingChildDetailsController : ControllerBase
+    public class ApiLaborInformationMasterController : ControllerBase
     {
         #region Private Members
 
@@ -24,7 +24,7 @@ namespace AhmedabadCityDR.APIs
         /// Constructors
         /// </summary>
         /// <param name="unitOfWork"></param>
-        public ApiMissingChildDetailsController(IUnitOfWork unitOfWork)
+        public ApiLaborInformationMasterController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -38,7 +38,7 @@ namespace AhmedabadCityDR.APIs
         {
             return new JsonResult(new
             {
-                Content = _unitOfWork.MissingChildDetails.Find(x => x.MissingChildId == id),
+                Content = _unitOfWork.LaborInformation.Find(x => x.LaborInformationId == id),
             });
         }
 
@@ -68,32 +68,28 @@ namespace AhmedabadCityDR.APIs
                 policeStationId = searchPoliceStationId.Value;
             }
 
-            var responseData = _unitOfWork.MissingChildDetails
-                .GetMissingChildDetails(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date)
-                .Where(x => x.IsActive == true && x.IsDeleted == false)
+            var responseData = _unitOfWork.LaborInformation
+                .GetLaborInformation(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date)
                 .OrderByDescending(x => x.CreatedDate)
                 .ThenBy(x => x.PoliceStationId)
                 .Select(x => new
                 {
-                    x.MissingChildId,
+                    x.LaborInformationId,
                     x.PoliceStationName,
                     CreatedDate = x.CreatedDate.Value.ToString("dd/MM/yyyy"),
-                    x.MissingPersonName,
-                    x.MissingReson,
-                    x.Gender,
-                    x.Age,
-                    MissingDate = x.MissingDate.Value.ToString("dd/MM/yyyy"),
-                    ReturnDate = Helper.ConvertDate(x.ReturnDate.ToString()),
-                    x.MissingApplicationNo_Date,
-                    x.PublisherName_Address,
-                    x.MobileNo,
+                    x.SubCategoryId,
+                    x.SubCategoryName,
+                    x.CheckedLabor,
+                    x.CheckedPlace,
+                    x.TotalLaborersVideography,
+                    x.Workers_ARoll_BRollNumber,
                 });
 
             return new JsonResult(new
             {
                 Success = true,
-                Headers = "MissingChildDetails",
-                Header_Title = "MissingChildDetails",
+                Headers = "Labor Information",
+                Header_Title = "Labor Information",
                 Header_Desc = $"તારીખ : {fromDate.Value.Date} થી : {toDate.Value.Date}",
                 Content = responseData
             });
@@ -104,7 +100,7 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                _unitOfWork.MissingChildDetails.DeleteById(id);
+                _unitOfWork.LaborInformation.DeleteById(id);
 
                 return new JsonResult(new
                 {
@@ -126,36 +122,20 @@ namespace AhmedabadCityDR.APIs
         #region Post Methods
 
         [HttpPost("Save")]
-        public JsonResult Save(Post_MissingChildDetails model)
+        public JsonResult Save(Post_LaborInformationMaster model)
         {
-            DateTime? returnDate = null;
-
-            if (string.IsNullOrEmpty(model.ReturnDate) == false)
-            {
-                var isDate = DateTime.TryParse(model.ReturnDate, out DateTime newDate);
-
-                if (isDate)
-                {
-                    returnDate = newDate;
-                }
-            }
-
             try
             {
-                if (model.MissingChildId == 0)
+                if (model.LaborInformationId == 0)
                 {
-                    var newData = new TblMissingChildDetail
+                    var newData = new TblLaborInformationMaster
                     {
-                        PoliceStationId = model.PoliceStationId,
-                        MissingPersonName = model.MissingPersonName,
-                        MissingReson = model.MissingReson,
-                        GenderId = model.GenderId,
-                        Age = model.Age,
-                        MissingDate = model.MissingDate,
-                        ReturnDate = returnDate,
-                        MissingApplicationNoDate = model.MissingApplicationNoDate,
-                        PublisherNameAddress = model.PublisherNameAddress,
-                        MobileNo = model.MobileNo,
+                        PoliceStationId = model.PoliceStationId.Value,
+                        SubCategoryId = model.SubCategoryId.Value,
+                        CheckedPlace = model.CheckedPlace.Value,
+                        CheckedLabor = model.CheckedLabor.Value,
+                        TotalLaborersVideography = model.TotalLaborersVideography.Value,
+                        WorkersArollBrollNumber = model.WorkersArollBrollNumber.Value,
                         IsActive = true,
                         IsDeleted = false,
                         CreatedDate = model.CreatedDate,
@@ -164,11 +144,11 @@ namespace AhmedabadCityDR.APIs
                         ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
                     };
 
-                    _unitOfWork.MissingChildDetails.Add(newData);
+                    _unitOfWork.LaborInformation.Add(newData);
                 }
                 else
                 {
-                    var data = _unitOfWork.MissingChildDetails.Find(x => x.MissingChildId == model.MissingChildId);
+                    var data = _unitOfWork.LaborInformation.Find(x => x.LaborInformationId == model.LaborInformationId);
 
                     if (data == null)
                     {
@@ -180,20 +160,15 @@ namespace AhmedabadCityDR.APIs
                     }
 
                     data.PoliceStationId = model.PoliceStationId.Value;
-                    data.PoliceStationId = model.PoliceStationId;
-                    data.MissingPersonName = model.MissingPersonName;
-                    data.MissingReson = model.MissingReson;
-                    data.GenderId = model.GenderId;
-                    data.Age = model.Age;
-                    data.MissingDate = model.MissingDate;
-                    data.ReturnDate = returnDate;
-                    data.MissingApplicationNoDate = model.MissingApplicationNoDate;
-                    data.PublisherNameAddress = model.PublisherNameAddress;
-                    data.MobileNo = model.MobileNo;
+                    data.SubCategoryId = model.SubCategoryId.Value;
+                    data.CheckedPlace = model.CheckedPlace.Value;
+                    data.CheckedLabor = model.CheckedLabor.Value;
+                    data.TotalLaborersVideography = model.TotalLaborersVideography.Value;
+                    data.WorkersArollBrollNumber = model.WorkersArollBrollNumber.Value;
                     data.ModifiedDate = model.CreatedDate;
                     data.ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId);
 
-                    _unitOfWork.MissingChildDetails.Update(data, data.MissingChildId);
+                    _unitOfWork.LaborInformation.Update(data, data.LaborInformationId);
                 }
 
                 _unitOfWork.Save();
@@ -214,6 +189,5 @@ namespace AhmedabadCityDR.APIs
         }
 
         #endregion
-
     }
 }

@@ -5,10 +5,10 @@ using Microsoft.Data.SqlClient;
 
 namespace AhmedabadCityDR.Repository
 {
-    public class NightRound_HEKO_PO_Repository : GenericRepository<TblNightRoundHekoPomaster>, INightRound_HEKO_PO
+    public class MissingAgeWiseRepository : GenericRepository<TblHistoryMissingAgeWiseChild>, IMissingAgeWise
     {
-
-        #region Private Memebers
+        
+        #region Private Members
 
         /// <summary>
         /// Get context.
@@ -20,24 +20,19 @@ namespace AhmedabadCityDR.Repository
         #region Constructors
 
         /// <summary>
-        /// Constructor
+        /// Constructors
         /// </summary>
         /// <param name="context">Context</param>
-        public NightRound_HEKO_PO_Repository(AhmCityDrDbContext context) : base(context)
+        public MissingAgeWiseRepository(AhmCityDrDbContext context) : base(context)
         {
             _context = context;
         }
-
         #endregion
-        public void DeleteById(int id)
-        {
-            _context.Database.ExecuteSqlRaw($"SP_tblNightRound_HEKO_POMaster_DEL {id}");
-        }
         /// <summary>
-        /// Gets night round
+        /// Gets HistoryCurrentMissing
         /// </summary>
-        /// <returns>Returns list of night round HEKO PO</returns>
-        public IEnumerable<NightRound_HEKO_PO_ViewModel> GetNightRound_HEKO_PO(int roleId, int sectorId, int zoneId, int divisionId, int policeStationId, DateTime fromDate, DateTime toDate)
+        /// <returns>Returns list of MissingAge Wise</returns>
+        public IEnumerable<HistoryMissingagewiseViewModel> GetMissingAgeWise(int roleId, int sectorId, int zoneId, int divisionId, int policeStationId, DateTime fromDate, DateTime toDate)
         {
             var pRoleId = new SqlParameter("@RoleId", roleId);
             var pSectorId = new SqlParameter("@SectorId", sectorId);
@@ -47,9 +42,7 @@ namespace AhmedabadCityDR.Repository
             var pFromDate = new SqlParameter("@FromDate", fromDate);
             var pToDate = new SqlParameter("@ToDate", toDate);
 
-            return _context.Set<NightRound_HEKO_PO_ViewModel>().FromSqlRaw("exec USP_tblNightRound_HEKO_POMaster_SEL @RoleId, @SectorId, @ZoneId, @DivisionId, @PoliceStationId, @FromDate, @ToDate", pRoleId, pSectorId, pZoneId, PDivisionId, pPoliceStationId, pFromDate, pToDate).ToList();
+            return _context.Set<HistoryMissingagewiseViewModel>().FromSqlRaw("exec USP_View_MissingChildDetails_SEL @RoleId, @SectorId, @ZoneId, @DivisionId, @PoliceStationId, @FromDate, @ToDate", pRoleId, pSectorId, pZoneId, PDivisionId, pPoliceStationId, pFromDate, pToDate).ToList();
         }
-
-
     }
 }

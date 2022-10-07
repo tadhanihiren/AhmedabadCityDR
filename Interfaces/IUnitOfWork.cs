@@ -5,6 +5,16 @@
         #region Properties
 
         /// <summary>
+        /// Gets or sets PoliceStationWiseVehical.
+        /// </summary>
+        public IPoliceStationWiseVehical PoliceStationWiseVehical { get; set; }
+
+        /// <summary>
+        /// Gets or sets LaborInformationMaster.
+        /// </summary>
+        public ILaborInformationMaster LaborInformation { get; set; }
+
+        /// <summary>
         /// Gets or sets Gender.
         /// </summary>
         public IGender Gender { get; set; }
@@ -193,6 +203,25 @@
         /// Gets or sets INightEmployeeMaster
         /// </summary>
         public INightEmployeeMaster NightEmployeeMaster { get; set; }
+
+        /// <summary>
+        /// Gets or sets IVisitation_CrimeBranch
+        /// </summary>
+        public IVisitation_CrimeBranch Visitation_CrimeBranch { get; set; }
+
+        /// <summary>
+        /// Gets or sets History Of Current Year Missing
+        /// </summary>
+        public IHistoryOfCurrentYearMissing HistoryOfCurrentYearMissing { get; set; }
+        /// <summary>
+        /// Gets or sets HistoryOf Missing Age Wise Chaild
+        /// </summary>
+        public IMissingAgeWise HistoryOfMissingAgeWiseChaild { get; set; }
+
+        /// <summary>
+        /// Gets or sets StationaryDetails
+        /// </summary>
+        public IStationaryDetails StationaryDetails { get; set; }
 
         #endregion
 

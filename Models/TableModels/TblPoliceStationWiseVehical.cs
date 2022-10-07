@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AhmedabadCityDR.Models.TableModels
 {
-    [Keyless]
     [Table("tblPoliceStationWiseVehical")]
     public partial class TblPoliceStationWiseVehical
     {
+        [Key]
         public int PoliceStationwiseVehicalId { get; set; }
         public int? PoliceStationId { get; set; }
 

@@ -59,27 +59,42 @@ namespace AhmedabadCityDR.APIs
 
             if (roleId <= 2 && roleId != 0)
             {
-                data = _unitOfWork.PoliceStationMaster.GetAll().Where(x => x.IsTraffic == false).ToList();
+                data = _unitOfWork.PoliceStationMaster.GetAll()
+                                                      .Where(x => x.IsTraffic == false)
+                                                      .OrderBy(x => x.PoliceStationName)
+                                                      .ToList();
             }
 
             if (roleId == 3 && sectorId != 0 && zoneId == 0 && divisionId == 0 && policeStationId == 0)
             {
-                data = _unitOfWork.PoliceStationMaster.GetAll().Where(x => x.SectorId == sectorId && x.IsTraffic == false).ToList();
+                data = _unitOfWork.PoliceStationMaster.GetAll()
+                                                      .Where(x => x.SectorId == sectorId && x.IsTraffic == false)
+                                                      .OrderBy(x => x.PoliceStationName)
+                                                      .ToList();
             }
 
             if (sectorId == 0 && zoneId != 0 && divisionId == 0 && policeStationId == 0)
             {
-                data = _unitOfWork.PoliceStationMaster.GetAll().Where(x => x.ZoneId == zoneId && x.IsTraffic == false).ToList();
+                data = _unitOfWork.PoliceStationMaster.GetAll()
+                                                      .Where(x => x.ZoneId == zoneId && x.IsTraffic == false)
+                                                      .OrderBy(x => x.PoliceStationName)
+                                                      .ToList();
             }
 
             if (sectorId == 0 && zoneId == 0 && divisionId != 0 && policeStationId == 0)
             {
-                data = _unitOfWork.PoliceStationMaster.GetAll().Where(x => x.DivisionId == divisionId && x.IsTraffic == false).ToList();
+                data = _unitOfWork.PoliceStationMaster.GetAll()
+                                                      .Where(x => x.DivisionId == divisionId && x.IsTraffic == false)
+                                                      .OrderBy(x => x.PoliceStationName)
+                                                      .ToList();
             }
 
             if (policeStationId != 0)
             {
-                data = _unitOfWork.PoliceStationMaster.GetAll().Where(x => x.DivisionId == divisionId && x.IsTraffic == false).ToList();
+                data = _unitOfWork.PoliceStationMaster.GetAll()
+                                                      .Where(x => x.DivisionId == divisionId && x.IsTraffic == false)
+                                                      .OrderBy(x => x.PoliceStationName)
+                                                      .ToList();
             }
 
             return new JsonResult(data);

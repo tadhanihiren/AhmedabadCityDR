@@ -7,12 +7,12 @@ namespace AhmedabadCityDR.APIs
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApiMissingChildDetailsController : ControllerBase
+    public class ApiStationaryMasterController : ControllerBase
     {
         #region Private Members
 
         /// <summary>
-        /// UnitOfWork.
+        /// IUnitOfWork.
         /// </summary>
         private readonly IUnitOfWork _unitOfWork;
 
@@ -23,10 +23,10 @@ namespace AhmedabadCityDR.APIs
         /// <summary>
         /// Constructors
         /// </summary>
-        /// <param name="unitOfWork"></param>
-        public ApiMissingChildDetailsController(IUnitOfWork unitOfWork)
+        /// <param name="iUnitOfWork"></param>
+        public ApiStationaryMasterController(IUnitOfWork iUnitOfWork)
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWork = iUnitOfWork;
         }
 
         #endregion
@@ -38,7 +38,7 @@ namespace AhmedabadCityDR.APIs
         {
             return new JsonResult(new
             {
-                Content = _unitOfWork.MissingChildDetails.Find(x => x.MissingChildId == id),
+                Content = _unitOfWork.StationaryDetails.Find(x => x.StationaryId == id),
             });
         }
 
@@ -68,32 +68,30 @@ namespace AhmedabadCityDR.APIs
                 policeStationId = searchPoliceStationId.Value;
             }
 
-            var responseData = _unitOfWork.MissingChildDetails
-                .GetMissingChildDetails(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date)
-                .Where(x => x.IsActive == true && x.IsDeleted == false)
+            var responseData = _unitOfWork.StationaryDetails
+                .GetStationary(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date)
                 .OrderByDescending(x => x.CreatedDate)
                 .ThenBy(x => x.PoliceStationId)
                 .Select(x => new
                 {
-                    x.MissingChildId,
+                    x.StationaryId,
                     x.PoliceStationName,
                     CreatedDate = x.CreatedDate.Value.ToString("dd/MM/yyyy"),
-                    x.MissingPersonName,
-                    x.MissingReson,
-                    x.Gender,
-                    x.Age,
-                    MissingDate = x.MissingDate.Value.ToString("dd/MM/yyyy"),
-                    ReturnDate = Helper.ConvertDate(x.ReturnDate.ToString()),
-                    x.MissingApplicationNo_Date,
-                    x.PublisherName_Address,
-                    x.MobileNo,
+                    x.Telephone,
+                    x.Computer,
+                    x.Giswan_Connectivity,
+                    x.Fax_machine,
+                    x.Xerox_machine,
+                    x.Other_Stationary_Stocks,
+                    x.IsActive,
+                    x.IsDelete,
                 });
 
             return new JsonResult(new
             {
                 Success = true,
-                Headers = "MissingChildDetails",
-                Header_Title = "MissingChildDetails",
+                Headers = "Stationary Details",
+                Header_Title = "Stationary Details",
                 Header_Desc = $"તારીખ : {fromDate.Value.Date} થી : {toDate.Value.Date}",
                 Content = responseData
             });
@@ -104,7 +102,7 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                _unitOfWork.MissingChildDetails.DeleteById(id);
+                _unitOfWork.StationaryDetails.DeleteById(id);
 
                 return new JsonResult(new
                 {
@@ -126,49 +124,51 @@ namespace AhmedabadCityDR.APIs
         #region Post Methods
 
         [HttpPost("Save")]
-        public JsonResult Save(Post_MissingChildDetails model)
+        public JsonResult Save(Post_StationaryMaster model)
         {
-            DateTime? returnDate = null;
-
-            if (string.IsNullOrEmpty(model.ReturnDate) == false)
-            {
-                var isDate = DateTime.TryParse(model.ReturnDate, out DateTime newDate);
-
-                if (isDate)
-                {
-                    returnDate = newDate;
-                }
-            }
-
             try
             {
-                if (model.MissingChildId == 0)
+                model.PoliceStationId ??= Convert.ToInt32(HttpContext.GetClaimsPrincipal().PoliceStationId);
+
+                if (model.StationaryId == 0)
                 {
-                    var newData = new TblMissingChildDetail
+
+                    var lstStationery = _unitOfWork.StationaryDetails.GetAll().Where(x => x.PoliceStationId == model.PoliceStationId).ToList();
+
+                    foreach (var item in lstStationery)
+                    {
+                        item.IsActive = false;
+                        item.IsDelete = false;
+                        item.ModifiedDate = model.CreatedDate;
+                        item.ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId);
+
+                        _unitOfWork.StationaryDetails.Update(item, item.StationaryId);
+                        _unitOfWork.Save();
+                    }
+
+                    var data = new TblStationery
                     {
                         PoliceStationId = model.PoliceStationId,
-                        MissingPersonName = model.MissingPersonName,
-                        MissingReson = model.MissingReson,
-                        GenderId = model.GenderId,
-                        Age = model.Age,
-                        MissingDate = model.MissingDate,
-                        ReturnDate = returnDate,
-                        MissingApplicationNoDate = model.MissingApplicationNoDate,
-                        PublisherNameAddress = model.PublisherNameAddress,
-                        MobileNo = model.MobileNo,
-                        IsActive = true,
-                        IsDeleted = false,
                         CreatedDate = model.CreatedDate,
+                        Telephone = model.Telephone,
+                        Computer = model.Computer,
+                        GiswanConnectivity = model.GiswanConnectivity,
+                        FaxMachine = model.FaxMachine,
+                        XeroxMachine = model.XeroxMachine,
+                        OtherStationaryStocks = model.OtherStationaryStocks,
                         ModifiedDate = model.CreatedDate,
                         CreatedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
                         ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
+                        IsActive = true,
+                        IsDelete = false
                     };
 
-                    _unitOfWork.MissingChildDetails.Add(newData);
+                    _unitOfWork.StationaryDetails.Add(data);
+
                 }
                 else
                 {
-                    var data = _unitOfWork.MissingChildDetails.Find(x => x.MissingChildId == model.MissingChildId);
+                    var data = _unitOfWork.StationaryDetails.Find(x => x.StationaryId == model.StationaryId);
 
                     if (data == null)
                     {
@@ -180,20 +180,16 @@ namespace AhmedabadCityDR.APIs
                     }
 
                     data.PoliceStationId = model.PoliceStationId.Value;
-                    data.PoliceStationId = model.PoliceStationId;
-                    data.MissingPersonName = model.MissingPersonName;
-                    data.MissingReson = model.MissingReson;
-                    data.GenderId = model.GenderId;
-                    data.Age = model.Age;
-                    data.MissingDate = model.MissingDate;
-                    data.ReturnDate = returnDate;
-                    data.MissingApplicationNoDate = model.MissingApplicationNoDate;
-                    data.PublisherNameAddress = model.PublisherNameAddress;
-                    data.MobileNo = model.MobileNo;
+                    data.Telephone = model.Telephone;
+                    data.Computer = model.Computer;
+                    data.GiswanConnectivity = model.GiswanConnectivity;
+                    data.FaxMachine = model.FaxMachine;
+                    data.XeroxMachine = model.XeroxMachine;
+                    data.OtherStationaryStocks = model.OtherStationaryStocks;
                     data.ModifiedDate = model.CreatedDate;
                     data.ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId);
 
-                    _unitOfWork.MissingChildDetails.Update(data, data.MissingChildId);
+                    _unitOfWork.StationaryDetails.Update(data, data.StationaryId);
                 }
 
                 _unitOfWork.Save();
@@ -214,6 +210,5 @@ namespace AhmedabadCityDR.APIs
         }
 
         #endregion
-
     }
 }

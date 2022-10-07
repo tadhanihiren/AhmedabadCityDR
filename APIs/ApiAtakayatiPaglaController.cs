@@ -68,6 +68,9 @@ namespace AhmedabadCityDR.APIs
                 policeStationId = searchPoliceStationId.Value;
             }
 
+            fromDate = DateTime.Today;
+            toDate = DateTime.Today;
+
             var responseData = _unitOfWork.AtakayatiPagla
                 .GetAtakayatiPagla(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date)
                 .OrderByDescending(x => x.CreatedDate)
