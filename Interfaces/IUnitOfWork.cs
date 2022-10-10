@@ -5,6 +5,21 @@
         #region Properties
 
         /// <summary>
+        /// Gets or sets PendingJanvaJog.
+        /// </summary>
+        public IPendingJanvaJog PendingJanvaJog { get; set; }
+
+        /// <summary>
+        /// Gets or sets AutoRickshawDetail.
+        /// </summary>
+        public IAutoRickshawDetail AutoRickshawDetail { get; set; }
+
+        /// <summary>
+        /// Gets or sets CRPC41CAmendmentMater.
+        /// </summary>
+        public ICRPC41CAmendmentMater CRPC41CAmendmentMater { get; set; }
+
+        /// <summary>
         /// Gets or sets PoliceStationWiseVehical.
         /// </summary>
         public IPoliceStationWiseVehical PoliceStationWiseVehical { get; set; }

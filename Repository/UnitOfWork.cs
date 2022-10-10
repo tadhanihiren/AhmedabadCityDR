@@ -19,6 +19,16 @@ namespace AhmedabadCityDR.Repository
         #region Properties
 
         /// <summary>
+        /// Gets or sets PendingJanvaJog.
+        /// </summary>
+        public IPendingJanvaJog PendingJanvaJog { get; set; }
+
+        /// <summary>
+        /// Gets or sets CRPC41CAmendmentMater.
+        /// </summary>
+        public ICRPC41CAmendmentMater CRPC41CAmendmentMater { get; set; }
+
+        /// <summary>
         /// Gets or sets PoliceStationWiseVehical.
         /// </summary>
         public IPoliceStationWiseVehical PoliceStationWiseVehical { get; set; }
@@ -228,7 +238,6 @@ namespace AhmedabadCityDR.Repository
         /// </summary>
         public IHistoryOfCurrentYearMissing HistoryOfCurrentYearMissing { get; set; }
 
-
         /// <summary>
         /// Gets or sets IVisitation_CrimeBranch
         /// </summary>
@@ -238,6 +247,11 @@ namespace AhmedabadCityDR.Repository
         /// Gets or sets StationaryDetails
         /// </summary>
         public IStationaryDetails StationaryDetails { get; set; }
+
+        /// <summary>
+        /// Gets or sets AutoRickshawDetail
+        /// </summary>
+        public IAutoRickshawDetail AutoRickshawDetail { get ; set; }
 
 
         #endregion
@@ -296,6 +310,9 @@ namespace AhmedabadCityDR.Repository
             Visitation_CrimeBranch = new Visitation_CrimeBranchRepository(_context);
             LaborInformation = new LaborInformationMasterRepository(_context);
             PoliceStationWiseVehical = new PoliceStationWiseVehicalRepository(_context);
+            CRPC41CAmendmentMater = new CRPC41CAmendmentMaterRepository(_context);
+            AutoRickshawDetail = new AutoRickshawDetailRepository(_context);
+            PendingJanvaJog = new PendingJanvaJogRepository(_context);
         }
 
         #endregion
