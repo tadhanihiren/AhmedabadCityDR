@@ -356,7 +356,6 @@ namespace AhmedabadCityDR.APIs
             return new JsonResult(null);
         }
 
-
         [HttpGet("Get_DesignationId_For_NightEmployeeRound")]
         public JsonResult Get_DesignationId_For_NightEmployeeRound()
         {
@@ -375,6 +374,26 @@ namespace AhmedabadCityDR.APIs
                 .Select(X => new { Value = X.EmployeeId, Text = X.EmployeName })
                 .ToList();
             return new JsonResult(lstSectorAll);
+        }
+
+        [HttpGet("GetDivision")]
+        public JsonResult GetDivision(int zoneId)
+        {
+            var lstDivision = _unitOfWork.DivisionMaster.GetAll()
+                .Where(x => x.ZoneId == zoneId && x.IsActive == true)
+                .Select(x => new { Value = x.DivisionId, Text = x.DivisionName })
+                .ToList();
+            return new JsonResult(lstDivision);
+        } 
+        
+        [HttpGet("GetPoliceStation_For_BandobastDetails")]
+        public JsonResult GetPoliceStation_For_BandobastDetails(int divisionId)
+        {
+            var lstPolicestation = _unitOfWork.PoliceStationMaster.GetAll()
+                .Where(x => x.DivisionId == divisionId && x.IsActive == true && x.IsTraffic == false)
+                .Select(x => new { Value = x.PoliceStationId, Text = x.PoliceStationName })
+                .ToList();
+            return new JsonResult(lstPolicestation);
         }
     }
 }

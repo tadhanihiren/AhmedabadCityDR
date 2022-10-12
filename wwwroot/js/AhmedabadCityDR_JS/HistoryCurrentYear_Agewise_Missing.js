@@ -24,6 +24,11 @@ $(document).ready(function () {
 
     PopulateSearchPoliceStationDRD();
 
+    $("#addData").click(() => {
+        $('#form_MissingAgeWise').trigger('reset');
+        $("#submitbtn").html('+ ADD Missing Age Wise '); //Change button value to add
+    });
+
     $.validator.addMethod(
         "regex",
         function (value, element, regexp) {

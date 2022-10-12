@@ -128,11 +128,11 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                var lastRecord = _unitOfWork.NightEmployeeMaster.GetAll().OrderByDescending(x => x.NightEmployeeId).Take(1).ToList();
-                var newId = lastRecord[0].NightEmployeeId + 1;
-
                 if (model.NightEmployeeId == 0)
                 {
+                    var lastRecord = _unitOfWork.NightEmployeeMaster.GetAll().OrderByDescending(x => x.NightEmployeeId).Take(1).ToList();
+                    var newId = lastRecord[0].NightEmployeeId + 1;
+
                     var data = new TblNightEmployeeMaster
                     {
                         NightEmployeeId = newId,

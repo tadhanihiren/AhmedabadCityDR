@@ -1,17 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Accused_Information";
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
 }
-<style>
-    table {
-        table-layout: fixed;
-        overflow-x: scroll;
-    }
 
-    td, th {
-        word-wrap: break-word;
-    }
-
-</style>
 <div class="card">
     <div class="card-body">
         <div class="row card-title">
@@ -24,26 +15,29 @@
                 </button>
             </div>
         </div>
-        <form class="row pb-4" method="post">
+        <div class="row pb-4">
             <div class="col-md-2 mb-1">
-                <input type="date" name="fromDate" id="fromDate" class="form-control date-today">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
             </div>
             <div class="col-md-2 mb-1">
-                <input type="date" name="toDate" id="toDate" class="form-control date-today">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
             </div>
             <div class="col-md-4 mb-1">
-                <select id="policeStationId" name="policeStationId" asp-items="ViewBag.PoliceStation" class="form-select" required>
-                    <option value="" selected disabled>--Select PoliceStation Name--</option>
-                </select>
+                @if (policeStationId == 0)
+                {
+                    <select id="searchPoliceStationId" name="searchPoliceStationId" class="form-select" required>
+                        <option value="" selected>--Select PoliceStation Name--</option>
+                    </select>
+                }
             </div>
             <div class="col-md-2 mb-1">
-                <input type="submit" class="form-control btn btn-outline-secondary" value="Search" />
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" value="Search" />
             </div>
             <div class="col-md-2 mb-1">
                 <input type="button" class="form-control btn btn-outline-success" value="Report View" />
             </div>
-        </form>
-        <table id="" class="display nowrap" style="width:100%;overflow-x: scroll;">
+        </div>
+        <table id="data_AccusedInformation" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
         </table>
     </div>
 </div>
@@ -57,71 +51,72 @@
             </div>
             <div class="modal-body">
                 <div class="card mb-0">
-                    <div class="card-body p-1 m-2" >
+                    <div class="card-body p-1 m-2">
                         <!-- Multi Columns Form -->
-                        <form class="row g-4 ">
-
+                        <form class="row g-4 " id="form_Accused_Information">
+                            <input type="text" id="accusedInformationId" name="accusedInformationId" value="0" style="display:none" class="d-none" placeholder="" />
+                            @if (policeStationId == 0)
+                            {
+                                <div class="col-md-6">
+                                    <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
+                                    <select id="policeStationId" name="policeStationId" class="form-select" required>
+                                        <option value="" selected disabled>--Select PoliceStation Name--</option>
+                                    </select>
+                                </div>
+                            }
                             <div class="col-md-6">
-                                <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>---Select PoliceStation---</option>
-                                </select>
+                                <label for="totalCaches" class="form-label">ના.ફ.આરોપીઓ હોય તેવા કુલ કેશોની સંખ્યા</label>
+                                <input type="text" class="form-control" id="totalCaches" name="totalCaches" placeholder="0" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">ના.ફ.આરોપીઓ હોય તેવા કુલ કેશોની સંખ્યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                                <label for="availableCaches" class="form-label">આવા કેટલા કેશોની કે.ડા. અને કાગળો ઉપલબ્ધ છે ?</label>
+                                <input type="text" class="form-control" id="availableCaches" name="availableCaches" placeholder="0" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">આવા કેટલા કેશોની કે.ડા. અને કાગળો ઉપલબ્ધ છે ?</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">કે.ડા./કેસો ઉપલબ્ધ ન હોય તો તેના કારણો</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                                <label for="notAvailableCachesReasonRemarks" class="form-label">કે.ડા./કેસો ઉપલબ્ધ ન હોય તો તેના કારણો</label>
+                                <input type="text" class="form-control" id="notAvailableCachesReasonRemarks" name="notAvailableCachesReasonRemarks" placeholder="કે.ડા./કેસો ઉપલબ્ધ ન હોય તો તેના કારણો" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">કુલ ના.ફ. આરોપીઓની સંખ્યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                                <label for="totalAccused" class="form-label">કુલ ના.ફ. આરોપીઓની સંખ્યા</label>
+                                <input type="text" class="form-control" id="totalAccused" name="totalAccused" placeholder="0" />
                             </div>
 
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">આજરોજ ના.ફ.પકડાયેલ આરોપીઓની સંખ્યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                                <label for="arrestedAccused" class="form-label">આજરોજ ના.ફ.પકડાયેલ આરોપીઓની સંખ્યા</label>
+                                <input type="text" class="form-control" id="arrestedAccused" name="arrestedAccused" placeholder="0" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">પકડવાના બાકી રહેલ ના.ફ. આરોપીઓની સંખ્યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                                <label for="remainingArrestedAccused" class="form-label">પકડવાના બાકી રહેલ ના.ફ. આરોપીઓની સંખ્યા</label>
+                                <input type="text" class="form-control" id="remainingArrestedAccused" name="remainingArrestedAccused" placeholder="0" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">સી. આર. પી. સી. કલમ ૨૯૯ હેઠળ કરેલ કાર્યવાહી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                                <label for="crpcsection299UnderProcedure" class="form-label">સી. આર. પી. સી. કલમ ૨૯૯ હેઠળ કરેલ કાર્યવાહી</label>
+                                <input type="text" class="form-control" id="crpcsection299UnderProcedure" name="crpcsection299UnderProcedure" placeholder="0" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">સી. આર. પી. સી. કલમ ૭0 હેઠળ કરેલ કાર્યવાહી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                                <label for="crpcsection7UnderProcedure" class="form-label">સી. આર. પી. સી. કલમ ૭0 હેઠળ કરેલ કાર્યવાહી</label>
+                                <input type="text" class="form-control" id="crpcsection7UnderProcedure" name="crpcsection7UnderProcedure" placeholder="0" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">સી. આર. પી. સી. કલમ ૮૨ હેઠળ કરેલ કાર્યવાહી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                                <label for="crpcsection8UnderProcedure" class="form-label">સી. આર. પી. સી. કલમ ૮૨ હેઠળ કરેલ કાર્યવાહી</label>
+                                <input type="text" class="form-control" id="crpcsection8UnderProcedure" name="crpcsection8UnderProcedure" placeholder="0" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">સી. આર. પી. સી. કલમ ૮3 હેઠળ કરેલ કાર્યવાહી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                                <label for="crpcsection83UnderProcedure" class="form-label">સી. આર. પી. સી. કલમ ૮3 હેઠળ કરેલ કાર્યવાહી</label>
+                                <input type="text" class="form-control" id="crpcsection83UnderProcedure" name="crpcsection83UnderProcedure" placeholder="0" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">આઇ.પી.સી ૧૭૪ (ક) હેઠળ કરેલ કાર્યવાહી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="0" />
+                                <label for="ipc174UnderProcedure" class="form-label">આઇ.પી.સી ૧૭૪ (ક) હેઠળ કરેલ કાર્યવાહી</label>
+                                <input type="text" class="form-control" id="ipc174UnderProcedure" name="ipc174UnderProcedure" placeholder="0" />
                             </div>
 
                             <div class="col-md-4">
-                                <label for="inputCity" class="form-label">તારીખ</label>
-                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                                <label for="createdDate" class="form-label">તારીખ </label>
+                                <input type="date" name="createdDate" id="createdDate" class="form-control date-today" required>
                             </div>
-
-
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">+ ADD નાસતા-ફરતા આરોપીઓની માહીતી</button>
+                                <button type="submit" class="btn btn-primary" id="submitbtn">+ ADD નાસતા-ફરતા આરોપીઓની માહીતી</button>
                             </div>
                         </form>
 
@@ -133,3 +128,6 @@
         </div>
     </div>
 </div><!-- End Basic Modal-->
+@section Scripts{
+    <script src="~/js/AhmedabadCityDR_JS/Accused_Information.js" type="text/javascript"></script>
+}

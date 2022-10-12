@@ -19,7 +19,6 @@ namespace AhmedabadCityDR.APIs
 
         #endregion
 
-
         #region Constructors
 
         /// <summary>

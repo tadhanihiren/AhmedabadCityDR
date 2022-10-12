@@ -57,6 +57,11 @@
         internal const string ErrDataNotFound = "Data not found.";
 
         /// <summary>
+        /// This Category Record Is Already Exists.
+        /// </summary>
+        internal const string ErrCategoryRecordExists = "This Category Record Is Already Exists.";
+
+        /// <summary>
         /// Contact Your Administrator!
         /// </summary>
         internal const string ErrContactYourAdministrator = "Contact Your Administrator!";

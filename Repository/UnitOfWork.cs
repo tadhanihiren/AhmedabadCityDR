@@ -5,6 +5,7 @@ namespace AhmedabadCityDR.Repository
     /// <summary>
     /// Contains UnitOfWork related data.
     /// </summary>
+
     public class UnitOfWork : IUnitOfWork
     {
         #region Private Members
@@ -17,6 +18,21 @@ namespace AhmedabadCityDR.Repository
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets EGujakopMaster.
+        /// </summary>
+        public IEGujakopMaster EGujakopMaster { get; set; }
+
+        /// <summary>
+        /// Gets or sets PendingArjiCategory.
+        /// </summary>
+        public IPendingArjiCategory PendingArjiCategory { get; set; }
+
+        /// <summary>
+        /// Gets or sets PendingArjiDetail.
+        /// </summary>
+        public IPendingArjiDetail PendingArjiDetail { get; set; }
 
         /// <summary>
         /// Gets or sets PendingJanvaJog.
@@ -251,7 +267,26 @@ namespace AhmedabadCityDR.Repository
         /// <summary>
         /// Gets or sets AutoRickshawDetail
         /// </summary>
-        public IAutoRickshawDetail AutoRickshawDetail { get ; set; }
+        public IAutoRickshawDetail AutoRickshawDetail { get; set; }
+        /// <summary>
+        /// Gets or sets KacheriMaster
+        /// </summary>
+        public IKacheriMaster KacheriMaster { get; set; }
+
+        /// <summary>
+        /// Gets or sets PoliceStation Wise Pending Application
+        /// </summary>
+        public IPoliceStationWisePendingApplication PoliceStationWisePendingApplication { get; set; }
+
+        /// <summary>
+        /// Gets or sets BandobastType
+        /// </summary>
+        public IBandobastType BandobastType { get; set; }
+
+        /// <summary>
+        /// Gets or sets Bandobast Details
+        /// </summary>
+        public IBandobastDetail BandobastDetail { get; set; }
 
 
         #endregion
@@ -268,7 +303,10 @@ namespace AhmedabadCityDR.Repository
             _context.Database.SetCommandTimeout(TimeSpan.FromMinutes(30));
             EmployeeMaster = new EmployeeMasterRepository(_context);
             StoredProcedure = new StoredProcedure(_context);
+            BandobastDetail = new BandobastDetailRepository(_context);
+            BandobastType = new BandobastTypeRepository(_context);
             DesignationMaster = new DesignationMasterRepository(_context);
+            KacheriMaster = new kacheriMasterRepository(_context);
             AtakayatiDetails = new AtakayatiDetailsRepository(_context);
             AtakayatiPaglaSummary = new AtakayatiPaglaSummaryRepository(_context);
             ProhibitionCrime = new ProhibitionCrimeRepository(_context);
@@ -283,6 +321,7 @@ namespace AhmedabadCityDR.Repository
             SectorMaster = new SectorMasterRepository(_context);
             ZoneMaster = new ZoneMasterRepository(_context);
             DivisionMaster = new DivisionMasterRepository(_context);
+            PoliceStationWisePendingApplication = new PoliceStationWisePendingApplicationRepository(_context);
             PoliceStationMaster = new PoliceStationMasterRepository(_context);
             Part1_5Crime = new Part1_5CrimeRepository(_context);
             Part6Crime = new Part6CrimeRepository(_context);
@@ -313,6 +352,9 @@ namespace AhmedabadCityDR.Repository
             CRPC41CAmendmentMater = new CRPC41CAmendmentMaterRepository(_context);
             AutoRickshawDetail = new AutoRickshawDetailRepository(_context);
             PendingJanvaJog = new PendingJanvaJogRepository(_context);
+            PendingArjiDetail = new PendingArjiDetailRepository(_context);
+            PendingArjiCategory = new PendingArjiCategoryRepository(_context);
+            EGujakopMaster = new EGujakopMasterRepository(_context);
         }
 
         #endregion

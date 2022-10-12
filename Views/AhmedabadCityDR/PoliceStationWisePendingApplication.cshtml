@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "PoliceStationWisePendingApplication";
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row card-title">
+            <div class="col p-0 align-items-center" style="display: flex;align-items: center;">
+                <h5>પો.સ્ટે વાઇઝ તથા કચેરી વાઇઝ પેન્ડીંગ અરજીઓનુ પત્રક</h5>
+            </div>
+            <div class="col p-0">
+                <button type="button" id="addData" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                    + Add પોલીસ સ્ટેશન બાકી અરજી
+                </button>
+            </div>
+        </div>
+        <div class="row pb-4">
+            <div class="col-md-2 mb-1">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
+            </div>
+            <div class="col-md-4 mb-1">
+                @if (policeStationId == 0)
+                {
+                    <select id="searchPoliceStationId" name="searchPoliceStationId" class="form-select" required>
+                        <option value="" selected>--Select PoliceStation Name--</option>
+                    </select>
+                }
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" value="Search" />
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-success" value="Report View" />
+            </div>
+        </div>
+        <table id="data_PoliceStationWisePendingApplication" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
+        </table>
+    </div>
+</div>
+
+<div class="modal modal-xl" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> + Add પોલીસ સ્ટેશન બાકી અરજી</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-0">
+                    <div class="card-body p-1 m-2">
+                        <!-- Multi Columns Form -->
+                        <form class="row g-3 " id="form_PoliceStationWisePendingApplication">
+                            <input type="text" id="policeStationWisePendingApplicationId" name="policeStationWisePendingApplicationId" value="0" style="display:none" class="d-none" placeholder="" />
+                            @if (policeStationId == 0)
+                            {
+                                <div class="col-md-6">
+                                    <label for="policeStationId" class="form-label">પોલીસ સ્ટેશન</label>
+                                    <select id="policeStationId" name="policeStationId" class="form-select" required>
+                                        <option value="" selected disabled>--Select PoliceStation Name--</option>
+                                    </select>
+                                </div>
+                            }
+                            <div class="col-md-6">
+                               <label for="kacheriId" class="form-label">કચેરી</label>
+                                <select id="kacheriId" name="kacheriId" class="form-select" asp-items="ViewBag.Kacheri" required>
+                                    <option selected disabled value="">--Select Kacheri--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="createdDate" class="form-label">તારીખ </label>
+                                <input type="date" name="createdDate" id="createdDate" class="form-control date-today" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="tenDaysBelow" class="form-label">૧૦ દિવસ અંદરની</label>
+                                <input type="text" class="form-control" id="tenDaysBelow" value="0" name="tenDaysBelow" placeholder="૧૦ દિવસ અંદરની" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="tenDaysAbove" class="form-label">૧૦ દિવસ ઉપરની</label>
+                                <input type="text" class="form-control" id="tenDaysAbove" value="0" name="tenDaysAbove" placeholder="૧૦ દિવસ ઉપરની" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="oneMonthAbove" class="form-label">એક માસ ઉપરની</label>
+                                <input type="text" class="form-control" id="oneMonthAbove" value="0" name="oneMonthAbove" placeholder="એક માસ ઉપરની" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="twoMonthAbove" class="form-label">બે માસ ઉપરની</label>
+                                <input type="text" class="form-control" id="twoMonthAbove" value="0" name="twoMonthAbove" placeholder="બે માસ ઉપરની" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="threeMonthAbove" class="form-label">ત્રણ માસ ઉપરની</label>
+                                <input type="text" class="form-control" id="threeMonthAbove" value="0" name="threeMonthAbove" placeholder="ત્રણ માસ ઉપરની" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="sixMonthAbove" class="form-label">છ માસ ઉપરની</label>
+                                <input type="text" class="form-control" id="sixMonthAbove" value="0" name="sixMonthAbove" placeholder="છ માસ ઉપરની" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="oneYearAndAbove" class="form-label">૧ વર્ષ તથા તેનાથી ઉપરની તમામ</label>
+                                <input type="text" class="form-control" id="oneYearAndAbove" value="0" name="oneYearAndAbove" placeholder="૧ વર્ષ તથા તેનાથી ઉપરની તમામ" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="submitbtn">+ ADD પોલીસ સ્ટેશન બાકી અરજી</button>
+                            </div>
+                        </form>
+
+                        <!-- End Multi Columns Form -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- End Basic Modal-->
+@section Scripts{
+    <script src="~/js/AhmedabadCityDR_JS/PoliceStationWisePendingApplication.js" type="text/javascript"></script>
+}

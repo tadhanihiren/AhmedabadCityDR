@@ -53,19 +53,19 @@
             </div>
             <div class="modal-body">
                 <div class="card mb-0">
-                    <div class="card-body p-1 m-2" >
+                    <div class="card-body p-1 m-2">
                         <!-- Multi Columns Form -->
                         <form class="row g-4 " id="form_AtakayatiDetails">
                             <input type="text" id="atakayatiPagalaSummaryId" name="atakayatiPagalaSummaryId" value="0" style="display:none" class="d-none" placeholder="" />
-                            <div class="col-md-4">
-                                @if (policeStationId == 0)
-                                {
+                            @if (policeStationId == 0)
+                            {
+                                <div class="col-md-4">
                                     <label for="policeStationId" class="form-label">પોલીસ સ્ટેશન</label>
                                     <select id="policeStationId" name="policeStationId" class="form-select" required>
                                         <option value="" selected disabled>--Select PoliceStation Name--</option>
                                     </select>
-                                }
-                            </div>
+                                </div>
+                            }
                             <div class="col-md-4">
                                 <label for="subCategoryId" class="form-label">અટકાયતી પગલાના પ્રકાર </label>
                                 <select id="subCategoryId" name="subCategoryId" asp-value="" class="form-select" asp-items="ViewBag.SubCategory" required>
@@ -106,7 +106,9 @@
             </div>
         </div>
     </div>
-</div><!-- End Basic Modal-->
+</div>
+
+<!-- End Basic Modal-->
 @section Scripts{
     <script src="~/js/AhmedabadCityDR_JS/Atakayati_Details.js" type="text/javascript"></script>
 }

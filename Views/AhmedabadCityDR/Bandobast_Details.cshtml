@@ -1,17 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Bandobast_Details";
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
 }
-<style>
-    table {
-        table-layout: fixed;
-        overflow-x: scroll;
-    }
 
-    td, th {
-        word-wrap: break-word;
-    }
-
-</style>
 <div class="card">
     <div class="card-body">
         <div class="row card-title">
@@ -24,26 +15,29 @@
                 </button>
             </div>
         </div>
-        <form class="row pb-4" method="post">
+        <div class="row pb-4">
             <div class="col-md-2 mb-1">
-                <input type="date" name="fromDate" id="fromDate" class="form-control date-today">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
             </div>
             <div class="col-md-2 mb-1">
-                <input type="date" name="toDate" id="toDate" class="form-control date-today">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
             </div>
             <div class="col-md-4 mb-1">
-                <select id="policeStationId" name="policeStationId" asp-items="ViewBag.PoliceStation" class="form-select" required>
-                    <option value="" selected disabled>--Select PoliceStation Name--</option>
-                </select>
+                @if (policeStationId == 0)
+                {
+                    <select id="searchPoliceStationId" name="searchPoliceStationId" class="form-select" required>
+                        <option value="" selected>--Select PoliceStation Name--</option>
+                    </select>
+                }
             </div>
             <div class="col-md-2 mb-1">
-                <input type="submit" class="form-control btn btn-outline-secondary" value="Search" />
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" value="Search" />
             </div>
             <div class="col-md-2 mb-1">
                 <input type="button" class="form-control btn btn-outline-success" value="Report View" />
             </div>
-        </form>
-        <table id="data_Part1_5_Crime" class="display nowrap" style="width:100%;overflow-x: scroll;">
+        </div>
+        <table id="data_Bandobast_Detail" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
         </table>
     </div>
 </div>
@@ -57,30 +51,31 @@
             </div>
             <div class="modal-body">
                 <div class="card mb-0">
-                    <div class="card-body p-1 m-2" >
+                    <div class="card-body p-1 m-2">
                         <!-- Multi Columns Form -->
                         <form class="row g-4 ">
                             <div class="col-md-6">
-                                <label for="inputState" class="form-label">ઝોનનું નામ</label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>---Select Zone---</option>
-                                </select>
-                            </div><div class="col-md-6">
-                                <label for="inputState" class="form-label">ડીવીજન નામ</label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>---Select Division---</option>
+                                <label for="zoneId" class="form-label">ઝોનનું નામ</label>
+                                <select id="zoneId" name="zoneId" class="form-select" asp-items="ViewBag.zone" required>
+                                    <option selected disabled value="">--Select Zone--</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>---Select PoliceStation---</option>
+                                <label for="divisionId" class="form-label">ડીવીજન નામ</label>
+                               <select id="divisionId" name="divisionId" class="form-select" required>
+                                    <option selected disabled value="">--Select Division:--</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="inputState" class="form-label">બંદોબસ્તનો પ્રકાર</label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>---Select બંદોબસ્તનો પ્રકાર---</option>
+                                <label for="policestationId" class="form-label">પોલીસ સ્ટેશન</label>
+                                 <select id="policestationId" name="policestationId" class="form-select" required>
+                                    <option selected disabled value="">--Select Division:--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="bandobastTypeId" class="form-label">બંદોબસ્તનો પ્રકાર</label>
+                                <select id="bandobastTypeId" name="bandobastTypeId" class="form-select" asp-items="ViewBag.bandobast" required>
+                                    <option selected disabled value="">--Select Bandobast Type--</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -97,7 +92,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">+ ADD આજરોજ બંદોબસ્તની માહિતી</button>
+                                <button type="submit" class="btn btn-primary" id="submitbtn">+ ADD આજરોજ બંદોબસ્તની માહિતી</button>
                             </div>
                         </form>
 
@@ -109,3 +104,6 @@
         </div>
     </div>
 </div><!-- End Basic Modal-->
+@section Scripts{
+    <script src="~/js/AhmedabadCityDR_JS/Bandobast_Detail.js" type="text/javascript"></script>
+}

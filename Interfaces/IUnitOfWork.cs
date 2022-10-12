@@ -5,6 +5,21 @@
         #region Properties
 
         /// <summary>
+        /// Gets or sets EGujakopMaster.
+        /// </summary>
+        public IEGujakopMaster EGujakopMaster { get; set; }
+
+        /// <summary>
+        /// Gets or sets PendingArjiCategory.
+        /// </summary>
+        public IPendingArjiCategory PendingArjiCategory { get; set; }
+
+        /// <summary>
+        /// Gets or sets PendingArjiDetail.
+        /// </summary>
+        public IPendingArjiDetail PendingArjiDetail { get; set; }
+
+        /// <summary>
         /// Gets or sets PendingJanvaJog.
         /// </summary>
         public IPendingJanvaJog PendingJanvaJog { get; set; }
@@ -237,6 +252,26 @@
         /// Gets or sets StationaryDetails
         /// </summary>
         public IStationaryDetails StationaryDetails { get; set; }
+
+         /// <summary>
+        /// Gets or sets Kacheri Master
+        /// </summary>
+        public IKacheriMaster KacheriMaster { get; set; }
+
+        /// <summary>
+        /// Gets or sets PoliceStation Wise Pending Application
+        /// </summary>
+        public IPoliceStationWisePendingApplication PoliceStationWisePendingApplication { get; set; }
+        
+        /// <summary>
+        /// Gets or sets Bandobast Type
+        /// </summary>
+        public IBandobastType BandobastType  { get; set; }
+         
+        /// <summary>
+        /// Gets or sets Bandobast Details
+        /// </summary>
+        public IBandobastDetail BandobastDetail  { get; set; }
 
         #endregion
 

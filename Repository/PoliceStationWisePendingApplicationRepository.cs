@@ -5,7 +5,7 @@ using Microsoft.Data.SqlClient;
 
 namespace AhmedabadCityDR.Repository
 {
-    public class AccusedInformationRepository : GenericRepository<TblAccusedInformation>, IAccusedInformation
+    public class PoliceStationWisePendingApplicationRepository : GenericRepository<TblPoliceStationWisePendingApplication>, IPoliceStationWisePendingApplication
     {
         #region Private Memebers
 
@@ -22,7 +22,7 @@ namespace AhmedabadCityDR.Repository
         /// Constructor
         /// </summary>
         /// <param name="context">Context</param>
-        public AccusedInformationRepository(AhmCityDrDbContext context) : base(context)
+        public PoliceStationWisePendingApplicationRepository(AhmCityDrDbContext context) : base(context)
         {
             _context = context;
         }
@@ -31,7 +31,7 @@ namespace AhmedabadCityDR.Repository
 
         public void DeleteById(int id)
         {
-            _context.Database.ExecuteSqlRaw($"SP_tblAccusedInformation_DEL_Only {id}");
+            _context.Database.ExecuteSqlRaw($"SP_tblPoliceStationWisePendingApplication_DEL {id}");
         }
 
         #region Public Methods
@@ -47,7 +47,7 @@ namespace AhmedabadCityDR.Repository
         /// <param name="fromDate">From date</param>
         /// <param name="toDate">To date</param>
         /// <returns>Returns list of AccusedInformationViewModel</returns>
-        public IEnumerable<AccusedInformationViewModel> GetAccusedInformation(int roleId, int sectorId, int zoneId, int divisionId, int policeStationId, DateTime fromDate, DateTime toDate)
+        public IEnumerable<PoliceStationWisePendingApplicationViewModel> GetPoliceStationWisePendingApplication(int roleId, int sectorId, int zoneId, int divisionId, int policeStationId, DateTime fromDate, DateTime toDate)
         {
             var pRoleId = new SqlParameter("@RoleId", roleId);
             var pSectorId = new SqlParameter("@SectorId", sectorId);
@@ -57,9 +57,10 @@ namespace AhmedabadCityDR.Repository
             var pFromDate = new SqlParameter("@FromDate", fromDate);
             var pToDate = new SqlParameter("@ToDate", toDate);
 
-            return _context.Set<AccusedInformationViewModel>().FromSqlRaw("exec USP_View_tblAccusedInformation_SEL @RoleId, @SectorId, @ZoneId, @DivisionId, @PoliceStationId, @FromDate, @ToDate", pRoleId, pSectorId, pZoneId, PDivisionId, pPoliceStationId, pFromDate, pToDate).ToList();
+            return _context.Set<PoliceStationWisePendingApplicationViewModel>().FromSqlRaw("exec USP_tblPoliceStationWisePendingApplication_SEL @RoleId, @SectorId, @ZoneId, @DivisionId, @PoliceStationId, @FromDate, @ToDate", pRoleId, pSectorId, pZoneId, PDivisionId, pPoliceStationId, pFromDate, pToDate).ToList();
         }
 
         #endregion
+
     }
 }

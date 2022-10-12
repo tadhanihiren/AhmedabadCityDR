@@ -70,6 +70,11 @@ namespace AhmedabadCityDR.Controllers
             return pidhelaKabja;
         }
 
+        /// <summary>
+        /// Get list Designation
+        /// </summary>
+        /// <param name="DesignationId">DesignationId</param>
+        /// <returns>Returns list of SelectListItem of Designation</returns>
         public List<SelectListItem> GetDesignation(int id)
         {
             var lstDesignation = _unitOfWork.DesignationMaster.GetAll()
@@ -84,9 +89,87 @@ namespace AhmedabadCityDR.Controllers
                 designation.Add(new SelectListItem { Value = item.DesignationId.ToString(), Text = item.DesignationName });
             }
 
-            ViewBag.Designation = designation;
-
             return designation;
+        }
+
+       
+        /// <summary>
+        /// Get list of Kacheri
+        /// </summary>
+        /// <param name="KacheriId">KacheriId</param>
+        /// <returns>Returns list of SelectListItem of Kacheri</returns>
+        public List<SelectListItem> GetKacheri(int id)
+        {
+            var lstKacheri = _unitOfWork.KacheriMaster.GetAll()
+                  .Where(X => X.KacheriId <= id)
+                  .Select(X => new { X.KacheriId, X.KacheriName })
+                  .ToList();
+
+            var kacheri = new List<SelectListItem>();
+
+            foreach (var item in lstKacheri)
+            {
+                kacheri.Add(new SelectListItem { Value = item.KacheriId.ToString(), Text = item.KacheriName });
+            }
+
+            return kacheri;
+        }
+
+        /// <summary>
+        /// Get list of Zone
+        /// </summary>
+        /// <param name="ZoneId">ZoneId</param>
+        /// <returns>Returns list of SelectListItem of Zone</returns>
+        public List<SelectListItem> GetZone(int startid, int endid)
+        {
+            var lstzone = _unitOfWork.ZoneMaster.GetAll()
+                  .Where(x => x.ZoneId >= startid && x.ZoneId <= endid)
+                  .Select(X => new { X.ZoneId, X.ZoneName })
+                  .ToList();
+
+            var zone = new List<SelectListItem>();
+
+            foreach (var item in lstzone)
+            {
+                zone.Add(new SelectListItem { Value = item.ZoneId.ToString(), Text = item.ZoneName });
+            }
+
+            return zone;
+        }
+
+        /// <summary>
+        /// Get list of BandobastType
+        /// </summary>
+        /// <param name="BandobastTypeId">BandobastTypeId</param>
+        /// <returns>Returns list of SelectListItem of BandobastType</returns>
+        public List<SelectListItem> GetBandobastType(int id)
+        {
+            var lstBandobastType = _unitOfWork.BandobastType.GetAll()
+                  .Where(x => x.BandobastTypeId  <= id)
+                  .Select(X => new { X.BandobastTypeId, X.BandobastType })
+                  .ToList();
+
+            var bandobast = new List<SelectListItem>();
+
+            foreach (var item in lstBandobastType)
+            {
+                bandobast.Add(new SelectListItem { Value = item.BandobastTypeId.ToString(), Text = item.BandobastType });
+            }
+
+            return bandobast;
+        }
+
+        public List<SelectListItem> GetPendingArjiCategory()
+        {
+            var lstPidhelaKabja = _unitOfWork.PendingArjiCategory.GetAll();
+
+            var pidhelaKabja = new List<SelectListItem>();
+
+            foreach (var item in lstPidhelaKabja)
+            {
+                pidhelaKabja.Add(new SelectListItem { Value = item.PendingArjiCategoryId.ToString(), Text = item.CategoryName });
+            }
+            return pidhelaKabja;
         }
 
         public IActionResult Daily_Report()
@@ -288,7 +371,7 @@ namespace AhmedabadCityDR.Controllers
 
         public IActionResult Labor_Information()
         {
-            ViewBag.SubCategory = GetSubcategory(31);
+            ViewBag.SubCategory = GetSubcategory(3);
             return View();
         }
 
@@ -309,11 +392,20 @@ namespace AhmedabadCityDR.Controllers
 
         public IActionResult Pending_Arji_Details()
         {
+            ViewBag.PendingArjiCategory = GetPendingArjiCategory();
+            return View();
+        }
+
+        public IActionResult PoliceStationWisePendingApplication()
+        {
+            ViewBag.Kacheri = GetKacheri(5);
             return View();
         }
 
         public IActionResult Bandobast_Details()
         {
+            ViewBag.zone = GetZone(1, 10);
+            ViewBag.bandobast = GetBandobastType(4);
             return View();
         }
 
