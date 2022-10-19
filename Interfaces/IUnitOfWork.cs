@@ -302,6 +302,11 @@
         /// Gets or sets Traffic Employee Details
         /// </summary>
         public ITrafficEmployeeDetails TrafficEmployeeDetails { get; set; }
+ 
+        /// <summary>
+        /// Gets or sets Traffic Leave Application 
+        /// </summary>
+        public ITraffic_LeaveApplication TrafficLeaveApplication { get; set; }
 
         #endregion
 

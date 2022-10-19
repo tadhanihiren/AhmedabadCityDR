@@ -80,7 +80,7 @@ namespace AhmedabadCityDR.Controllers
             return View();
         }
 
-        public IActionResult Employee_Details()
+        public IActionResult Traffic_Employee_Details()
         {
             ViewBag.Designation = GetDesignation(15);
             return View();

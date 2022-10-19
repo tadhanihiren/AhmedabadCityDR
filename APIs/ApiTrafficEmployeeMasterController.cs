@@ -1,5 +1,6 @@
 ﻿using AhmedabadCityDR.Interfaces;
-using Microsoft.AspNetCore.Http;
+using AhmedabadCityDR.Models.APIModels;
+using AhmedabadCityDR.Models.TableModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AhmedabadCityDR.APIs
@@ -72,9 +73,11 @@ namespace AhmedabadCityDR.APIs
 
             var responseData = _unitOfWork.TrafficEmployeeDetails
                 .GetTrafficEmployees(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date)
+                .Where(x => x.IsActive == true && x.IsDeleted == false && x.IsTraffic == true)
                 .OrderBy(x => x.PoliceStationId)
                 .Select(x => new
                 {
+                    x.EmployeeId,
                     x.PoliceStationName,
                     x.DesignationName,
                     x.BuckleNo,
@@ -90,14 +93,159 @@ namespace AhmedabadCityDR.APIs
             return new JsonResult(new
             {
                 Success = true,
-                Headers = "Employee Details",
-                Header_Title = "Employee Details",
+                Headers = "Traffic Employee Details",
+                Header_Title = "Traffic Employee Details",
                 Header_Desc = $"તારીખ : {fromDate.Value.Date} થી : {toDate.Value.Date}",
                 Content = responseData
             });
         }
 
-       
+        [HttpGet("Delete")]
+        public JsonResult Delete(int id)
+        {
+            try
+            {
+                _unitOfWork.TrafficEmployeeDetails.DeleteById(id);
+
+                return new JsonResult(new
+                {
+                    IsValid = true,
+                });
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    IsValid = false,
+                    Error = ConstantsData.ErrContactYourAdministrator,
+                });
+            }
+        }
+
+        #endregion
+        #region Post Methods
+
+        [HttpPost("Save")]
+        public JsonResult Save(Post_TrafficEmployeeDetails model)
+        {
+            try
+            {
+                DateTime? fromDate = null;
+                DateTime? toDate = null;
+
+                if (!string.IsNullOrEmpty(model.Fromdate))
+                {
+                    if (DateTime.TryParse(model.Fromdate, out var date))
+                    {
+                        fromDate = date;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(model.Todate))
+                {
+                    if (DateTime.TryParse(model.Todate, out var date))
+                    {
+                        toDate = date;
+                    }
+                }
+
+                var roleId = 0;
+
+                roleId = model.DesignationId switch
+                {
+                    1 => 2,
+                    2 => 3,
+                    3 => 4,
+                    4 => 5,
+                    5 => 6,
+                    6 => 7,
+                    7 => 8,
+                    8 => 9,
+                    _ => 10,
+                };
+
+                if (model.EmployeeId == 0)
+                {
+                    var lastRecord = _unitOfWork.TrafficEmployeeDetails.GetAll()
+                                                                       .OrderByDescending(x => x.EmployeeId)
+                                                                       .Take(1).ToList();
+
+
+                    var newRecordId = lastRecord[0].EmployeeId + 1;
+
+                    var newData = new TblEmployeeMaster
+                    {
+                        EmployeeId = newRecordId,
+                        DesignationId = model.DesignationId,
+                        BuckleNo = model.BuckleNo,
+                        EmployeName = model.EmployeName,
+                        Name = model.EmployeName,
+                        ContactNumber = model.ContactNumber,
+                        PrtiniyukatName = model.PrtiniyukatName,
+                        PrtiniyukatPlace = model.PrtiniyukatPlace,
+                        Fromdate = fromDate,
+                        Todate = toDate,
+                        RoleId = roleId,
+                        SectorId = 0,
+                        ZoneId = 0,
+                        DivisionId = 0,
+                        PoliceStationId = model.PoliceStationId,
+                        IsActive = true,
+                        IsDeleted = false,
+                        IsTraffic = true,
+                        CreatedDate = model.CreatedDate,
+                        ModifiedDate = model.CreatedDate,
+                        CreatedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
+                        ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
+                    };
+
+                    _unitOfWork.TrafficEmployeeDetails.Add(newData);
+                }
+                else
+                {
+                    var data = _unitOfWork.TrafficEmployeeDetails.Find(x => x.EmployeeId == model.EmployeeId);
+
+                    if (data == null)
+                    {
+                        return new JsonResult(new
+                        {
+                            IsValid = false,
+                            Error = ConstantsData.ErrDataNotFound,
+                        });
+                    }
+
+                    data.PoliceStationId = model.PoliceStationId;
+                    data.DesignationId = model.DesignationId;
+                    data.BuckleNo = model.BuckleNo;
+                    data.EmployeName = model.EmployeName;
+                    data.ContactNumber = model.ContactNumber;
+                    data.PrtiniyukatName = model.PrtiniyukatName;
+                    data.PrtiniyukatPlace = model.PrtiniyukatPlace;
+                    data.Fromdate = fromDate;
+                    data.Todate = toDate;
+                    data.ModifiedDate = model.CreatedDate;
+                    data.ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId);
+
+                    _unitOfWork.TrafficEmployeeDetails.Update(data, data.EmployeeId);
+                }
+
+                _unitOfWork.Save();
+
+                return new JsonResult(new
+                {
+                    IsValid = true,
+                });
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    IsValid = false,
+                    Error = ConstantsData.ErrContactYourAdministrator,
+                });
+            }
+        }
+
         #endregion
     }
 }

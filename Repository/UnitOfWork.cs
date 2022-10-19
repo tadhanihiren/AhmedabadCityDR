@@ -318,6 +318,11 @@ namespace AhmedabadCityDR.Repository
         /// </summary>
         public ITrafficEmployeeDetails TrafficEmployeeDetails { get; set; }
 
+        /// <summary>
+        /// Gets or sets Traffic Leave Application 
+        /// </summary>
+        public ITraffic_LeaveApplication TrafficLeaveApplication { get; set; }
+
         #endregion
 
         #region Constructors
@@ -390,6 +395,7 @@ namespace AhmedabadCityDR.Repository
             EGujakopMaster = new EGujakopMasterRepository(_context);
             EGujkopDetail = new EGujkopDetailRepository(_context);
             TrafficEmployeeDetails = new Traffic_EmployeeDetailsRepository(_context);
+            TrafficLeaveApplication = new Traffic_LeaveApplicationRepository(_context);
         }
 
         #endregion

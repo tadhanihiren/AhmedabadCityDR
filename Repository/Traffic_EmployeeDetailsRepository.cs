@@ -15,7 +15,7 @@ namespace AhmedabadCityDR.Repository
         }
         public void DeleteById(int id)
         {
-            _context.Database.ExecuteSqlRaw($"SP_tblPoliceStationWiseVehical_DEL {id}");
+            _context.Database.ExecuteSqlRaw($"SP_tblEmployeeMaster_DEL {id}");
         }
 
         public IEnumerable<TrafficEmployeeViewModel> GetTrafficEmployees(int roleId, int sectorId, int zoneId, int divisionId, int policeStationId, DateTime fromDate, DateTime toDate)

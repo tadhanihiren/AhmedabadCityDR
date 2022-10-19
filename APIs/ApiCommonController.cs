@@ -100,60 +100,41 @@ namespace AhmedabadCityDR.APIs
         /// </summary>
         /// <returns>List of police stations</returns>
         [HttpGet("GetTrafficPoliceStation")]
-        public JsonResult GetTrafficPoliceStation()
+        public JsonResult GetTrafficPoliceStation(int designationId)
         {
-            var user = HttpContext.GetClaimsPrincipal();
-            var roleId = Convert.ToInt32(user.RoleId);
-            var sectorId = Convert.ToInt32(user.SectorId);
-            var zoneId = Convert.ToInt32(user.ZoneId);
-            var divisionId = Convert.ToInt32(user.DivisionId);
-            var policeStationId = Convert.ToInt32(user.PoliceStationId);
-
-            var data = new List<TblPoliceStationMaster>();
-
-            if (roleId <= 2 && roleId != 0)
+            switch (designationId)
             {
-                data = _unitOfWork.PoliceStationMaster.GetAll()
-                                                      .Where(x => x.IsTraffic == true)
-                                                      .OrderBy(x => x.PoliceStationName)
-                                                      .ToList();
-            }
+                case 2:
+                case 15:
+                    var lstSector = _unitOfWork.SectorMaster.GetAll()
+                                                            .Where(x => x.SectorId != 0)
+                                                            .Select(x => new { Value = x.SectorId, Text = x.SectorName })
+                                                            .ToList();
+                    return new JsonResult(lstSector);
 
-            if (roleId == 3 && sectorId != 0 && zoneId == 0 && divisionId == 0 && policeStationId == 0)
-            {
-                data = _unitOfWork.PoliceStationMaster.GetAll()
-                                                      .Where(x => x.SectorId == sectorId && x.IsTraffic == true)
-                                                      .OrderBy(x => x.PoliceStationName)
-                                                      .ToList();
-            }
+                case 3:
+                    var lstZone = _unitOfWork.ZoneMaster.GetAll().Where(x => x.ZoneId != 0)
+                                                        .Select(x => new { Value = x.ZoneId, Text = x.ZoneName })
+                                                        .ToList();
+                    return new JsonResult(lstZone);
 
-            if (sectorId == 0 && zoneId != 0 && divisionId == 0 && policeStationId == 0)
-            {
-                data = _unitOfWork.PoliceStationMaster.GetAll()
-                                                      .Where(x => x.ZoneId == zoneId && x.IsTraffic == true)
-                                                      .OrderBy(x => x.PoliceStationName)
-                                                      .ToList();
-            }
+                case 4:
+                    var lstDivision = _unitOfWork.DivisionMaster.GetAll().Where(x => x.DivisionId != 0)
+                                                                .Select(x => new { Value = x.DivisionId, Text = x.DivisionName })
+                                                                .ToList();
+                    return new JsonResult(lstDivision);
 
-            if (sectorId == 0 && zoneId == 0 && divisionId != 0 && policeStationId == 0)
-            {
-                data = _unitOfWork.PoliceStationMaster.GetAll()
-                                                      .Where(x => x.DivisionId == divisionId && x.IsTraffic == true)
-                                                      .OrderBy(x => x.PoliceStationName)
-                                                      .ToList();
-            }
+                case 5:
+                case 6:
+                    var lstPolicestation = _unitOfWork.PoliceStationMaster.GetAll().Where(x => x.PoliceStationId != 0 && x.IsTraffic == false)
+                                                                          .Select(x => new { Value = x.PoliceStationId, Text = x.PoliceStationName })
+                                                                          .ToList();
+                    return new JsonResult(lstPolicestation);
 
-            if (policeStationId != 0)
-            {
-                data = _unitOfWork.PoliceStationMaster.GetAll()
-                                                      .Where(x => x.DivisionId == divisionId && x.IsTraffic == true)
-                                                      .OrderBy(x => x.PoliceStationName)
-                                                      .ToList();
+                default:
+                    return new JsonResult(null);
             }
-
-            return new JsonResult(data);
         }
-
 
         /// <summary>
         /// Gets all Designation id and name.
