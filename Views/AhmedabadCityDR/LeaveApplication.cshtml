@@ -9,7 +9,7 @@
                 <h5>અધિકારીઓ ની રજા</h5>
             </div>
             <div class="col p-0">
-                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                <button type="button" id="addData" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
                     + ADD અધિકારીઓ ની રજા
                 </button>
             </div>
@@ -41,7 +41,7 @@
                 <div class="card mb-0">
                     <div class="card-body p-1 m-2">
                         <!-- Multi Columns Form -->
-                        <form class="row g-4" id="form_LeaveApplication">
+                        <form class="row g-3" id="form_LeaveApplication">
                             <input type="text" id="leaveApplicationID" name="leaveApplicationID" value="0" style="display:none" class="d-none" placeholder="" />
                             <div class="col-md-6">
                                 <label for="designationId" class="form-label">Designation </label>
@@ -103,7 +103,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">+ ADD અધિકારીઓ ની રજા</button>
+                                <button type="submit" class="btn btn-primary" id="submitbtn">+ ADD અધિકારીઓ ની રજા</button>
                             </div>
                         </form>
                         <!-- End Multi Columns Form -->

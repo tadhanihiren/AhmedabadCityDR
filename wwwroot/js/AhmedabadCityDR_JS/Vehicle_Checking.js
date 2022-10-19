@@ -127,14 +127,46 @@ $(document).ready(() => {
 
     $("#form_VehicleChecking").validate({
         rules: {
-            operation: "required",
-            shortDetails: "required",
+            policeStationId: "required",
             createdDate: "required",
+            subCategoryId: "required",
+            checktwowheeler: {
+                required: true,
+                regex: /^[0-9]*$/,
+            },
+            checkthreewheeler: {
+                required: true,
+                regex: /^[0-9]*$/,
+            },
+            dandtwowheeler: {
+                required: true,
+                regex: /^[0-9]*$/,
+            },
+            detain: {
+                required: true,
+                regex: /^[0-9]*$/,
+            },
         },
         messages: {
-            operation: "Required!",
-            shortDetails: "Required!",
+            policeStationId: "Required!",
             createdDate: "Required!",
+            subCategoryId: "Required!",
+            checktwowheeler: {
+                required: "Required!",
+                regex: "Numbers only.",
+            },
+            checkthreewheeler: {
+                required: "Required!",
+                regex: "Numbers only.",
+            },
+            dandtwowheeler: {
+                required: "Required!",
+                regex: "Numbers only.",
+            },
+            detain: {
+                required: "Required!",
+                regex: "Numbers only.",
+            },
         },
         submitHandler: () => {
             var formData = new FormData(document.getElementById("form_VehicleChecking"));

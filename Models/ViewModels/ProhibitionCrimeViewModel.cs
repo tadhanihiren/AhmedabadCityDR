@@ -9,14 +9,14 @@ namespace AhmedabadCityDR.Models.ViewModels
         public int? PoliceStationId { get; set; }
         public string? PoliceStationName { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int? pidhela { get; set; }
-        public int? kabjama { get; set; }
+        public int? Pidhela { get; set; }
+        public int? Kabjama { get; set; }
         public int? CrimeNumber { get; set; }
-        public int? arrestsNumber { get; set; }
-        public int? issue { get; set; }
-        public string? mudamal_value { get; set; }
-        public int? totalNumberCase { get; set; }
-
-
+        public int? ArrestsNumber { get; set; }
+        public int? Issue { get; set; }
+        public string? Mudamal_value { get; set; }
+        public int? TotalNumberCase { get; set; }
+        public bool? IsActive { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 }

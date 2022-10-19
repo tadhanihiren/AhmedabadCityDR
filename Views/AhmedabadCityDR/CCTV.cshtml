@@ -1,17 +1,8 @@
 ﻿@{
     ViewData["Title"] = "CCTV";
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
 }
-<style>
-    table {
-        table-layout: fixed;
-        overflow-x: scroll;
-    }
 
-    td, th {
-        word-wrap: break-word;
-    }
-
-</style>
 <div class="card">
     <div class="card-body">
         <div class="row card-title">
@@ -19,31 +10,34 @@
                 <h5>CCTV</h5>
             </div>
             <div class="col p-0">
-                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                <button type="button" id="addData" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
                     + Add CCTV
                 </button>
             </div>
         </div>
-        <form class="row pb-4" method="post">
+        <div class="row pb-4">
             <div class="col-md-2 mb-1">
-                <input type="date" name="fromDate" id="fromDate" class="form-control date-today">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
             </div>
             <div class="col-md-2 mb-1">
-                <input type="date" name="toDate" id="toDate" class="form-control date-today">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
             </div>
             <div class="col-md-4 mb-1">
-                <select id="policeStationId" name="policeStationId" asp-items="ViewBag.PoliceStation" class="form-select" required>
-                    <option value="" selected disabled>--Select PoliceStation Name--</option>
-                </select>
+                @if (policeStationId == 0)
+                {
+                    <select id="searchPoliceStationId" name="searchPoliceStationId" class="form-select" required>
+                        <option value="" selected>--Select PoliceStation Name--</option>
+                    </select>
+                }
             </div>
             <div class="col-md-2 mb-1">
-                <input type="submit" class="form-control btn btn-outline-secondary" value="Search" />
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" value="Search" />
             </div>
             <div class="col-md-2 mb-1">
                 <input type="button" class="form-control btn btn-outline-success" value="Report View" />
             </div>
-        </form>
-        <table id="" class="display nowrap" style="width:100%;overflow-x: scroll;">
+        </div>
+        <table id="data_CCTV" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
         </table>
     </div>
 </div>
@@ -57,130 +51,133 @@
             </div>
             <div class="modal-body">
                 <div class="card mb-0">
-                    <div class="card-body p-1 m-2" >
+                    <div class="card-body p-1 m-2">
                         <!-- Multi Columns Form -->
-                        <form class="row g-4 ">
-
+                        <form class="row g-4" id="form_CCTV">
+                            <input type="text" id="cctvId" name="cctvId" value="0" style="display:none" class="d-none" placeholder="" />
+                            @if (policeStationId == 0)
+                            {
+                                <div class="col-md-6">
+                                    <label for="policeStationId" class="form-label">પોલીસ સ્ટેશન</label>
+                                    <select id="policeStationId" name="policeStationId" class="form-select" required>
+                                        <option value="" selected disabled>--Select PoliceStation Name--</option>
+                                    </select>
+                                </div>
+                            }
                             <div class="col-md-6">
-                                <label for="inputState" class="form-label">પોલીસ સ્ટેશન</label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>---Select PoliceStation---</option>
+                                <label for="equipmentsId" class="form-label">EquipmentsId</label>
+                                <select id="equipmentsId" name="equipmentsId" class="form-select" asp-items="ViewBag.Equipments" required>
+                                    <option selected disabled value="">--Select Bandobast Type--</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="inputState" class="form-label">EquipmentsId</label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>---Select EquipmentsId---</option>
+                                <label for="statusId" class="form-label">StatusId</label>
+                                <select id="statusId" name="statusId" class="form-select" asp-items="ViewBag.Status" required>
+                                    <option value="" selected disabled>--Select Status--</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="inputState" class="form-label">StatusId</label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>---Select StatusId---</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">Range</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="Range" disabled="disabled" />
+                                <label for="range" class="form-label">Range</label>
+                                <input type="text" class="form-control" id="range" name="range" placeholder="Range" style="background-color:#eee;"  readonly />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">City Distict</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="City Distict" disabled="disabled" />
+                                <label for="cityDistict" class="form-label">City Distict</label>
+                                <input type="text" class="form-control" id="cityDistict" name="cityDistict" placeholder="City Distict" style="background-color:#eee;"  readonly />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">Cluster</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="Cluster" />
+                                <label for="cluster" class="form-label">Cluster</label>
+                                <input type="text" class="form-control" id="cluster" name="cluster" placeholder="Cluster" />
                             </div>
 
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">VenderName</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="VenderName" />
+                                <label for="venderName" class="form-label">VenderName</label>
+                                <input type="text" class="form-control" id="venderName" name="venderName" placeholder="VenderName" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">PTZ_installed</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="PTZ_installed" disabled="disabled" />
+                                <label for="ptzInstalled" class="form-label">PTZ_installed</label>
+                                <input type="text" class="form-control" id="ptzInstalled" name="ptzInstalled" placeholder="PTZ_installed" style="background-color:#eee;"  readonly />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">BLT_installed</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="BLT_installed" disabled="disabled" />
+                                <label for="bltInstalled" class="form-label">BLT_installed</label>
+                                <input type="text" class="form-control" id="bltInstalled" name="bltInstalled" placeholder="BLT_installed" style="background-color:#eee;"  readonly />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">DM_installed</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="DM_installed" disabled="disabled" />
+                                <label for="dmInstalled" class="form-label">DM_installed</label>
+                                <input type="text" class="form-control" id="dmInstalled" name="dmInstalled" placeholder="DM_installed" style="background-color:#eee;"  readonly />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">PTZ funcational</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="PTZ_installed" />
+                                <label for="ptzFuncational" class="form-label">PTZ funcational</label>
+                                <input type="text" class="form-control" id="ptzFuncational" name="ptzFuncational" placeholder="PTZ funcational" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">BLT funcational</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="BLT_installed" />
+                                <label for="bltFuncational" class="form-label">BLT funcational</label>
+                                <input type="text" class="form-control" id="bltFuncational" name="bltFuncational" placeholder="BLT funcational" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">DM funcational</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="DM_installed" />
+                                <label for="dmFuncational" class="form-label">DM funcational</label>
+                                <input type="text" class="form-control" id="dmFuncational" name="dmFuncational" placeholder="DM funcational" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">PTZ Not funcational</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="PTZ_installed" />
+                                <label for="ptzNotFuncational" class="form-label">PTZ Not funcational</label>
+                                <input type="text" class="form-control" id="ptzNotFuncational" name="ptzNotFuncational" placeholder="PTZ Not funcational" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">BLT Not funcational</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="BLT_installed" />
+                                <label for="bltNotFuncational" class="form-label">BLT Not funcational</label>
+                                <input type="text" class="form-control" id="bltNotFuncational" name="bltNotFuncational" placeholder="BLT Not funcational" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">DM Not funcational</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="DM_installed" />
+                                <label for="dmNotFuncational" class="form-label">DM Not funcational</label>
+                                <input type="text" class="form-control" id="dmNotFuncational" name="dmNotFuncational" placeholder="DM Not funcational" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">Complaint1</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="Complaint1" />
+                                <label for="complaint1" class="form-label">Complaint1</label>
+                                <input type="text" class="form-control" id="complaint1" name="complaint1" placeholder="Complaint1" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputCity" class="form-label">ComplaintDate1 </label>
-                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                                <label for="complaintDate1" class="form-label">ComplaintDate1 </label>
+                                <input type="date" name="complaintDate1" id="complaintDate1"  class="form-control max-date-today" aria-label="...">
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">Complaint2</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="Complaint1" />
+                                <label for="complaint2" class="form-label">Complaint2</label>
+                                <input type="text" class="form-control" id="complaint2" name="complaint2"  placeholder="Complaint2" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputCity" class="form-label">ComplaintDate2 </label>
-                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                                <label for="complaintDate2" class="form-label">ComplaintDate2 </label>
+                                <input type="date" name="complaintDate2" id="complaintDate2" class="form-control max-date-today" aria-label="...">
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">Complaint3</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="Complaint1" />
+                                <label for="complaint3" class="form-label">Complaint3</label>
+                                <input type="text" class="form-control" id="complaint3" name="complaint3" placeholder="Complaint1" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputCity" class="form-label">ComplaintDate3</label>
-                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                                <label for="complaintDate3" class="form-label">ComplaintDate3</label>
+                                <input type="date" name="complaintDate3" id="complaintDate3" class="form-control max-date-today" aria-label="...">
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">Nature of Complant</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="Nature of Complant" />
+                                <label for="complaintDate3" class="form-label">Nature of Complant</label>
+                                <input type="text" class="form-control" id="complaintDate3" name="natureofComplant" placeholder="Nature of Complant" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">Visited Remark</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="Visited Remark" />
+                                <label for="visitedRemark" class="form-label">Visited Remark</label>
+                                <input type="text" class="form-control" id="visitedRemark" name="visitedRemark" placeholder="Visited Remark" />
                             </div>
                             <div class="col-md-4">
-                                <label for="inputCity" class="form-label">ResolveDate </label>
-                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                                 <label for="resolveDate" class="form-label">ResolveDate </label>
+                                <input type="date" name="resolveDate" id="resolveDate" class="form-control max-date-today" aria-label="...">
                             </div>
                             <div class="col-md-4">
-                                <label for="inputAddress5" class="form-label">Remark</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="Remark" />
+                                <label for="remark" class="form-label">Remark</label>
+                                <input type="text" class="form-control" id="remark" name="remark" placeholder="Remark" />
 
                             </div>
                             <div class="col-md-4">
-                                <label for="inputCity" class="form-label">તારીખ</label>
-                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                                <label for="createdDate" class="form-label">તારીખ</label>
+                                <input type="date" name="createdDate" id="createdDate" class="form-control date-today" aria-label="...">
                             </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">+ ADD CCTV</button>
+                                <button type="submit" class="btn btn-primary"id="submitbtn" >+ ADD CCTV</button>
                             </div>
                         </form>
 
@@ -192,3 +189,6 @@
         </div>
     </div>
 </div><!-- End Basic Modal-->
+@section Scripts{
+    <script src="~/js/AhmedabadCityDR_JS/CCTV.js" type="text/javascript"></script>
+}

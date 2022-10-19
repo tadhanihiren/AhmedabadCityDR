@@ -110,7 +110,19 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                if (model.HistroryOfCurrentMissingId == 0)
+                var user = HttpContext.GetClaimsPrincipal();
+
+                var oldData = _unitOfWork.HistoryOfCurrentYearMissing.GetHistoryCurrentMissing(0,
+                                                           0,
+                                                           0,
+                                                           0,
+                                                           model.PoliceStationId.Value,
+                                                           model.CreatedDate.Value,
+                                                           model.CreatedDate.Value)
+                                        .Where(x => x.IsActive == true && x.IsDelete == false)
+                                        .ToList();
+
+                if (model.HistroryOfCurrentMissingId == 0 && oldData.Count==0)
                 {
                     var data = new TblhistroryOfCurrentMissing
                     {
@@ -139,6 +151,11 @@ namespace AhmedabadCityDR.APIs
                 }
                 else
                 {
+                    if (oldData != null)
+                    {
+                        model.HistroryOfCurrentMissingId = oldData[0].HistroryOfCurrentMissingId;
+                    }
+
                     var data = _unitOfWork.HistoryOfCurrentYearMissing.Find(x => x.HistroryOfCurrentMissingId == model.HistroryOfCurrentMissingId);
 
                     if (data == null)

@@ -203,6 +203,7 @@ namespace AhmedabadCityDR.APIs
                     data.Crpcsection83UnderProcedure = model.Crpcsection83UnderProcedure;
                     data.Crpcsection299UnderProcedure = model.Crpcsection299UnderProcedure;
                     data.Ipc174UnderProcedure = model.Ipc174UnderProcedure;
+                    data.ModifiedDate = model.CreatedDate;
                     data.ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId);
                     data.IsActive = true;
                     data.IsDeleted = false;

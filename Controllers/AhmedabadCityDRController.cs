@@ -92,6 +92,50 @@ namespace AhmedabadCityDR.Controllers
             return designation;
         }
 
+        /// <summary>
+        /// Get list Equipments
+        /// </summary>
+        /// <param name="EquipmentsId">EquipmentsId</param>
+        /// <returns>Returns list of SelectListItem of Equipment</returns>
+        public List<SelectListItem> GetEquipments(int id)
+        {
+            var lstEquipments = _unitOfWork.Equipment.GetAll()
+                .Where(X => X.EquipmentsId <= id)
+                .Select(X => new { X.EquipmentsId, X.Type })
+                .ToList();
+
+            var equipments = new List<SelectListItem>();
+
+            foreach (var item in lstEquipments)
+            {
+                equipments.Add(new SelectListItem { Value = item.EquipmentsId.ToString(), Text = item.Type });
+            }
+
+            return equipments;
+        }
+
+        /// <summary>
+        /// Get list Status
+        /// </summary>
+        /// <param name="StatusId">StatusId</param>
+        /// <returns>Returns list of SelectListItem of Status</returns>
+        public List<SelectListItem> GetStatus(int id)
+        {
+            var lstStatus = _unitOfWork.Status.GetAll()
+                .Where(X => X.StatusId <= id)
+                .Select(X => new { X.StatusId, X.StatusType })
+                .ToList();
+
+            var status = new List<SelectListItem>();
+
+            foreach (var item in lstStatus)
+            {
+                status.Add(new SelectListItem { Value = item.StatusId.ToString(), Text = item.StatusType });
+            }
+
+            return status;
+        }
+
        
         /// <summary>
         /// Get list of Kacheri
@@ -145,7 +189,7 @@ namespace AhmedabadCityDR.Controllers
         public List<SelectListItem> GetBandobastType(int id)
         {
             var lstBandobastType = _unitOfWork.BandobastType.GetAll()
-                  .Where(x => x.BandobastTypeId  <= id)
+                  .Where(x => x.BandobastTypeId <= id)
                   .Select(X => new { X.BandobastTypeId, X.BandobastType })
                   .ToList();
 
@@ -159,6 +203,10 @@ namespace AhmedabadCityDR.Controllers
             return bandobast;
         }
 
+        /// <summary>
+        /// Get list of PendingArjiCategory
+        /// </summary>
+        /// <returns>Returns list of SelectListItem of PendingArjiCategory</returns>
         public List<SelectListItem> GetPendingArjiCategory()
         {
             var lstPidhelaKabja = _unitOfWork.PendingArjiCategory.GetAll();
@@ -170,6 +218,34 @@ namespace AhmedabadCityDR.Controllers
                 pidhelaKabja.Add(new SelectListItem { Value = item.PendingArjiCategoryId.ToString(), Text = item.CategoryName });
             }
             return pidhelaKabja;
+        }
+
+        /// <summary>
+        /// Get list of Employees.
+        /// </summary>
+        /// <returns>Returns list of SelectListItem of PendingArjiCategory</returns>
+        public List<SelectListItem> GetEmployees()
+        {
+            var user = HttpContext.GetClaimsPrincipal();
+            var roleId = Convert.ToInt32(user.RoleId);
+            var sectorId = Convert.ToInt32(user.SectorId);
+            var zoneId = Convert.ToInt32(user.ZoneId);
+            var divisionId = Convert.ToInt32(user.DivisionId);
+            var policeStationId = Convert.ToInt32(user.PoliceStationId);
+
+            var lstEmployee = _unitOfWork.EmployeeMaster.GetEmployees(roleId, sectorId, zoneId, divisionId, policeStationId, DateTime.Now, DateTime.Now)
+                                                        .Where(x => x.IsTraffic == false &&
+                                                                    x.IsActive == true &&
+                                                                    x.IsDeleted == false)
+                                                        .ToList();
+
+            var employees = new List<SelectListItem>();
+
+            foreach (var item in lstEmployee)
+            {
+                employees.Add(new SelectListItem { Value = item.EmployeeId.ToString(), Text = item.EmployeName });
+            }
+            return employees;
         }
 
         public IActionResult Daily_Report()
@@ -421,11 +497,14 @@ namespace AhmedabadCityDR.Controllers
 
         public IActionResult CCTV()
         {
+            ViewBag.Equipments = GetEquipments(7);
+            ViewBag.Status = GetStatus(4);
             return View();
         }
 
         public IActionResult E_Gujkop_Details()
         {
+            ViewBag.Employees = GetEmployees();
             return View();
         }
 

@@ -119,7 +119,17 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                if (model.HistoryMissingAgeWiseId == 0)
+                var oldData = _unitOfWork.HistoryOfMissingAgeWiseChaild.GetMissingAgeWise(0,
+                                                         0,
+                                                         0,
+                                                         0,
+                                                         model.PoliceStationId.Value,
+                                                         model.CreatedDate.Value,
+                                                         model.CreatedDate.Value)
+                                      .Where(x => x.IsActive == true && x.IsDelete == false)
+                                      .ToList();
+
+                if (model.HistoryMissingAgeWiseId == 0 && oldData.Count==0)
                 {
                     var data = new TblHistoryMissingAgeWiseChild
                     {
@@ -157,6 +167,10 @@ namespace AhmedabadCityDR.APIs
                 }
                 else
                 {
+                    if (oldData != null)
+                    {
+                        model.HistoryMissingAgeWiseId = oldData[0].HistoryMissingAgeWiseId;
+                    }
                     var data = _unitOfWork.HistoryOfMissingAgeWiseChaild.Find(x => x.HistoryMissingAgeWiseId == model.HistoryMissingAgeWiseId);
 
                     if (data == null)

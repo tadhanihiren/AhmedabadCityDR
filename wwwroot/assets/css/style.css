@@ -765,6 +765,14 @@ h6 {
                 border-radius: 50%;
             }
 
+            .sidebar-nav .nav-content a .bi-arrow-right {
+                font-size: 12px;
+            }
+
+            .sidebar-nav .nav-content li ul a {
+                color:slategrey;
+            }
+
             .sidebar-nav .nav-content a:hover,
             .sidebar-nav .nav-content a.active {
                 color: #4154f1;

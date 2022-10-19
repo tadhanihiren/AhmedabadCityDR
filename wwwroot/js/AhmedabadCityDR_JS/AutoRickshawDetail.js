@@ -148,11 +148,11 @@ $(document).ready(() => {
                 required: true,
                 regex: /^[0-9]*$/,
             },
-            rcBook: {
+            rcbook: {
                 required: true,
                 regex: /^[0-9]*$/,
             },
-            rcBook_Detail: {
+            rcbookDetail: {
                 required: true,
                 regex: /^[0-9]*$/,
             },
@@ -183,11 +183,11 @@ $(document).ready(() => {
                 required: "required",
                 regex: "Numbers only.",
             },
-            rcBook: {
+            rcbook: {
                 required: "required",
                 regex: "Numbers only.",
             },
-            rcBook_Detail: {
+            rcbookDetail: {
                 required: "required",
                 regex: "Numbers only.",
             },

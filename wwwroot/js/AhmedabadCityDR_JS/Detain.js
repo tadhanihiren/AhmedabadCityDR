@@ -141,11 +141,11 @@ $(document).ready(() => {
             subCategoryId: "Required!",
             createdDate: "Required!",
             psnccount: {
-                required: "required",
+                required: "Required!",
                 regex: "Numbers only.",
             },
             tsnccount: {
-                required: "required",
+                required: "Required!",
                 regex: "Numbers only.",
             },
         },

@@ -1,4 +1,5 @@
 ﻿function editData(id) {
+    $("#submitbtn").html('Save UserName & Password '); //Change button value to add
     console.log(id);
     $.ajax({
         url: "/api/ApiUserNamePassword/GetById",

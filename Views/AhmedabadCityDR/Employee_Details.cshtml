@@ -1,27 +1,111 @@
 ﻿@{
+    var policeStationId = Convert.ToInt32(httpContextAccessor.HttpContext.GetClaimsPrincipal().PoliceStationId);
     ViewData["Title"] = "Employee_Details";
 }
 
-<section class="section">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"> અધિકારી/કર્મચારી માહિતી</h5>
-                    <table id="" class="display nowrap" style="width:100%;overflow-x: scroll;">
-                    </table>
+<div class="card">
+    <div class="card-body">
+        <div class="row card-title">
+            <div class="col p-0 align-items-center" style="display: flex;align-items: center;">
+                <h5>અધિકારી/કર્મચારી માહિતી</h5>
+            </div>
+            <div class="col p-0">
+                <button type="button" id="addData" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                    + ADD અધિકારી/કર્મચારી
+                </button>
+            </div>
+        </div>
+        <div class="row pb-4">
+            <div class="col-md-5 mb-1">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
+            </div>
+            <div class="col-md-5 mb-1">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" name="searchButton" value="Search" />
+            </div>
+        </div>
+        <table id="data_Employee_Details" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
+        </table>
+    </div>
+</div>
+
+<div class="modal modal-lg" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">આર.ટી.ઓ.દંડ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-0">
+                    <div class="card-body p-1 m-2">
+                        <!-- Multi Columns Form -->
+                        <form class="row g-4 " id="form_Employee_Details">
+                            <input type="text" id="employeeId" name="employeeId" value="0" style="display:none" class="d-none" placeholder="" />
+                            <div class="col-md-12">
+                                <label for="designationId" class="form-label">હોદ્દો</label>
+                                <select id="designationId" name="designationId" class="form-select">
+                                    <option selected disabled>--Select DesignationName--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="buckleNo" class="form-label">બકલ નં.</label>
+                                <input type="text" class="form-control" id="buckleNo" name="buckleNo" placeholder="બકલ નં." />
+                            </div>
+                            <div class="col-md-6">
+                                <div class="dropdown">
+                                    <label for="policeStationId" class="form-label">પોલીસ સ્ટેશન</label>
+                                    <select id="policeStationId" name="policeStationId" class="form-select" required>
+                                        <option value="" selected disabled>--Select PoliceStation Name--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="employeName" class="form-label">અધિકારીનું નામ</label>
+                                <input type="text" class="form-control" id="employeName" name="employeName" placeholder="અધિકારીનું નામ" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="contactNumber" class="form-label">સંપર્ક નંબર</label>
+                                <input type="text" class="form-control" id="contactNumber" name="contactNumber" placeholder="સંપર્ક નંબર" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="prtiniyukatName" class="form-label">પ્રતિનિયુક્ત નામ</label>
+                                <input type="text" class="form-control" id="prtiniyukatName" name="prtiniyukatName" placeholder="પ્રતિનિયુક્ત નામ" />
+                            </div>
+                            <div class="col-md-6">
+                                <div class="dropdown">
+                                    <label for="prtiniyukatPlace" class="form-label">પ્રતિનિયુક્ત જગ્યા</label>
+                                    <select id="prtiniyukatPlace" name="prtiniyukatPlace" class="form-select">
+                                        <option value="" selected disabled>--Select પ્રતિનિયુક્ત જગ્યા--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fromdate" class="form-label">Form Date</label>
+                                <input type="date" name="fromdate" id="fromdate" class="form-control max-date-today">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="todate" class="form-label">To Date</label>
+                                <input type="date" name="todate" id="todate" class="form-control max-date-today">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="createdDate" class="form-label">તારીખ</label>
+                                <input type="date" name="createdDate" id="createdDate" class="form-control date-today">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="submitbtn" class="btn btn-primary">+ ADD આર.ટી.ઓ.દંડ</button>
+                            </div>
+                        </form>
+                        <!-- End Multi Columns Form -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
-<section class="section" style="font-weight:900">
-    <div class="row">
-        <div class="col-lg-6">
-            <!-- Basic Modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal" style="margin-left:20px">
-                + ADD અધિકારી/કર્મચારી
-            </button>
-        </div>
-    </div>
-</section>
+</div><!-- End Basic Modal-->
+@section Scripts {
+    <script src="~/js/AhmedabadCityDR_JS/EmployeeMaster.js" type="text/javascript"></script>
+}

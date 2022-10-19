@@ -15,6 +15,9 @@ namespace AhmedabadCityDR.Models.ViewModels
         public string? Remark { get; set; }
         public string? PoliceStationName { get; set; }
         public DateTime? CreatedDate { get; set; }
+        public bool? IsActive { get; set; }
+        public bool? IsDeleted
+        { get; set; }
 
     }
 }

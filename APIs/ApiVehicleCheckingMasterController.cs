@@ -80,8 +80,8 @@ namespace AhmedabadCityDR.APIs
                     x.SubCategoryName,
                     x.Checktwowheeler,
                     x.Checkthreewheeler,
-                    x.dandtwowheeler,
-                    x.detain,
+                    x.Dandtwowheeler,
+                    x.Detain,
                     x.Remarks,
                 });
 
@@ -150,12 +150,12 @@ namespace AhmedabadCityDR.APIs
                         SubCategoryId = model.SubCategoryId,
                         PoliceStationId = model.PoliceStationId,
                         Checktwowheeler = model.Checktwowheeler,
-                        Dandtwowheeler = model.dandtwowheeler,
+                        Dandtwowheeler = model.Dandtwowheeler,
                         Checkthreewheeler = model.Checkthreewheeler,
-                        Dandthreewheeler = model.dandthreewheeler,
+                        Dandthreewheeler = model.Dandthreewheeler,
                         Checkfourwheeler = model.Checkfourwheeler,
-                        Dandfourwheeler = model.dandfourwheeler,
-                        Detain = model.detain,
+                        Dandfourwheeler = model.Dandfourwheeler,
+                        Detain = model.Detain,
                         Remarks = model.Remarks,
                         IsActive = true,
                         IsDeleted = false,
@@ -188,12 +188,12 @@ namespace AhmedabadCityDR.APIs
                     data.SubCategoryId = model.SubCategoryId;
                     data.PoliceStationId = model.PoliceStationId;
                     data.Checktwowheeler = model.Checktwowheeler;
-                    data.Dandtwowheeler = model.dandtwowheeler;
+                    data.Dandtwowheeler = model.Dandtwowheeler;
                     data.Checkthreewheeler = model.Checkthreewheeler;
-                    data.Dandthreewheeler = model.dandthreewheeler;
+                    data.Dandthreewheeler = model.Dandthreewheeler;
                     data.Checkfourwheeler = model.Checkfourwheeler;
-                    data.Dandfourwheeler = model.dandfourwheeler;
-                    data.Detain = model.detain;
+                    data.Dandfourwheeler = model.Dandfourwheeler;
+                    data.Detain = model.Detain;
                     data.Remarks = model.Remarks;
                     data.ModifiedDate = model.CreatedDate;
                     data.ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId);

@@ -111,13 +111,13 @@ namespace AhmedabadCityDR.APIs
                     x.ProhibitioncrimeId,
                     x.PoliceStationName,
                     CreatedDate = x.CreatedDate.ToString("dd/MM/yyyy"),
-                    x.pidhela,
-                    x.kabjama,
+                    x.Pidhela,
+                    x.Kabjama,
                     x.CrimeNumber,
-                    x.arrestsNumber,
-                    x.mudamal_value,
-                    x.issue,
-                    x.totalNumberCase,
+                    x.ArrestsNumber,
+                    x.Mudamal_value,
+                    x.Issue,
+                    x.TotalNumberCase,
                 });
 
             return new JsonResult(new
@@ -139,7 +139,19 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                if (model.ProhibitioncrimeId == 0)
+                var user = HttpContext.GetClaimsPrincipal();
+
+                var oldData = _unitOfWork.ProhibitionCrime.GetProhibitionCrimes(0,
+                                                           0,
+                                                           0,
+                                                           0,
+                                                           model.PoliceStationId.Value,
+                                                           model.CreatedDate.Value,
+                                                           model.CreatedDate.Value)
+                                        .Where(x => x.IsActive == true && x.IsDeleted == false)
+                                        .ToList();
+
+                if (model.ProhibitioncrimeId == 0 && oldData.Count == 0)
                 {
                     var data = new TblProhibitionCrimeMaster
                     {
@@ -163,6 +175,11 @@ namespace AhmedabadCityDR.APIs
                 }
                 else
                 {
+                    if (oldData != null)
+                    {
+                        model.ProhibitioncrimeId = oldData[0].ProhibitioncrimeId;
+                    }
+
                     var data = _unitOfWork.ProhibitionCrime.Find(x => x.ProhibitioncrimeId == model.ProhibitioncrimeId);
 
                     if (data == null)

@@ -30,9 +30,9 @@ namespace AhmedabadCityDR.Repository
             var pToDate = new SqlParameter("@ToDate", toDate);
 
             return _context.Set<NightRountPersonCountMasterViewModel>()
-                           .FromSqlRaw("exec Usp_tblpart1_5_crimes_sel_check @RoleId, @SectorId, @ZoneId, @DivisionId, @PoliceStationId, @FromDate, @ToDate", pRoleId, pSectorId, pZoneId, PDivisionId, pPoliceStationId, pFromDate, pToDate)
-                           .AsEnumerable()
-                           .FirstOrDefault();
+                       .FromSqlRaw("exec USP_tblNightRountPersonCountMaster_SEL @RoleId, @SectorId, @ZoneId, @DivisionId, @PoliceStationId, @FromDate, @ToDate", pRoleId, pSectorId, pZoneId, PDivisionId, pPoliceStationId, pFromDate, pToDate)
+                       .AsEnumerable()
+                       .FirstOrDefault();
         }
 
         public IEnumerable<NightRountPersonCountMasterViewModel> GetNightRountPersonCount(int roleId, int sectorId, int zoneId, int divisionId, int policeStationId, DateTime fromDate, DateTime toDate)

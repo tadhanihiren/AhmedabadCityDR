@@ -3,9 +3,9 @@ using AhmedabadCityDR.Models.TableModels;
 
 namespace AhmedabadCityDR.Repository
 {
-    public class GenderRepository : GenericRepository<TblGenderMaster>, IGender
+    public class GenericRepository : GenericRepository<TblGenderMaster>, IGender
     {
-        public GenderRepository(AhmCityDrDbContext context) : base(context)
+        public GenericRepository(AhmCityDrDbContext context) : base(context)
         {
         }
     }

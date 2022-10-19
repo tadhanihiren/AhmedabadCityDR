@@ -132,6 +132,8 @@ $().ready(() => {
 
     $("#form_AtakayatiPagala").validate({
         rules: {
+            policeStationId: "required",
+            createdDate: "required",
             crpc107: {
                 required: true,
                 regex: /^[0-9]*$/,
@@ -178,6 +180,8 @@ $().ready(() => {
             },           
         },
         messages: {
+            policeStationId: "required",
+            createdDate: "required",
             crpc107: {
                 required: "required",
                 regex: "Numbers only.",

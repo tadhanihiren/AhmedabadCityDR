@@ -46,7 +46,7 @@
     <script type="text/javascript" src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/dataRender/datetime.js"></script>
-    <script type="text/javascript" src="~/js/AhmedabadCityDR_JS/Common.js"></script>
+    <script type="text/javascript" src="~/js/Common.js"></script>
 </head>
 
 @{
@@ -122,7 +122,7 @@
                     }
 
                     <li class="nav-item">
-                        <a class="nav-link collapsed"> <i class="bi bi-front"></i><span>Internal Transffer</span> </a>
+                        <a class="nav-link collapsed" asp-action="Index" asp-controller="InternalTransffer"> <i class="bi bi-front"></i><span>Internal Transffer</span> </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link collapsed" asp-action="UserName_Password" asp-controller="UserNamePassword"> <i class="bi bi-person-fill"></i><span>Login User</span> </a>
@@ -182,9 +182,12 @@
                             <li>
                                 <a asp-action="Daily_Report" asp-controller="AhmedabadCityDR"> <i class="bi bi-circle-fill"></i><span>અમદાવાદ દૈનિક અહેવાલ</span> </a>
                             </li>
-                            <li>
-                                <a asp-action="Employee_Details" asp-controller="AhmedabadCityDR"> <i class="bi bi-circle-fill"></i><span>શહેર પોલીસ મહેકમ ની વિગત</span> </a>
-                            </li>
+                            @if (roleId == 1 || roleId == 17)
+                            {
+                                <li>
+                                    <a asp-action="Employee_Details" asp-controller="AhmedabadCityDR"> <i class="bi bi-circle-fill"></i><span>શહેર પોલીસ મહેકમ ની વિગત</span> </a>
+                                </li>
+                            }
                             <li>
                                 <a asp-action="AtakayatiPaglaSummary" asp-controller="AhmedabadCityDR"> <i class="bi bi-circle-fill"></i><span>1. ગુન્હાની આંકડાકીય માહીતી</span> </a>
                             </li>
@@ -231,19 +234,19 @@
                                 </a>
                                 <ul class="layout-dropdown-toggle" style="display: none;">
                                     <li>
-                                        <a asp-action="Samans_Details" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>7(A). સમન્‍સ</span></a>
+                                        <a asp-action="Samans_Details" asp-controller="AhmedabadCityDR"><i class="bi  bi-arrow-right"></i><span>7(A). સમન્‍સ</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Samans_Jamin_Details" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>7(A). જામીન લાયક વોરંટ </span></a>
+                                        <a asp-action="Samans_Jamin_Details" asp-controller="AhmedabadCityDR"><i class="bi  bi-arrow-right"></i><span>7(A). જામીન લાયક વોરંટ </span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Samans_Binjamin_Details" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>7(A).બિન જામીન લાયક વોરન્ટ </span></a>
+                                        <a asp-action="Samans_Binjamin_Details" asp-controller="AhmedabadCityDR"><i class="bi  bi-arrow-right"></i><span>7(A).બિન જામીન લાયક વોરન્ટ </span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Samans_FamilyCourt_Details" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>7(B). ફેમીલી કોર્ટથી મળતી નોટીસ </span></a>
+                                        <a asp-action="Samans_FamilyCourt_Details" asp-controller="AhmedabadCityDR"><i class="bi  bi-arrow-right"></i><span>7(B). ફેમીલી કોર્ટથી મળતી નોટીસ </span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Samans_Notice_Details" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>7(B). અન્ય નોટીસ </span></a>
+                                        <a asp-action="Samans_Notice_Details" asp-controller="AhmedabadCityDR"><i class="bi bi-arrow-right"></i><span>7(B). અન્ય નોટીસ </span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -257,10 +260,10 @@
                                 </a>
                                 <ul class="layout-dropdown-toggle" style="display: none;">
                                     <li>
-                                        <a asp-action="LeaveApplication" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>8(A). અધિકારીઓ ની રજા</span></a>
+                                        <a asp-action="LeaveApplication" asp-controller="AhmedabadCityDR"><i class="bi bi-arrow-right"></i><span>8(A). અધિકારીઓ ની રજા</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Leave_Parat" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>8(B). અધિકારીઓ પરત થયેલ</span></a>
+                                        <a asp-action="Leave_Parat" asp-controller="AhmedabadCityDR"><i class="bi bi-arrow-right"></i><span>8(B). અધિકારીઓ પરત થયેલ</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -291,10 +294,10 @@
                                 </a>
                                 <ul class="layout-dropdown-toggle" style="display: none;">
                                     <li>
-                                        <a asp-action="Vehicle_Checking" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>15(A). તમામ પો.સ્ટે./ટ્રાફિક શાખાનું વાહન ચેકિંગની વિગત તેમજ આર.ટી.ઓ.દંડ</span></a>
+                                        <a asp-action="Vehicle_Checking" asp-controller="AhmedabadCityDR"><i class="bi bi-arrow-right"></i><span>15(A). તમામ પો.સ્ટે./ટ્રાફિક શાખાનું વાહન ચેકિંગની વિગત તેમજ આર.ટી.ઓ.દંડ</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Detain" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>15(B).આર.ટી.ઓ.દંડ </span></a>
+                                        <a asp-action="Detain" asp-controller="AhmedabadCityDR"><i class="bi bi-arrow-right"></i><span>15(B).આર.ટી.ઓ.દંડ </span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -310,10 +313,10 @@
                                 </a>
                                 <ul class="layout-dropdown-toggle" style="display:none;">
                                     <li>
-                                        <a asp-action="HistoryOfCurrentMissing" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>19. ચાલુ વર્ષના આજદિન સુધીના ગુમ થયેલા બાળકો, વ્યકિતઓની આંકડાકીય માહિતી</span></a>
+                                        <a asp-action="HistoryOfCurrentMissing" asp-controller="AhmedabadCityDR"><i class="bi bi-arrow-right"></i><span>19. ચાલુ વર્ષના આજદિન સુધીના ગુમ થયેલા બાળકો, વ્યકિતઓની આંકડાકીય માહિતી</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="HistoryCurrentYear_Agewise_Missing" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>19(A). ચાલુ વર્ષના આજદીન સુધીના ખોવાયેલ / મળી આવેલ બાળકોની માહિતી દર્શાવતું પત્રક.</span></a>
+                                        <a asp-action="HistoryCurrentYear_Agewise_Missing" asp-controller="AhmedabadCityDR"><i class="bi bi-arrow-right"></i><span>19(A). ચાલુ વર્ષના આજદીન સુધીના ખોવાયેલ / મળી આવેલ બાળકોની માહિતી દર્શાવતું પત્રક.</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -338,9 +341,9 @@
                             <li>
                                 <a asp-action="Pending_Janvajog" asp-controller="AhmedabadCityDR"> <i class="bi bi-circle-fill"></i><span>26. પો.સ્ટે વાઈઝ પેન્ડીંગ જાણવા જોગનુ પત્રક</span> </a>
                             </li>
-                             <li>
+                            <li>
                                 <a asp-action="PoliceStationWisePendingApplication" asp-controller="AhmedabadCityDR"> <i class="bi bi-circle-fill"></i><span>27. પો.સ્ટે વાઇઝ તથા કચેરી વાઇઝ પેન્ડીંગ અરજીઓનુ પત્રક</span> </a>
-                            </li> 
+                            </li>
                             <li>
                                 <a asp-action="Pending_Arji_Details" asp-controller="AhmedabadCityDR"> <i class="bi bi-circle-fill"></i><span>27(A).પેન્ડિંગ અરજીઓની માહિતી દર્શાવતું પત્રક</span> </a>
                             </li>
@@ -390,16 +393,16 @@
                                 </a>
                                 <ul class="layout-dropdown-toggle" style="display: none;">
                                     <li>
-                                        <a asp-action="CrainWork_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-circle-fill"></i><span> ક્રેઈનની કામગીરી</span></a>
+                                        <a asp-action="CrainWork_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-arrow-right"></i><span> ક્રેઈનની કામગીરી</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="HeadWise_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-circle-fill"></i><span> Head Wise</span></a>
+                                        <a asp-action="HeadWise_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-arrow-right"></i><span> Head Wise</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Part_1to5_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-circle-fill"></i><span> ભાગ-૧ થી ૫</span></a>
+                                        <a asp-action="Part_1to5_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-arrow-right"></i><span> ભાગ-૧ થી ૫</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Jet_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-circle-fill"></i><span> JET ટીમ</span></a>
+                                        <a asp-action="Jet_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-arrow-right"></i><span> JET ટીમ</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -416,10 +419,10 @@
                                 </a>
                                 <ul class="layout-dropdown-toggle" style="display: none;">
                                     <li>
-                                        <a asp-action="Leave_Details" asp-controller="AhmedabadTraffic"><i class="bi bi-circle-fill"></i><span>(A).અધિકારીઓ ની રજા</span></a>
+                                        <a asp-action="Leave_Details" asp-controller="AhmedabadTraffic"><i class="bi bi-arrow-right"></i><span>(A).અધિકારીઓ ની રજા</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Leave_Parat_Details" asp-controller="AhmedabadTraffic"><i class="bi bi-circle-fill"></i><span>(B).અધિકારીઓ પરત થયેલ</span></a>
+                                        <a asp-action="Leave_Parat_Details" asp-controller="AhmedabadTraffic"><i class="bi bi-arrow-right"></i><span>(B).અધિકારીઓ પરત થયેલ</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -507,9 +510,12 @@
                             <li>
                                 <a asp-action="Daily_Report" asp-controller="AhmedabadCityDR"> <i class="bi bi-circle-fill"></i><span>અમદાવાદ દૈનિક અહેવાલ</span> </a>
                             </li>
-                            <li>
-                                <a asp-action="Employee_Details" asp-controller="AhmedabadCityDR"> <i class="bi bi-circle-fill"></i><span>શહેર પોલીસ મહેકમ ની વિગત</span> </a>
-                            </li>
+                            @if (roleId == 1 || roleId == 17)
+                            {
+                                <li>
+                                    <a asp-action="Employee_Details" asp-controller="AhmedabadCityDR"> <i class="bi bi-circle-fill"></i><span>શહેર પોલીસ મહેકમ ની વિગત</span> </a>
+                                </li>
+                            }
                             <li>
                                 <a asp-action="AtakayatiPaglaSummary" asp-controller="AhmedabadCityDR"> <i class="bi bi-circle-fill"></i><span>1. ગુન્હાની આંકડાકીય માહીતી</span> </a>
                             </li>
@@ -556,19 +562,19 @@
                                 </a>
                                 <ul class="layout-dropdown-toggle" style="display: none;">
                                     <li>
-                                        <a asp-action="Samans_Details" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>7(A). સમન્‍સ</span></a>
+                                        <a asp-action="Samans_Details" asp-controller="AhmedabadCityDR"><i class="bi  bi-arrow-right"></i><span>7(A). સમન્‍સ</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Samans_Jamin_Details" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>7(A). જામીન લાયક વોરંટ </span></a>
+                                        <a asp-action="Samans_Jamin_Details" asp-controller="AhmedabadCityDR"><i class="bi  bi-arrow-right"></i><span>7(A). જામીન લાયક વોરંટ </span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Samans_Binjamin_Details" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>7(A).બિન જામીન લાયક વોરન્ટ </span></a>
+                                        <a asp-action="Samans_Binjamin_Details" asp-controller="AhmedabadCityDR"><i class="bi  bi-arrow-right"></i><span>7(A).બિન જામીન લાયક વોરન્ટ </span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Samans_FamilyCourt_Details" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>7(B). ફેમીલી કોર્ટથી મળતી નોટીસ </span></a>
+                                        <a asp-action="Samans_FamilyCourt_Details" asp-controller="AhmedabadCityDR"><i class="bi  bi-arrow-right"></i><span>7(B). ફેમીલી કોર્ટથી મળતી નોટીસ </span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Samans_Notice_Details" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>7(B). અન્ય નોટીસ </span></a>
+                                        <a asp-action="Samans_Notice_Details" asp-controller="AhmedabadCityDR"><i class="bi  bi-arrow-right"></i><span>7(B). અન્ય નોટીસ </span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -582,10 +588,10 @@
                                 </a>
                                 <ul class="layout-dropdown-toggle" style="display: none;">
                                     <li>
-                                        <a asp-action="LeaveApplication" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>8(A). અધિકારીઓ ની રજા</span></a>
+                                        <a asp-action="LeaveApplication" asp-controller="AhmedabadCityDR"><i class="bi bi-arrow-right"></i><span>8(A). અધિકારીઓ ની રજા</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Leave_Parat" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>8(B). અધિકારીઓ પરત થયેલ</span></a>
+                                        <a asp-action="Leave_Parat" asp-controller="AhmedabadCityDR"><i class="bi bi-arrow-right"></i><span>8(B). અધિકારીઓ પરત થયેલ</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -616,10 +622,10 @@
                                 </a>
                                 <ul class="layout-dropdown-toggle" style="display: none;">
                                     <li>
-                                        <a asp-action="Vehicle_Checking" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>15(A). તમામ પો.સ્ટે./ટ્રાફિક શાખાનું વાહન ચેકિંગની વિગત તેમજ આર.ટી.ઓ.દંડ</span></a>
+                                        <a asp-action="Vehicle_Checking" asp-controller="AhmedabadCityDR"><i class="bi bi-arrow-right"></i><span>15(A). તમામ પો.સ્ટે./ટ્રાફિક શાખાનું વાહન ચેકિંગની વિગત તેમજ આર.ટી.ઓ.દંડ</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Detain" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>15(B).આર.ટી.ઓ.દંડ </span></a>
+                                        <a asp-action="Detain" asp-controller="AhmedabadCityDR"><i class="bi bi-arrow-right"></i><span>15(B).આર.ટી.ઓ.દંડ </span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -635,10 +641,10 @@
                                 </a>
                                 <ul class="layout-dropdown-toggle" style="display:none;">
                                     <li>
-                                        <a asp-action="HistoryOfCurrentMissing" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>19. ચાલુ વર્ષના આજદિન સુધીના ગુમ થયેલા બાળકો, વ્યકિતઓની આંકડાકીય માહિતી</span></a>
+                                        <a asp-action="HistoryOfCurrentMissing" asp-controller="AhmedabadCityDR"><i class="bi bi-arrow-right"></i><span>19. ચાલુ વર્ષના આજદિન સુધીના ગુમ થયેલા બાળકો, વ્યકિતઓની આંકડાકીય માહિતી</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="HistoryCurrentYear_Agewise_Missing" asp-controller="AhmedabadCityDR"><i class="bi bi-circle-fill"></i><span>19(A). ચાલુ વર્ષના આજદીન સુધીના ખોવાયેલ / મળી આવેલ બાળકોની માહિતી દર્શાવતું પત્રક.</span></a>
+                                        <a asp-action="HistoryCurrentYear_Agewise_Missing" asp-controller="AhmedabadCityDR"><i class="bi bi-arrow-right"></i><span>19(A). ચાલુ વર્ષના આજદીન સુધીના ખોવાયેલ / મળી આવેલ બાળકોની માહિતી દર્શાવતું પત્રક.</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -665,7 +671,7 @@
                             </li>
                             <li>
                                 <a asp-action="PoliceStationWisePendingApplication" asp-controller="AhmedabadCityDR"> <i class="bi bi-circle-fill"></i><span>27. પો.સ્ટે વાઇઝ તથા કચેરી વાઇઝ પેન્ડીંગ અરજીઓનુ પત્રક</span> </a>
-                            </li> 
+                            </li>
                             <li>
                                 <a asp-action="Pending_Arji_Details" asp-controller="AhmedabadCityDR"> <i class="bi bi-circle-fill"></i><span>27(A).પેન્ડિંગ અરજીઓની માહિતી દર્શાવતું પત્રક</span> </a>
                             </li>
@@ -715,16 +721,16 @@
                                 </a>
                                 <ul class="layout-dropdown-toggle" style="display: none;">
                                     <li>
-                                        <a asp-action="CrainWork_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-circle-fill"></i><span> ક્રેઈનની કામગીરી</span></a>
+                                        <a asp-action="CrainWork_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-arrow-right"></i><span> ક્રેઈનની કામગીરી</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="HeadWise_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-circle-fill"></i><span> Head Wise</span></a>
+                                        <a asp-action="HeadWise_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-arrow-right"></i><span> Head Wise</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Part_1to5_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-circle-fill"></i><span> ભાગ-૧ થી ૫</span></a>
+                                        <a asp-action="Part_1to5_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-arrow-right"></i><span> ભાગ-૧ થી ૫</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Jet_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-circle-fill"></i><span> JET ટીમ</span></a>
+                                        <a asp-action="Jet_MonthlyReport" asp-controller="AhmedabadTraffic"><i class="bi bi-arrow-right"></i><span> JET ટીમ</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -741,10 +747,10 @@
                                 </a>
                                 <ul class="layout-dropdown-toggle" style="display: none;">
                                     <li>
-                                        <a asp-action="Leave_Details" asp-controller="AhmedabadTraffic"><i class="bi bi-circle-fill"></i><span>(A).અધિકારીઓ ની રજા</span></a>
+                                        <a asp-action="Leave_Details" asp-controller="AhmedabadTraffic"><i class="bi bi-arrow-right"></i><span>(A).અધિકારીઓ ની રજા</span></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Leave_Parat_Details" asp-controller="AhmedabadTraffic"><i class="bi bi-circle-fill"></i><span>(B).અધિકારીઓ પરત થયેલ</span></a>
+                                        <a asp-action="Leave_Parat_Details" asp-controller="AhmedabadTraffic"><i class="bi bi-arrow-right"></i><span>(B).અધિકારીઓ પરત થયેલ</span></a>
                                     </li>
                                 </ul>
                             </li>

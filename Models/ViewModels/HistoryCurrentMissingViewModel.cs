@@ -22,6 +22,8 @@ namespace AhmedabadCityDR.Models.ViewModels
         public int? TotalReturnPerson { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string? PoliceStationName { get; set; }
+        public bool? IsActive { get; set; }
+        public bool? IsDelete { get; set; }
 
     }
 }

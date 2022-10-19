@@ -124,7 +124,19 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
-                if (model.NightRoundHekoPoid == 0)
+                var user = HttpContext.GetClaimsPrincipal();
+
+                var oldData = _unitOfWork.NightRound_HEKO_PO.GetNightRound_HEKO_PO(0,
+                                                           0,
+                                                           0,
+                                                           0,
+                                                           model.PoliceStationId.Value,
+                                                           model.CreatedDate.Value,
+                                                           model.CreatedDate.Value)
+                                        .Where(x => x.IsActive == true && x.IsDeleted == false)
+                                        .ToList();
+
+                if (model.NightRoundHekoPoid == 0 && oldData.Count == 0)
                 {
                     var data = new TblNightRoundHekoPomaster
                     {
@@ -148,6 +160,11 @@ namespace AhmedabadCityDR.APIs
                 }
                 else
                 {
+                    if (oldData != null)
+                    {
+                        model.NightRoundHekoPoid = oldData[0].NightRound_HEKO_POID;
+                    }
+
                     var data = _unitOfWork.NightRound_HEKO_PO.Find(x => x.NightRoundHekoPoid == model.NightRoundHekoPoid);
 
                     if (data == null)

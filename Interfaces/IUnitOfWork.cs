@@ -5,6 +5,11 @@
         #region Properties
 
         /// <summary>
+        /// Gets or sets EGujkopDetail.
+        /// </summary>
+        public IEGujkopDetail EGujkopDetail { get; set; }
+
+        /// <summary>
         /// Gets or sets EGujakopMaster.
         /// </summary>
         public IEGujakopMaster EGujakopMaster { get; set; }
@@ -253,7 +258,7 @@
         /// </summary>
         public IStationaryDetails StationaryDetails { get; set; }
 
-         /// <summary>
+        /// <summary>
         /// Gets or sets Kacheri Master
         /// </summary>
         public IKacheriMaster KacheriMaster { get; set; }
@@ -262,16 +267,36 @@
         /// Gets or sets PoliceStation Wise Pending Application
         /// </summary>
         public IPoliceStationWisePendingApplication PoliceStationWisePendingApplication { get; set; }
-        
+
         /// <summary>
         /// Gets or sets Bandobast Type
         /// </summary>
-        public IBandobastType BandobastType  { get; set; }
-         
+        public IBandobastType BandobastType { get; set; }
+
         /// <summary>
         /// Gets or sets Bandobast Details
         /// </summary>
-        public IBandobastDetail BandobastDetail  { get; set; }
+        public IBandobastDetail BandobastDetail { get; set; }
+
+        /// <summary>
+        /// Gets or sets CCTV Installed
+        /// </summary>
+        public ICCTVInstalled CCTVInstalled { get; set; }
+
+        /// <summary>
+        /// Gets or sets CCTV 
+        /// </summary>
+        public ICCTV CCTV { get; set; }
+
+        /// <summary>
+        /// Gets or sets Equipment
+        /// </summary>
+        public IEquipment Equipment { get; set; }
+
+        /// <summary>
+        /// Gets or sets Status
+        /// </summary>
+        public IStatusMaster Status { get; set; }
 
         #endregion
 

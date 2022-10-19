@@ -1,4 +1,6 @@
 ﻿using AhmedabadCityDR.Interfaces;
+using AhmedabadCityDR.Models.APIModels;
+using AhmedabadCityDR.Models.TableModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +39,7 @@ namespace AhmedabadCityDR.APIs
         {
             return new JsonResult(new
             {
-                Content = _unitOfWork.AccusedInformation.Find(x => x.AccusedInformationId == id),
+                Content = _unitOfWork.BandobastDetail.Find(x => x.BandoBastId == id),
             });
         }
 
@@ -67,15 +69,20 @@ namespace AhmedabadCityDR.APIs
                 policeStationId = searchPoliceStationId.Value;
             }
 
-           
+
 
             var responseData = _unitOfWork.BandobastDetail
                 .GetBandobastDetail(roleId, sectorId, zoneId, divisionId, policeStationId, fromDate.Value.Date, toDate.Value.Date)
                 .OrderBy(x => x.PoliceStationId)
+                .Where(x => x.IsActive== true && x.IsDeleted== false)
                 .Select(x => new
                 {
+                    x.BandoBastId,
                     x.PoliceStationName,
                     CreatedDate = x.CreatedDate.Value.ToString("dd/MM/yyyy"),
+                    x.ZoneId,
+                    x.DivisionId,
+                    x.PoliceStationId,
                     x.ZoneName,
                     x.DivisionName,
                     x.BandoBastPlace,
@@ -118,5 +125,79 @@ namespace AhmedabadCityDR.APIs
 
 
         #endregion
+
+        #region Post Methodes
+
+        [HttpPost("Save")]
+        public JsonResult Save(Post_BandobastDetail model)
+        {
+            try
+            {
+
+                if (model.BandoBastId == 0)
+                {
+                    var data = new TblBandobastDetailMaster
+                    {
+                        PoliceStationId=model.PoliceStationId,
+                        BandoBastPlace=model.BandoBastPlace,
+                        BandobastTypeId=model.BandobastTypeId,
+                        BandobastDetailForceNumber = model.BandobastDetailForceNumber,
+                        ShortDetail=model.ShortDetail,
+                        IsActive = true,
+                        IsDeleted = false,
+                        CreatedDate = model.CreatedDate,
+                        ModifiedDate = model.CreatedDate,
+                        CreatedUserId= Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
+                        ModifiedUserId= Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
+                       
+                    };
+
+                    _unitOfWork.BandobastDetail.Add(data);
+                }
+                else
+                {
+                    var data = _unitOfWork.BandobastDetail.Find(x => x.BandoBastId == model.BandoBastId);
+
+                    if (data == null)
+                    {
+                        return new JsonResult(new
+                        {
+                            IsValid = false,
+                            Error = ConstantsData.ErrDataNotFound,
+                        });
+                    }
+                    data.PoliceStationId = model.PoliceStationId;
+                    data.BandoBastPlace = model.BandoBastPlace;
+                    data.BandobastTypeId = model.BandobastTypeId;
+                    data.BandobastDetailForceNumber = model.BandobastDetailForceNumber;
+                    data.ShortDetail = model.ShortDetail;
+                    data.IsActive = true;
+                    data.IsDeleted = false;
+                    data.ModifiedDate = model.CreatedDate;
+                    data.ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId);
+
+                    _unitOfWork.BandobastDetail.Update(data, data.BandoBastId);
+
+                }
+
+                _unitOfWork.Save();
+
+                return new JsonResult(new
+                {
+                    IsValid = true,
+                });
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    IsValid = false,
+                    Error = ConstantsData.ErrContactYourAdministrator,
+                });
+            }
+        }
+
+        #endregion
+
     }
 }

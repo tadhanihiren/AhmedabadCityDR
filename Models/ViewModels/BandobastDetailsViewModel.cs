@@ -16,8 +16,6 @@ namespace AhmedabadCityDR.Models.ViewModels
         public bool IsDeleted { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public int? CreatedUserId { get; set; }
-        public int? ModifiedUserId { get; set; }
         public int? ZoneId { get; set; }
         public string? ZoneName { get; set; }
         public int? DivisionId { get; set; }

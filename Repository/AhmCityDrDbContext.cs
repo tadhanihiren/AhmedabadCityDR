@@ -351,11 +351,15 @@ namespace AhmedabadCityDR.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<EmployeeMasterViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<EGujkopDetailViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<EGujakopMasterViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<PendingArjiDetailViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<PendingJanvaJogViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<AutoRickshawDetailViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<CRPC41CAmendmentMaterViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<CCTVInstalledViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<CCTVViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<PoliceStationWisePendingApplicationViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<PoliceStationWiseVehicalViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<LaborInformationMasterViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);

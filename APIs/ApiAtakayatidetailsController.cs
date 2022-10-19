@@ -144,8 +144,19 @@ namespace AhmedabadCityDR.APIs
             try
             {
                 var user = HttpContext.GetClaimsPrincipal();
-              
-                if (model.AtakayatiPagalaSummaryId == 0 )
+
+                var oldData = _unitOfWork.AtakayatiDetails.GetAtakayatiDetails(0,
+                                                           0,
+                                                           0,
+                                                           0,
+                                                           model.PoliceStationId.Value,
+                                                           model.CreatedDate,
+                                                           model.CreatedDate)
+                                        .Where(x => x.IsActive == true && x.IsDeleted == false)
+                                        .ToList();
+
+
+                if (model.AtakayatiPagalaSummaryId == 0 && oldData.Count == 0)
                 {
                     var atakayatidetail = new TblAtakayatidetail
                     {
@@ -169,7 +180,10 @@ namespace AhmedabadCityDR.APIs
                 }
                 else
                 {
-                   
+                    if (oldData != null)
+                    {
+                        model.AtakayatiPagalaSummaryId = oldData[0].AtakayatiPagalaSummaryId;
+                    }
                     var data = _unitOfWork.AtakayatiDetails.Find(x => x.AtakayatiPagalaSummaryId == model.AtakayatiPagalaSummaryId);
 
                     if (data == null)

@@ -164,7 +164,7 @@ namespace AhmedabadCityDR.APIs
                 }
                 else
                 {
-                    if (oldData != null)
+                    if (oldData.Count != 0)
                     {
                         model.PendingJanvaJog = oldData[0].PendingJanvaJog.Value;
                     }

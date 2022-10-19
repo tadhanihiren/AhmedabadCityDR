@@ -24,6 +24,11 @@ namespace AhmedabadCityDR.Controllers
             return View();
         }
 
+        public IActionResult JET_Wards()
+        {
+            return View();
+        }
+        
         public IActionResult Jet_MonthlyReport()
         {
             return View();
@@ -134,7 +139,7 @@ namespace AhmedabadCityDR.Controllers
             return View();
         }
 
-        public IActionResult Bandobast()
+        public IActionResult Bandobast_Details()
         {
             return View();
         }

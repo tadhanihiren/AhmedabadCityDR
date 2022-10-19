@@ -20,6 +20,11 @@ namespace AhmedabadCityDR.Repository
         #region Properties
 
         /// <summary>
+        /// Gets or sets EGujkopDetail.
+        /// </summary>
+        public IEGujkopDetail EGujkopDetail { get; set; }
+
+        /// <summary>
         /// Gets or sets EGujakopMaster.
         /// </summary>
         public IEGujakopMaster EGujakopMaster { get; set; }
@@ -288,6 +293,25 @@ namespace AhmedabadCityDR.Repository
         /// </summary>
         public IBandobastDetail BandobastDetail { get; set; }
 
+        /// <summary>
+        /// Gets or sets CCTV Installed
+        /// </summary>
+        public ICCTVInstalled CCTVInstalled { get; set; }
+
+        /// <summary>
+        /// Gets or sets CCTV 
+        /// </summary>
+        public ICCTV CCTV { get; set; }
+
+        /// <summary>
+        /// Gets or sets Equipment
+        /// </summary>
+        public IEquipment Equipment { get; set; }
+        
+        /// <summary>
+        /// Gets or sets Status
+        /// </summary>
+        public IStatusMaster Status { get; set; }
 
         #endregion
 
@@ -303,8 +327,12 @@ namespace AhmedabadCityDR.Repository
             _context.Database.SetCommandTimeout(TimeSpan.FromMinutes(30));
             EmployeeMaster = new EmployeeMasterRepository(_context);
             StoredProcedure = new StoredProcedure(_context);
+            CCTVInstalled = new CCTVInstalledRepository(_context);
+            CCTV = new CCTVRepository(_context);
             BandobastDetail = new BandobastDetailRepository(_context);
             BandobastType = new BandobastTypeRepository(_context);
+            Equipment = new EquipmentsRepository(_context);
+            Status = new StatusRepository(_context);
             DesignationMaster = new DesignationMasterRepository(_context);
             KacheriMaster = new kacheriMasterRepository(_context);
             AtakayatiDetails = new AtakayatiDetailsRepository(_context);
@@ -345,7 +373,7 @@ namespace AhmedabadCityDR.Repository
             Detain = new DetainRepository(_context);
             MCRDetails = new MCRDetailsRepository(_context);
             MissingChildDetails = new MissingChildDetailsRepository(_context);
-            Gender = new GenderRepository(_context);
+            Gender = new GenericRepository(_context);
             Visitation_CrimeBranch = new Visitation_CrimeBranchRepository(_context);
             LaborInformation = new LaborInformationMasterRepository(_context);
             PoliceStationWiseVehical = new PoliceStationWiseVehicalRepository(_context);
@@ -355,6 +383,7 @@ namespace AhmedabadCityDR.Repository
             PendingArjiDetail = new PendingArjiDetailRepository(_context);
             PendingArjiCategory = new PendingArjiCategoryRepository(_context);
             EGujakopMaster = new EGujakopMasterRepository(_context);
+            EGujkopDetail = new EGujkopDetailRepository(_context);
         }
 
         #endregion

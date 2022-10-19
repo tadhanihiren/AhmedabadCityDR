@@ -128,20 +128,19 @@ $(document).ready(() => {
         rules: {
             policeStationId: "required",
             createdDate: "required",
-            mcrCardNo: "required",
-            nameOfISM: "required",
-            latestMobileNo: "required",
-            latestAddressOfISM: "required",
-            remarks: "required",
+            latestAddressOfIsm: "required",
+            nameOfIsm: "required",
+            latestMobileNo: {
+                regex: /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$/,
+            },
         },
         messages: {
             policeStationId: "Required!",
             createdDate: "Required!",
-            mcrCardNo: "Required!",
-            nameOfISM: "Required!",
-            latestMobileNo: "Required!",
-            latestAddressOfISM: "Required!",
-            remarks: "Required!",
+            latestAddressOfIsm: "Required!",
+            nameOfIsm: "Required!", latestMobileNo: {
+                regex: "Provide Valid contactNo"
+            },
         },
         submitHandler: () => {
             var formData = new FormData(document.getElementById("form_MCRDetails"));

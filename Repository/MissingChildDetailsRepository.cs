@@ -16,7 +16,7 @@ namespace AhmedabadCityDR.Repository
 
         public void DeleteById(int id)
         {
-            _context.Database.ExecuteSqlRaw($"SP_tbldetainMaster_DEL {id}");
+            _context.Database.ExecuteSqlRaw($"SP_tblMissingChildDetails_DEL {id}");
         }
 
         public IEnumerable<MissingChildDetailsViewModel> GetMissingChildDetails(int roleId, int sectorId, int zoneId, int divisionId, int policeStationId, DateTime fromDate, DateTime toDate)

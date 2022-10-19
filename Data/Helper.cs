@@ -15,11 +15,9 @@
             {
                 var newDate = string.Empty;
 
-                var isDate = DateTime.TryParse(date, out var dateOnly);
-
-                if (isDate == true)
+                if (DateTime.TryParse(date, out var dateOnly) == true)
                 {
-                    newDate = dateOnly.ToShortDateString();
+                    newDate = $"{dateOnly.Day}-{dateOnly.Month}-{dateOnly.Year}";
                 }
 
                 return newDate;

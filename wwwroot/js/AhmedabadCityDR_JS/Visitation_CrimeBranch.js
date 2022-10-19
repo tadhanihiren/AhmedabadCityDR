@@ -139,12 +139,12 @@ $(document).ready(function () {
 
         },
         messages: {
-            policeStationId: "required",
-            createdDate: "required",
-            gubatataCrimePlace: "required",
-            crimeVisitPlace: "required",
-            visitDate: "required",
-            visiterOfficerName: "required",
+            policeStationId: "Required!",
+            createdDate: "Required!",
+            gubatataCrimePlace: "Required!",
+            crimeVisitPlace: "Required!",
+            visitDate: "Required!",
+            visiterOfficerName: "Required!",
         },
 
         submitHandler: () => {

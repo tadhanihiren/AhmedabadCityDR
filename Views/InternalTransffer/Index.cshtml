@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Internal Transffer";
+}
+<div class="card">
+    <div class="card-body">
+        <div class="row card-title">
+            <div class="col p-0 align-items-center" style="display: flex;align-items: center;">
+                <h5>અધિકારી/કર્મચારી માહિતી</h5>
+            </div>
+        </div>        
+        <div class="row pb-4">
+            <div class="col-md-5 mb-1">
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
+            </div>
+            <div class="col-md-5 mb-1">
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
+            </div>
+            <div class="col-md-2 mb-1">
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" name="searchButton" value="Search" />
+            </div>
+        </div>
+        <table id="data_InternalTransffer" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
+        </table>
+    </div>
+</div>
+
+<!-- Basic Modal -->
+<div class="modal modal-xl" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit અધિકારી/કર્મચારી માહિતી</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-0">
+                    <div class="card-body p-1 m-2">
+                        <!-- Multi Columns Form -->
+                        <form class="row g-3" novalidate id="form_InternalTransffer">
+                            <input type="text" id="employeeId" name="employeeId" value="0" style="display:none" class="d-none" placeholder="" />
+                            <div class="col-md-6">
+                                <label for="designationId" class="form-label">હોદ્દો</label>
+                                <select id="designationId" name="designationId" class="form-select" required>
+                                    <option selected disabled value="">--Select Designation--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="tempId" class="form-label">Sector/Zone/Division/PoliceStation</label>
+                                <select id="tempId" name="tempId" class="form-select" required>
+                                    <option selected disabled value="">--Select Sector/Zone/Division/PoliceStation:--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="buckleNo" class="form-label">બકલ નં.</label>
+                                <input type="text" class="form-control" id="buckleNo" name="buckleNo" placeholder="બકલ નં." required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="employeName" class="form-label">અધિકારીનું નામ</label>
+                                <input type="text" class="form-control" id="employeName" name="employeName" placeholder="અધિકારીનું નામ" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="contactNumber" class="form-label">સંપર્ક નંબર</label>
+                                <input type="text" id="contactNumber" class="form-control" name="contactNumber" placeholder="સંપર્ક નંબર" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="createdDate" class="form-label">તારીખ</label>
+                                <input type="date" id="createdDate" class="form-control date-today" name="createdDate" placeholder="Contact" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="transfferTempId" class="form-label">Transffer To Sector/Zone/Division/PoliceStation</label>
+                                <select id="transfferTempId" name="transfferTempId" class="form-select" required>
+                                    <option selected disabled value="">--Select Sector/Zone/Division/PoliceStation:--</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="submitbtn" class="btn btn-primary">Save અધિકારી/કર્મચારી માહિતી</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>    <!-- End Multi Columns Form -->
+            </div>
+        </div>
+    </div>
+</div><!-- End Basic Modal-->
+
+<script src="~/js/AhmedabadCityDR_JS/InternalTransffer.js"></script>

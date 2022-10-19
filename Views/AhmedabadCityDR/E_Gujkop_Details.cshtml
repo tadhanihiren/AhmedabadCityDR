@@ -1,17 +1,6 @@
 ﻿@{
     ViewData["Title"] = "E_Gujkop_Details";
 }
-<style>
-    table {
-        table-layout: fixed;
-        overflow-x: scroll;
-    }
-
-    td, th {
-        word-wrap: break-word;
-    }
-
-</style>
 <div class="card">
     <div class="card-body">
         <div class="row card-title">
@@ -19,31 +8,23 @@
                 <h5>ઈગુજકોપ</h5>
             </div>
             <div class="col p-0">
-                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                <button type="button" id="addData" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
                     + ADD ઈગુજકોપ
                 </button>
             </div>
         </div>
-        <form class="row pb-4" method="post">
+        <div class="row pb-4">
             <div class="col-md-2 mb-1">
-                <input type="date" name="fromDate" id="fromDate" class="form-control date-today">
-            </div>
-            <div class="col-md-2 mb-1">
-                <input type="date" name="toDate" id="toDate" class="form-control date-today">
-            </div>
-            <div class="col-md-4 mb-1">
-                <select id="policeStationId" name="policeStationId" asp-items="ViewBag.PoliceStation" class="form-select" required>
-                    <option value="" selected disabled>--Select PoliceStation Name--</option>
-                </select>
+                <input type="date" name="searchFromDate" id="searchFromDate" class="form-control date-today">
             </div>
             <div class="col-md-2 mb-1">
-                <input type="submit" class="form-control btn btn-outline-secondary" value="Search" />
+                <input type="date" name="searchToDate" id="searchToDate" class="form-control date-today">
             </div>
             <div class="col-md-2 mb-1">
-                <input type="button" class="form-control btn btn-outline-success" value="Report View" />
+                <input type="button" class="form-control btn btn-outline-secondary" id="searchButton" name="searchButton" value="Search" />
             </div>
-        </form>
-        <table id="" class="display nowrap" style="width:100%;overflow-x: scroll;">
+        </div>
+        <table id="data_E_Gujkop_Details" class="display cell-border compact order-column stripe" style="width:100%; overflow-x: scroll; table-layout: fixed">
         </table>
     </div>
 </div>
@@ -57,128 +38,128 @@
             </div>
             <div class="modal-body">
                 <div class="card mb-0">
-                    <div class="card-body p-1 m-2" >
+                    <div class="card-body p-1 m-2">
                         <!-- Multi Columns Form -->
-                        <form class="row g-4 ">
-
-
+                        <form class="row g-2" id="form_E_Gujkop_Details">
+                            <input type="text" id="eGujkopDetailsId" name="eGujkopDetailsId" value="0" style="display:none" class="d-none" placeholder="" />
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">1).પો.સ્ટે. ખાતે આજ રોજ નોધાયેલ એફ.આઈ.આર. (IIF-1)</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="પો.સ્ટે. ખાતે આજ રોજ નોધાયેલ એફ.આઈ.આર. (IIF-1)" />
+                                <label for="policeStationKhateNondhayelFir" class="form-label">1).પો.સ્ટે. ખાતે આજ રોજ નોધાયેલ એફ.આઈ.આર. (IIF-1)</label>
+                                <input type="text" class="form-control" id="policeStationKhateNondhayelFir" name="policeStationKhateNondhayelFir" placeholder="પો.સ્ટે. ખાતે આજ રોજ નોધાયેલ એફ.આઈ.આર. (IIF-1)" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">2).આજ રોજ નોધાયેલ એફ.આઈ.આર. પૈકી ઈગુજકોપમાં એફ.આઈ.આર. ની કરેલ એન્ટ્રી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આજ રોજ નોધાયેલ એફ.આઈ.આર. પૈકી ઈગુજકોપમાં એફ.આઈ.આર. ની કરેલ એન્ટ્રી" />
+                                <label for="eGujkopFirEntry" class="form-label">2).આજ રોજ નોધાયેલ એફ.આઈ.આર. પૈકી ઈગુજકોપમાં એફ.આઈ.આર. ની કરેલ એન્ટ્રી</label>
+                                <input type="text" class="form-control" id="eGujkopFIREntry" name="eGujkopFirEntry" placeholder="આજ રોજ નોધાયેલ એફ.આઈ.આર. પૈકી ઈગુજકોપમાં એફ.આઈ.આર. ની કરેલ એન્ટ્રી" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">3).આજ રોજ પો.સ્ટે. ખાતે નોધાયેલ ગુના સબંધે કરવામાં આવેલ પંચનામું (IIF-2)</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આજ રોજ પો.સ્ટે. ખાતે નોધાયેલ ગુના સબંધે કરવામાં આવેલ પંચનામું (IIF-2)" />
-                            </div>
-
-                            <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">4).આજ રોજ કરવામાં આવેલ પંચનામા પૈકી ઈગુજકોપમાં કરેલ એન્ટ્રી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આજ રોજ કરવામાં આવેલ પંચનામા પૈકી ઈગુજકોપમાં કરેલ એન્ટ્રી" />
+                                <label for="policeStationKhateNondhayelPanchnamu" class="form-label">3).આજ રોજ પો.સ્ટે. ખાતે નોધાયેલ ગુના સબંધે કરવામાં આવેલ પંચનામું (IIF-2)</label>
+                                <input type="text" class="form-control" id="policeStationKhateNondhayelPanchnamu" name="policeStationKhateNondhayelPanchnamu" placeholder="આજ રોજ પો.સ્ટે. ખાતે નોધાયેલ ગુના સબંધે કરવામાં આવેલ પંચનામું (IIF-2)" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">5).આજ રોજ અટક કરેલ ઈસમ (IIF-3)</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આજ રોજ અટક કરેલ ઈસમ (IIF-3)" />
+                                <label for="panchnamaEgujopEntry" class="form-label">4).આજ રોજ કરવામાં આવેલ પંચનામા પૈકી ઈગુજકોપમાં કરેલ એન્ટ્રી</label>
+                                <input type="text" class="form-control" id="panchnamaEgujopEntry" name="panchnamaEgujopEntry" placeholder="આજ રોજ કરવામાં આવેલ પંચનામા પૈકી ઈગુજકોપમાં કરેલ એન્ટ્રી" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">6).આજ રોજ અટક કરેલ ઈસમોની ઈગુજકોપમાં કરેલ એન્ટ્રી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આજ રોજ અટક કરેલ ઈસમોની ઈગુજકોપમાં કરેલ એન્ટ્રી" />
+                                <label for="atakKarelIsam" class="form-label">5).આજ રોજ અટક કરેલ ઈસમ (IIF-3)</label>
+                                <input type="text" class="form-control" id="atakKarelIsam" name="atakKarelIsam" placeholder="આજ રોજ અટક કરેલ ઈસમ (IIF-3)" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">7). આજ રોજ અટક કરેલ ઈસમ પૈકી કેટલાના ફોટા ઈગુજકોપ પર અપલોડ કરેલ</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder=" આજ રોજ અટક કરેલ ઈસમ પૈકી કેટલાના ફોટા ઈગુજકોપ પર અપલોડ કરેલ" />
+                                <label for="atakKarelIsamEgujkopEntry" class="form-label">6).આજ રોજ અટક કરેલ ઈસમોની ઈગુજકોપમાં કરેલ એન્ટ્રી</label>
+                                <input type="text" class="form-control" id="atakKarelIsamEgujkopEntry" name="atakKarelIsamEgujkopEntry" placeholder="આજ રોજ અટક કરેલ ઈસમોની ઈગુજકોપમાં કરેલ એન્ટ્રી" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">8). પો.સ્ટે. ખાતે નોધાયેલ ગુના સબંધે આજ રોજ કેટલી મુદ્દામાલ પાવતી ફાડી (IIF-4)</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="પો.સ્ટે. ખાતે નોધાયેલ ગુના સબંધે આજ રોજ કેટલી મુદ્દામાલ પાવતી ફાડી (IIF-4)" />
+                                <label for="atakKarelIsamEgujkopPhotoUpload" class="form-label">7). આજ રોજ અટક કરેલ ઈસમ પૈકી કેટલાના ફોટા ઈગુજકોપ પર અપલોડ કરેલ</label>
+                                <input type="text" class="form-control" id="atakKarelIsamEgujkopPhotoUpload" name="atakKarelIsamEgujkopPhotoUpload" placeholder=" આજ રોજ અટક કરેલ ઈસમ પૈકી કેટલાના ફોટા ઈગુજકોપ પર અપલોડ કરેલ" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">9). આજ રોજ ફાડવામાં આવેલ મુદ્દામાલ પાવતી પૈકી કેટલાની ઈગુજકોપ પર એન્ટ્રી કરી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આજ રોજ ફાડવામાં આવેલ મુદ્દામાલ પાવતી પૈકી કેટલાની ઈગુજકોપ પર એન્ટ્રી કરી" />
+                                <label for="postKhateMudamalPavtiFadi" class="form-label">8). પો.સ્ટે. ખાતે નોધાયેલ ગુના સબંધે આજ રોજ કેટલી મુદ્દામાલ પાવતી ફાડી (IIF-4)</label>
+                                <input type="text" class="form-control" id="postKhateMudamalPavtiFadi" name="postKhateMudamalPavtiFadi" placeholder="પો.સ્ટે. ખાતે નોધાયેલ ગુના સબંધે આજ રોજ કેટલી મુદ્દામાલ પાવતી ફાડી (IIF-4)" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">10).આજ રોજ કેટલી ચાર્જશીટ મંજુર કરેલ (IIF-5)</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આજ રોજ કેટલી ચાર્જશીટ મંજુર કરેલ (IIF-5)" />
+                                <label for="mudamalPavtiEgujkopEntry" class="form-label">9). આજ રોજ ફાડવામાં આવેલ મુદ્દામાલ પાવતી પૈકી કેટલાની ઈગુજકોપ પર એન્ટ્રી કરી</label>
+                                <input type="text" class="form-control" id="mudamalPavtiEgujkopEntry" name="mudamalPavtiEgujkopEntry" placeholder="આજ રોજ ફાડવામાં આવેલ મુદ્દામાલ પાવતી પૈકી કેટલાની ઈગુજકોપ પર એન્ટ્રી કરી" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">11). આજ રોજ મંજુર કરવામાં આવેલ ચાર્જશીટ પૈકી કેટલાની ઈગુજકોપમાં એન્ટ્રી કરી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આજ રોજ મંજુર કરવામાં આવેલ ચાર્જશીટ પૈકી કેટલાની ઈગુજકોપમાં એન્ટ્રી કરી" />
+                                <label for="chargesheetManjurKarel" class="form-label">10).આજ રોજ કેટલી ચાર્જશીટ મંજુર કરેલ (IIF-5)</label>
+                                <input type="text" class="form-control" id="chargesheetManjurKarel" name="chargesheetManjurKarel" placeholder="આજ રોજ કેટલી ચાર્જશીટ મંજુર કરેલ (IIF-5)" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">12). પો.સ્ટે.ને તા: ૦૧/૧૦/૨૦૨૦ થી આજ દિન સુધી કેટલી સર્વીસ શીટ ડેટા એન્ટ્રી માટે મળી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="પો.સ્ટે.ને તા: ૦૧/૧૦/૨૦૨૦ થી આજ દિન સુધી કેટલી સર્વીસ શીટ ડેટા એન્ટ્રી માટે મળી" />
+                                <label for="chargsheetEgujkopEntry" class="form-label">11). આજ રોજ મંજુર કરવામાં આવેલ ચાર્જશીટ પૈકી કેટલાની ઈગુજકોપમાં એન્ટ્રી કરી</label>
+                                <input type="text" class="form-control" id="chargsheetEgujkopEntry" name="chargsheetEgujkopEntry" placeholder="આજ રોજ મંજુર કરવામાં આવેલ ચાર્જશીટ પૈકી કેટલાની ઈગુજકોપમાં એન્ટ્રી કરી" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">13). મળેલ સર્વિસ શીટ પૈકી આજ રોજ કેટલી સર્વિસ શીટની ઈગુજકોપમાં એન્ટ્રી કરી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder=" મળેલ સર્વિસ શીટ પૈકી આજ રોજ કેટલી સર્વિસ શીટની ઈગુજકોપમાં એન્ટ્રી કરી" />
+                                <label for="dataEntry" class="form-label">12). પો.સ્ટે.ને તા: ૦૧/૧૦/૨૦૨૦ થી આજ દિન સુધી કેટલી સર્વીસ શીટ ડેટા એન્ટ્રી માટે મળી</label>
+                                <input type="text" class="form-control" id="dataEntry" name="dataEntry" placeholder="પો.સ્ટે.ને તા: ૦૧/૧૦/૨૦૨૦ થી આજ દિન સુધી કેટલી સર્વીસ શીટ ડેટા એન્ટ્રી માટે મળી" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputState" class="form-label">14). આજ રોજ જે આવેલ ચાર્જશીટ એન્ટ્રી કરેલ છે તેના બકલ નંબર</label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>---Select Employee---</option>
+                                <label for="serviceSheetEgujkopEntry" class="form-label">13). મળેલ સર્વિસ શીટ પૈકી આજ રોજ કેટલી સર્વિસ શીટની ઈગુજકોપમાં એન્ટ્રી કરી</label>
+                                <input type="text" class="form-control" id="serviceSheetEgujkopEntry" name="serviceSheetEgujkopEntry" placeholder=" મળેલ સર્વિસ શીટ પૈકી આજ રોજ કેટલી સર્વિસ શીટની ઈગુજકોપમાં એન્ટ્રી કરી" />
+                            </div>
+                            <div class="col-md-12">
+                                <label for="serviceSheetBuckleNoName" class="form-label">14). આજ રોજ જે આવેલ ચાર્જશીટ એન્ટ્રી કરેલ છે તેના બકલ નંબર</label>
+                                <select id="serviceSheetBuckleNoName" name="serviceSheetBuckleNoName" asp-items="ViewBag.Employees" class="form-select">
+                                    <option selected disabled>---Select Employee---</option>
                                 </select>
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">15). પો.સ્ટે. ખાતે હાજર કુલ અધિકારી/કર્મચારીની સંખ્યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder=" પો.સ્ટે. ખાતે હાજર કુલ અધિકારી/કર્મચારીની સંખ્યા" />
+                                <label for="postKhateHajarEmployeeName" class="form-label">15). પો.સ્ટે. ખાતે હાજર કુલ અધિકારી/કર્મચારીની સંખ્યા</label>
+                                <input type="text" class="form-control" id="postKhateHajarEmployeeName" name="postKhateHajarEmployeeName" placeholder=" પો.સ્ટે. ખાતે હાજર કુલ અધિકારી/કર્મચારીની સંખ્યા" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">16). આજ રોજ કેટલા અધિકારી/કર્મચારીના હેલ્થ કાર્ડની ડેટા એન્ટ્રી કરી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આજ રોજ કેટલા અધિકારી/કર્મચારીના હેલ્થ કાર્ડની ડેટા એન્ટ્રી કરી" />
+                                <label for="employeeHealthcardEntry" class="form-label">16). આજ રોજ કેટલા અધિકારી/કર્મચારીના હેલ્થ કાર્ડની ડેટા એન્ટ્રી કરી</label>
+                                <input type="text" class="form-control" id="employeeHealthcardEntry" name="employeeHealthcardEntry" placeholder="આજ રોજ કેટલા અધિકારી/કર્મચારીના હેલ્થ કાર્ડની ડેટા એન્ટ્રી કરી" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputState" class="form-label">17). આજ રોજ જેના હેલ્થ કાર્ડની એન્ટ્રી કરી તેના નામની પંસદગી કરવી</label>
-                                <select id="inputState" class="form-select" >
-                                    <option selected>---Select Employee---</option>
+                                <label for="healthcardBuckleNoName" class="form-label">17). આજ રોજ જેના હેલ્થ કાર્ડની એન્ટ્રી કરી તેના નામની પંસદગી કરવી</label>
+                                <select id="healthcardBuckleNoName" name="healthcardBuckleNoName" asp-items="ViewBag.Employees" class="form-select">
+                                    <option selected disabled>---Select Employee---</option>
                                 </select>
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">18). આજ રોજ કેટલા મીસીંગની જાણવાજોગ નોધાઈ</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આજ રોજ કેટલા મીસીંગની જાણવાજોગ નોધાઈ" />
+                                <label for="missingJanvajog" class="form-label">18). આજ રોજ કેટલા મીસીંગની જાણવાજોગ નોધાઈ</label>
+                                <input type="text" class="form-control" id="missingJanvajog" name="missingJanvajog" placeholder="આજ રોજ કેટલા મીસીંગની જાણવાજોગ નોધાઈ" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">19). આજ રોજ મીસીંગની નોધાયેલ જાણવાજોગ પૈકી કેટલી જાણવાજોગની ઈગુજકોપમાં એન્ટ્રી કરી</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આજ રોજ મીસીંગની નોધાયેલ જાણવાજોગ પૈકી કેટલી જાણવાજોગની ઈગુજકોપમાં એન્ટ્રી કરી" />
+                                <label for="missingJanvajogEgujkopEntry" class="form-label">19). આજ રોજ મીસીંગની નોધાયેલ જાણવાજોગ પૈકી કેટલી જાણવાજોગની ઈગુજકોપમાં એન્ટ્રી કરી</label>
+                                <input type="text" class="form-control" id="missingJanvajogEgujkopEntry" name="missingJanvajogEgujkopEntry" placeholder="આજ રોજ મીસીંગની નોધાયેલ જાણવાજોગ પૈકી કેટલી જાણવાજોગની ઈગુજકોપમાં એન્ટ્રી કરી" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">20).આજ રોજ મીસીંગની નોધાયેલ જાણવાજોગ સબંધે કરેલ ફોટા અપલોડની સંખ્યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આજ રોજ મીસીંગની નોધાયેલ જાણવાજોગ સબંધે કરેલ ફોટા અપલોડની સંખ્યા" />
+                                <label for="missingJanvajogPhotoUpload" class="form-label">20).આજ રોજ મીસીંગની નોધાયેલ જાણવાજોગ સબંધે કરેલ ફોટા અપલોડની સંખ્યા</label>
+                                <input type="text" class="form-control" id="missingJanvajogPhotoUpload" name="missingJanvajogPhotoUpload" placeholder="આજ રોજ મીસીંગની નોધાયેલ જાણવાજોગ સબંધે કરેલ ફોટા અપલોડની સંખ્યા" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">21). આજ રોજ ખોવાયેલ બાળકો સબંધે નોધાયેલ એફ.આઈ.આર.ની સંખ્યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આજ રોજ ખોવાયેલ બાળકો સબંધે નોધાયેલ એફ.આઈ.આર.ની સંખ્યા" />
+                                <label for="missingChildFirnumber" class="form-label">21). આજ રોજ ખોવાયેલ બાળકો સબંધે નોધાયેલ એફ.આઈ.આર.ની સંખ્યા</label>
+                                <input type="text" class="form-control" id="missingChildFirnumber" name="missingChildFirnumber" placeholder="આજ રોજ ખોવાયેલ બાળકો સબંધે નોધાયેલ એફ.આઈ.આર.ની સંખ્યા" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">22). આજ રોજ ખોવાયેલ બાળક સબંધે કરેલ ફોટા અપલોડની સંખ્યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આજ રોજ ખોવાયેલ બાળક સબંધે કરેલ ફોટા અપલોડની સંખ્યા" />
+                                <label for="missingChildPhotoUpload" class="form-label">22). આજ રોજ ખોવાયેલ બાળક સબંધે કરેલ ફોટા અપલોડની સંખ્યા</label>
+                                <input type="text" class="form-control" id="missingChildPhotoUpload" name="missingChildPhotoUpload" placeholder="આજ રોજ ખોવાયેલ બાળક સબંધે કરેલ ફોટા અપલોડની સંખ્યા" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">23). પો.સ્ટે. ખાતે ફાળવેલ પોકેટ કોપ મોબાઈલ ડિવાઈસની સંખ્યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="પો.સ્ટે. ખાતે ફાળવેલ પોકેટ કોપ મોબાઈલ ડિવાઈસની સંખ્યા" />
+                                <label for="pocketCopMobileDeviceNumber" class="form-label">23). પો.સ્ટે. ખાતે ફાળવેલ પોકેટ કોપ મોબાઈલ ડિવાઈસની સંખ્યા</label>
+                                <input type="text" class="form-control" id="pocketCopMobileDeviceNumber" name="pocketCopMobileDeviceNumber" placeholder="પો.સ્ટે. ખાતે ફાળવેલ પોકેટ કોપ મોબાઈલ ડિવાઈસની સંખ્યા" />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputAddress5" class="form-label">24). આ પૈકીના કેટલા પોકેટ કોપ ડિવાઈસમાં આજ રોજ લોગીન કરી વાહન સર્ચ/વ્યક્તિ સર્ચ/લેટ-લોંગ/પાસપોર્ટ માટે ઉપયોગ કર્યો.</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આ પૈકીના કેટલા પોકેટ કોપ ડિવાઈસમાં આજ રોજ લોગીન કરી વાહન સર્ચ/વ્યક્તિ સર્ચ/લેટ-લોંગ/પાસપોર્ટ માટે ઉપયોગ કર્યો." />
+                                <label for="numberOfPocketCopDeviceLogin" class="form-label">24). આ પૈકીના કેટલા પોકેટ કોપ ડિવાઈસમાં આજ રોજ લોગીન કરી વાહન સર્ચ/વ્યક્તિ સર્ચ/લેટ-લોંગ/પાસપોર્ટ માટે ઉપયોગ કર્યો.</label>
+                                <input type="text" class="form-control" id="numberOfPocketCopDeviceLogin" name="numberOfPocketCopDeviceLogin" placeholder="આ પૈકીના કેટલા પોકેટ કોપ ડિવાઈસમાં આજ રોજ લોગીન કરી વાહન સર્ચ/વ્યક્તિ સર્ચ/લેટ-લોંગ/પાસપોર્ટ માટે ઉપયોગ કર્યો." />
                             </div>
                             <div class="col-md-12">
-                                <label for="inputCity" class="form-label">તારીખ</label>
-                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                                <label for="createdDate" class="form-label">તારીખ</label>
+                                <input type="date" name="createdDate" id="createdDate" class="form-control date-today" aria-label="...">
                             </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">+ Save</button>
+                                <button type="submit" id="submitbtn" class="btn btn-primary">+ Save</button>
                             </div>
                         </form>
-
                         <!-- End Multi Columns Form -->
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div><!-- End Basic Modal-->
+</div>
+<!-- End Basic Modal-->
+@section Scripts {
+    <script src="~/js/AhmedabadCityDR_JS/E_Gujkop_Details.js" type="text/javascript"></script>
+}

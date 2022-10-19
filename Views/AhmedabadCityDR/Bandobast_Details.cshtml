@@ -10,7 +10,7 @@
                 <h5> આજરોજ બંદોબસ્તની વિગત દર્શાવતું પત્રક</h5>
             </div>
             <div class="col p-0">
-                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
+                <button type="button" id="addData" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#basicModal">
                     + Add આજરોજ બંદોબસ્તની માહિતી
                 </button>
             </div>
@@ -53,7 +53,8 @@
                 <div class="card mb-0">
                     <div class="card-body p-1 m-2">
                         <!-- Multi Columns Form -->
-                        <form class="row g-4 ">
+                        <form class="row g-4 " id="form_Bandobast_Detail">
+                            <input type="text" id="bandoBastId" name="bandoBastId" value="0" style="display:none" class="d-none" placeholder="" />
                             <div class="col-md-6">
                                 <label for="zoneId" class="form-label">ઝોનનું નામ</label>
                                 <select id="zoneId" name="zoneId" class="form-select" asp-items="ViewBag.zone" required>
@@ -73,22 +74,26 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
+                                <label for="bandoBastPlace" class="form-label">બંદોબસ્તનું સ્થળ તથા રાખેલ પોઈન્ટની સંખ્યા</label>
+                                <input type="text" class="form-control" id="bandoBastPlace" name="bandoBastPlace" placeholder="બંદોબસ્તનું સ્થળ તથા રાખેલ પોઈન્ટની સંખ્યા" />
+                            </div>
+                            <div class="col-md-6">
                                 <label for="bandobastTypeId" class="form-label">બંદોબસ્તનો પ્રકાર</label>
                                 <select id="bandobastTypeId" name="bandobastTypeId" class="form-select" asp-items="ViewBag.bandobast" required>
                                     <option selected disabled value="">--Select Bandobast Type--</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">ટૂંક વિગત</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="ટૂંક વિગત" />
+                                <label for="shortDetail" class="form-label">ટૂંક વિગત</label>
+                                <input type="text" class="form-control" id="shortDetail" name="shortDetail" placeholder="ટૂંક વિગત" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAddress5" class="form-label">આપેલ બંદોબસ્તની વિગત /ફોર્સની સંખ્યા</label>
-                                <input type="text" class="form-control" id="inputAddres5s" placeholder="આપેલ બંદોબસ્તની વિગત /ફોર્સની સંખ્યા" />
+                                <label for="bandobastDetailForceNumber" class="form-label">આપેલ બંદોબસ્તની વિગત /ફોર્સની સંખ્યા</label>
+                                <input type="text" class="form-control" id="bandobastDetailForceNumber" name="bandobastDetailForceNumber" placeholder="આપેલ બંદોબસ્તની વિગત /ફોર્સની સંખ્યા" />
                             </div>
                             <div class="col-md-6">
-                                <label for="inputCity" class="form-label">તારીખ</label>
-                                <input type="date" name="arrival_date" id="arrival_date" class="form-control" aria-label="...">
+                              <label for="createdDate" class="form-label">તારીખ </label>
+                                <input type="date" name="createdDate" id="createdDate" class="form-control date-today" required>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -1,7 +1,6 @@
 ﻿using AhmedabadCityDR.Interfaces;
 using AhmedabadCityDR.Models.APIModels;
 using AhmedabadCityDR.Models.TableModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AhmedabadCityDR.APIs
@@ -122,6 +121,7 @@ namespace AhmedabadCityDR.APIs
 
 
         #endregion
+
         #region Post Methodes
 
         [HttpPost("Save")]
@@ -137,12 +137,13 @@ namespace AhmedabadCityDR.APIs
                 }
 
                 var oldData = _unitOfWork.PoliceStationWisePendingApplication.GetPoliceStationWisePendingApplication(0,
-                                                                             0,
-                                                                             0,
-                                                                             0,
-                                                                             model.PoliceStationId.Value,
-                                                                             model.CreatedDate.Value,
-                                                                             model.CreatedDate.Value).ToList();
+                                                                                                                     0,
+                                                                                                                     0,
+                                                                                                                     0,
+                                                                                                                     model.PoliceStationId.Value,
+                                                                                                                     model.CreatedDate.Value,
+                                                                                                                     model.CreatedDate.Value)
+                                                                              .Where(x => x.KacheriId == model.KacheriId && x.IsActive == true && x.IsDeleted == false).ToList();
 
                 if (model.PoliceStationWisePendingApplicationId == 0 && oldData.Count == 0)
                 {
@@ -171,7 +172,7 @@ namespace AhmedabadCityDR.APIs
                 }
                 else
                 {
-                    if (oldData != null)
+                    if (oldData.Count != 0)
                     {
                         model.PoliceStationWisePendingApplicationId = oldData[0].PoliceStationWisePendingApplicationId;
                     }

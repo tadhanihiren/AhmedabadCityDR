@@ -10,12 +10,12 @@
         public int? PoliceStationId { get; set; }
         public string? PoliceStationName { get; set; }
         public int? Checktwowheeler { get; set; }
-        public int? dandtwowheeler { get; set; }
+        public int? Dandtwowheeler { get; set; }
         public int? Checkthreewheeler { get; set; }
-        public int? dandthreewheeler { get; set; }
+        public int? Dandthreewheeler { get; set; }
         public int? Checkfourwheeler { get; set; }
-        public int? dandfourwheeler { get; set; }
-        public int? detain { get; set; }
+        public int? Dandfourwheeler { get; set; }
+        public int? Detain { get; set; }
         public string? Remarks { get; set; }
         public DateTime? CreatedDate { get; set; }
         public bool IsActive { get; set; }
