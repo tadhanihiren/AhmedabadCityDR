@@ -313,6 +313,11 @@ namespace AhmedabadCityDR.Repository
         /// </summary>
         public IStatusMaster Status { get; set; }
 
+        /// <summary>
+        /// Gets or sets Traffic Employee Details
+        /// </summary>
+        public ITrafficEmployeeDetails TrafficEmployeeDetails { get; set; }
+
         #endregion
 
         #region Constructors
@@ -384,6 +389,7 @@ namespace AhmedabadCityDR.Repository
             PendingArjiCategory = new PendingArjiCategoryRepository(_context);
             EGujakopMaster = new EGujakopMasterRepository(_context);
             EGujkopDetail = new EGujkopDetailRepository(_context);
+            TrafficEmployeeDetails = new Traffic_EmployeeDetailsRepository(_context);
         }
 
         #endregion

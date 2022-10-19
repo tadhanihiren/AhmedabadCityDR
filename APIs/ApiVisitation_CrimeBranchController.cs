@@ -31,6 +31,7 @@ namespace AhmedabadCityDR.APIs
             _unitOfWork = iUnitOfWork;
         }
         #endregion
+
         #region Get Methods
 
         [HttpGet("GetById")]

@@ -1,9 +1,55 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AhmedabadCityDR.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AhmedabadCityDR.Controllers
 {
     public class AhmedabadTrafficController : Controller
     {
+        #region Private Members
+
+        /// <summary>
+        /// Unit of work
+        /// </summary>
+        private readonly IUnitOfWork _unitOfWork;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="iUnitOfWork">Unit of work</param>
+        public AhmedabadTrafficController(IUnitOfWork iUnitOfWork)
+        {
+            _unitOfWork = iUnitOfWork;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Get list Designation
+        /// </summary>
+        /// <param name="DesignationId">DesignationId</param>
+        /// <returns>Returns list of SelectListItem of Designation</returns>
+        public List<SelectListItem> GetDesignation(int id)
+        {
+            var lstDesignation = _unitOfWork.DesignationMaster.GetAll()
+                .Where(X => X.DesignationId <= id)
+                .Select(X => new { X.DesignationId, X.DesignationName })
+                .ToList();
+
+            var designation = new List<SelectListItem>();
+
+            foreach (var item in lstDesignation)
+            {
+                designation.Add(new SelectListItem { Value = item.DesignationId.ToString(), Text = item.DesignationName });
+            }
+
+            return designation;
+        }
+
         public IActionResult Daily_Report_Traffic()
         {
             return View();
@@ -36,6 +82,7 @@ namespace AhmedabadCityDR.Controllers
 
         public IActionResult Employee_Details()
         {
+            ViewBag.Designation = GetDesignation(15);
             return View();
         }
 

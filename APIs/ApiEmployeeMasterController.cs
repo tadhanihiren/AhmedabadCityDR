@@ -145,6 +145,25 @@ namespace AhmedabadCityDR.APIs
         {
             try
             {
+                DateTime? fromDate = null;
+                DateTime? toDate = null; 
+
+                if (!string.IsNullOrEmpty(model.Fromdate))
+                {
+                    if (DateTime.TryParse(model.Fromdate, out var date))
+                    {
+                        fromDate = date;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(model.Todate))
+                {
+                    if (DateTime.TryParse(model.Todate, out var date))
+                    {
+                        toDate = date;
+                    }
+                }
+
                 var roleId = 0;
 
                 roleId = model.DesignationId switch
@@ -163,8 +182,8 @@ namespace AhmedabadCityDR.APIs
                 if (model.EmployeeId == 0)
                 {
                     var lastRecord = _unitOfWork.EmployeeMaster.GetAll()
-                    .OrderByDescending(x => x.EmployeeId)
-                    .Take(1).ToList();
+                                                               .OrderByDescending(x => x.EmployeeId)
+                                                               .Take(1).ToList();
 
 
                     var newRecordId = lastRecord[0].EmployeeId + 1;
@@ -177,6 +196,10 @@ namespace AhmedabadCityDR.APIs
                         EmployeName = model.EmployeName,
                         Name = model.EmployeName,
                         ContactNumber = model.ContactNumber,
+                        PrtiniyukatName = model.PrtiniyukatName,
+                        PrtiniyukatPlace = model.PrtiniyukatPlace,
+                        Fromdate = fromDate,
+                        Todate = toDate,
                         RoleId = roleId,
                         SectorId = 0,
                         ZoneId = 0,
@@ -185,8 +208,8 @@ namespace AhmedabadCityDR.APIs
                         IsActive = true,
                         IsDeleted = false,
                         IsTraffic = false,
-                        CreatedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
+                        CreatedDate = model.CreatedDate,
+                        ModifiedDate = model.CreatedDate,
                         CreatedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
                         ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId),
                     };
@@ -211,7 +234,11 @@ namespace AhmedabadCityDR.APIs
                     data.BuckleNo = model.BuckleNo;
                     data.EmployeName = model.EmployeName;
                     data.ContactNumber = model.ContactNumber;
-                    data.ModifiedDate = DateTime.Now;
+                    data.PrtiniyukatName = model.PrtiniyukatName;
+                    data.PrtiniyukatPlace = model.PrtiniyukatPlace;
+                    data.Fromdate = fromDate;
+                    data.Todate = toDate;
+                    data.ModifiedDate = model.CreatedDate;
                     data.ModifiedUserId = Convert.ToInt32(HttpContext.GetClaimsPrincipal().UserId);
 
                     _unitOfWork.EmployeeMaster.Update(data, data.EmployeeId);

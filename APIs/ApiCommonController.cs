@@ -96,6 +96,66 @@ namespace AhmedabadCityDR.APIs
         }
 
         /// <summary>
+        /// Gets police station id and name.
+        /// </summary>
+        /// <returns>List of police stations</returns>
+        [HttpGet("GetTrafficPoliceStation")]
+        public JsonResult GetTrafficPoliceStation()
+        {
+            var user = HttpContext.GetClaimsPrincipal();
+            var roleId = Convert.ToInt32(user.RoleId);
+            var sectorId = Convert.ToInt32(user.SectorId);
+            var zoneId = Convert.ToInt32(user.ZoneId);
+            var divisionId = Convert.ToInt32(user.DivisionId);
+            var policeStationId = Convert.ToInt32(user.PoliceStationId);
+
+            var data = new List<TblPoliceStationMaster>();
+
+            if (roleId <= 2 && roleId != 0)
+            {
+                data = _unitOfWork.PoliceStationMaster.GetAll()
+                                                      .Where(x => x.IsTraffic == true)
+                                                      .OrderBy(x => x.PoliceStationName)
+                                                      .ToList();
+            }
+
+            if (roleId == 3 && sectorId != 0 && zoneId == 0 && divisionId == 0 && policeStationId == 0)
+            {
+                data = _unitOfWork.PoliceStationMaster.GetAll()
+                                                      .Where(x => x.SectorId == sectorId && x.IsTraffic == true)
+                                                      .OrderBy(x => x.PoliceStationName)
+                                                      .ToList();
+            }
+
+            if (sectorId == 0 && zoneId != 0 && divisionId == 0 && policeStationId == 0)
+            {
+                data = _unitOfWork.PoliceStationMaster.GetAll()
+                                                      .Where(x => x.ZoneId == zoneId && x.IsTraffic == true)
+                                                      .OrderBy(x => x.PoliceStationName)
+                                                      .ToList();
+            }
+
+            if (sectorId == 0 && zoneId == 0 && divisionId != 0 && policeStationId == 0)
+            {
+                data = _unitOfWork.PoliceStationMaster.GetAll()
+                                                      .Where(x => x.DivisionId == divisionId && x.IsTraffic == true)
+                                                      .OrderBy(x => x.PoliceStationName)
+                                                      .ToList();
+            }
+
+            if (policeStationId != 0)
+            {
+                data = _unitOfWork.PoliceStationMaster.GetAll()
+                                                      .Where(x => x.DivisionId == divisionId && x.IsTraffic == true)
+                                                      .OrderBy(x => x.PoliceStationName)
+                                                      .ToList();
+            }
+
+            return new JsonResult(data);
+        }
+
+
+        /// <summary>
         /// Gets all Designation id and name.
         /// </summary>
         /// <returns>List of police stations</returns>

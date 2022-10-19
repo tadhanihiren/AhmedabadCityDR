@@ -24,8 +24,8 @@
                 $.get("/api/ApiCommon/GetCitySector",
                     { designationId: designationId },
                     function (data) {
-                        $("#policeStationId").empty(),
-                            $("#policeStationId").append("<option selected disabled>--Select PoliceStation:--</option>")
+                        $("#policeStationId").empty();
+                        $("#policeStationId").append("<option selected disabled>--Select PoliceStation:--</option>");
                         //console.log(data);
                         $.each(data, function (index, row) {
                             $("#policeStationId").append("<option value='" + row.value + "'>" + row.text + "</option>")
@@ -45,10 +45,7 @@
                 }
 
                 if (designationId >= 5 || designationId != 15) {
-                    console.log(data);
-                    console.log(data.policeStationId);
-                    $("#policeStationId").val(data.policeStationId.toString());
-                    console.log($("#policeStationId").val());
+                    $("#policeStationId").val(data.policeStationId);
                 }
             }
 
@@ -190,7 +187,7 @@ $(document).ready(() => {
         submitHandler: () => {
             var formData = new FormData(document.getElementById("form_Employee_Details"));
             var payload = JSON.stringify(Object.fromEntries(formData));
-            //console.log(payload);
+            console.log(payload);
             $.ajax({
                 url: "/api/ApiEmployeeMaster/Save",
                 type: "post",
@@ -218,6 +215,8 @@ $(document).ready(() => {
     $.get("/api/ApiCommon/GetDesignation",
         function (data) {
             //console.log(data);
+            $("#designationId").empty();
+            $("#designationId").append("<option selected disabled>--Select DesignationName--</option>");
             $.each(data, function (index, row) {
                 $("#designationId").append("<option value='" + row.designationId + "'>" + row.designationName + "</option>")
             });

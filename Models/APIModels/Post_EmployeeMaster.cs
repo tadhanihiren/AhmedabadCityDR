@@ -27,8 +27,8 @@
         public string? DesignationName { get; set; }
         public bool? IsTraffic { get; set; }
         public string? PrtiniyukatName { get; set; }
-        public DateTime? Todate { get; set; }
-        public DateTime? Fromdate { get; set; }
+        public string? Todate { get; set; }
+        public string? Fromdate { get; set; }
         public string? PrtiniyukatPlace { get; set; }
     }
 }

@@ -400,6 +400,7 @@ namespace AhmedabadCityDR.Repository
             modelBuilder.Entity<CrimeCountByDay>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<ClaimUser>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<AccusedInformationViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<TrafficEmployeeViewModel>().HasNoKey().Metadata.SetIsTableExcludedFromMigrations(true);
 
             modelBuilder.UseCollation("Latin1_General_CI_AI");
 

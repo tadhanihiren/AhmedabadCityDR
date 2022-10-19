@@ -112,6 +112,15 @@ function PopulateSearchPoliceStationDRD() {
         });
     });
 }
+function PopulateSearchTrafficPoliceStationDRD() {
+    $.getJSON("/Api/ApiCommon/GetTrafficPoliceStation", function (data) {
+        $.each(data, function (index, row) {
+            //console.log(row);
+            $("#searchTrafficPoliceStationId").append("<option value='" + row.policeStationId + "'>" + row.policeStationName + "</option>");
+            $("#trafficPoliceStationId").append("<option value='" + row.policeStationId + "'>" + row.policeStationName + "</option>");
+        });
+    });
+}
 
 $.validator.addMethod(
     "regex",
